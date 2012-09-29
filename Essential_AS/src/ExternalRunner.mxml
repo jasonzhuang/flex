@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute">
+    <mx:Script>
+        <![CDATA[
+            /**
+            * ExternalInterface.call() is synchronous,any values returned by the JavaScript 
+            * function are immediately returned to ActionScript
+              If you need to support a browser that ExternalInterface does not work with, 
+              then use the flash.net.navigateToURL( ) function, but is asynchronous, 
+              meaning it does not return a value
+              
+            */
+        ]]>
+    </mx:Script>
+</mx:Application>

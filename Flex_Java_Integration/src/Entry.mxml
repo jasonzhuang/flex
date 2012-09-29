@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+        xmlns:mx="http://www.adobe.com/2006/mxml"
+        xmlns:service="service.*"
+        xmlns:control="control.*"
+        xmlns:view="components.*"
+        initialize="init()">
+    <mx:Script>
+        <![CDATA[
+            import presentmodel.EmployeePM;
+            import events.RetrieveCompleteEvent;
+
+            private var _employeePM:EmployeePM;
+
+            private function init():void {
+                this.addEventListener(RetrieveCompleteEvent.COMPLETE, handleRetrieve);
+            }
+
+            [Bindable]
+            private var employeeList:Array;
+
+            public function get employeePM():EmployeePM {
+                if (!this._employeePM) {
+                    this._employeePM = new EmployeePM(this);
+                }
+
+                return this._employeePM;
+            }
+
+            private function retrieveData():void {
+                this.employeePM.retrieveList();
+            }
+
+            private function handleRetrieve(event:RetrieveCompleteEvent):void {
+                this.employeeList = this.employeePM.result;
+            }
+        ]]>
+    </mx:Script>
+
+    <!--ServiceLocator-->
+    <service:Service id="service"/>
+
+    <!--FrontController-->
+    <control:WrapperController id="controller"/>
+
+    <view:EmployeeList id="list" dataProvider="{this.employeeList}"/>
+
+    <mx:Button label="Retrieve Data" click="retrieveData()"/>
+</mx:Application>

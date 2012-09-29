@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+	creationComplete="init()"
+	layout="vertical">
+	<mx:Script>
+		<![CDATA[
+			import visitor.Tiger;
+			import visitor.AnimalVisitor;
+			import visitor.Cat;
+			private function init():void {
+                var visitor:AnimalVisitor = new AnimalVisitor();
+				var cat:Cat = new Cat();
+				var tiger:Tiger = new Tiger();
+				cat.accetp(visitor);
+				tiger.accept(visitor);
+			}
+		]]>
+	</mx:Script>
+</mx:Application>

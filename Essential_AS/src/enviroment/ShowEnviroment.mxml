@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+        creationComplete="showEnviroment()">
+    <mx:Script>
+        <![CDATA[
+            import flash.system.*;
+
+            private function showEnviroment():void {
+                var result:String = "";
+                var os:String = Capabilities.os;
+                result = result.concat("System: ");
+                result= result.concat(os + "\n");
+                var version:String = Capabilities.version;
+                result = result.concat("Player version: ");
+                result = result.concat(version + "\n");
+                var audio:Boolean = Capabilities.hasMP3;
+                result = result.concat("MP3 ability: ");
+                result = result.concat(audio);
+                show.text = result;
+            }
+
+            private function handleClick():void {
+                Security.showSettings(SecurityPanel.LOCAL_STORAGE);
+            }
+        ]]>
+    </mx:Script>
+    <mx:Panel>
+        <mx:TextArea id="show" width="500" height="500"/>
+        <mx:Button label="Change Setting" click="handleClick()"/>
+    </mx:Panel>
+</mx:VBox>

@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" ?>
+<config>
+	<recommendTemplate id="51520">
+		<item index="3" url="images/recommend/1.png"/>
+		<item index="8" url="images/recommend/2.png"/>
+		<item index="15" url="images/recommend/3.png"/>
+		<item index="23" url="images/recommend/4.png"/>
+	</recommendTemplate>
+	
+	<templates>
+		<template id="51520" type="vertical" categoryName="三国杀">
+			<previewImg url="images/51520/preview.png"/>
+			<list>
+				<item index="1" url="images/51520/1.png"/>
+				<item index="2" url="images/51520/2.png"/>
+				<item index="3" url="images/51520/3.png"/>
+				<item index="4" url="images/51520/4.png"/>
+				<item index="5" url="images/51520/5.png"/>
+				<item index="6" url="images/51520/6.png"/>
+				<item index="7" url="images/51520/7.png"/>
+				<item index="8" url="images/51520/8.png"/>
+				<item index="9" url="images/51520/9.png"/>
+				<item index="10" url="images/51520/10.png"/>
+				<item index="11" url="images/51520/11.png"/>
+				<item index="12" url="images/51520/12.png"/>
+				<item index="13" url="images/51520/13.png"/>
+				<item index="14" url="images/51520/14.png"/>
+				<item index="15" url="images/51520/15.png"/>
+				<item index="16" url="images/51520/16.png"/>
+				<item index="17" url="images/51520/17.png"/>
+				<item index="18" url="images/51520/18.png"/>
+				<item index="19" url="images/51520/19.png"/>
+				<item index="20" url="images/51520/20.png"/>
+				<item index="21" url="images/51520/21.png"/>
+				<item index="22" url="images/51520/22.png"/>
+				<item index="23" url="images/51520/23.png"/>
+				<item index="24" url="images/51520/24.png"/>
+				<item index="25" url="images/51520/25.png"/>
+			</list>
+		</template>
+		
+		<template id="50528" type="horizontal" categoryName="清新夏日">
+			<previewImg url="images/50528/preview.png"/>
+			<list>
+				<item index="1" url="images/50528/1.png"/>
+				<item index="2" url="images/50528/2.png"/>
+				<item index="3" url="images/50528/3.png"/>
+				<item index="4" url="images/50528/4.png"/>
+				<item index="5" url="images/50528/5.png"/>
+				<item index="6" url="images/50528/6.png"/>
+			</list>
+		</template>
+
+		<template id="te116921" type="vertical" categoryName="精彩奥运">
+			<previewImg url="images/te116921/preview.png"/>
+			<list>
+				<item index="1" url="images/te116921/1.png"/>
+				<item index="2" url="images/te116921/2.png"/>
+				<item index="3" url="images/te116921/3.png"/>
+				<item index="4" url="images/te116921/4.png"/>
+				<item index="5" url="images/te116921/5.png"/>
+				<item index="6" url="images/te116921/6.png"/>
+			</list>
+		</template>
+				
+		<template id="50515" type="horizontal" categoryName="山水生活">
+			<previewImg url="images/50515/preview.png"/>
+			<list>
+				<item index="1" url="images/50515/1.png"/>
+				<item index="2" url="images/50515/2.png"/>
+				<item index="3" url="images/50515/3.png"/>
+				<item index="4" url="images/50515/4.png"/>
+				<item index="5" url="images/50515/5.png"/>
+				<item index="6" url="images/50515/6.png"/>
+				<item index="7" url="images/50515/7.png"/>
+				<item index="8" url="images/50515/8.png"/>
+			</list>
+		</template>
+		
+		<template id="52006" type="vertical" categoryName="毕业季">
+			<previewImg url="images/52006/preview.png"/>
+			<list>
+				<item index="1" url="images/52006/1.png"/>
+				<item index="2" url="images/52006/2.png"/>
+				<item index="3" url="images/52006/3.png"/>
+				<item index="4" url="images/52006/4.png"/>
+				<item index="5" url="images/52006/5.png"/>
+				<item index="6" url="images/52006/6.png"/>
+				<item index="7" url="images/52006/7.png"/>
+				<item index="8" url="images/52006/8.png"/>
+				<item index="9" url="images/52006/9.png"/>
+				<item index="10" url="images/52006/10.png"/>
+				<item index="11" url="images/52006/11.png"/>
+				<item index="12" url="images/52006/12.png"/>
+				<item index="13" url="images/52006/13.png"/>
+				<item index="14" url="images/52006/14.png"/>
+				<item index="15" url="images/52006/15.png"/>
+				<item index="16" url="images/52006/16.png"/>
+				<item index="17" url="images/52006/17.png"/>
+				<item index="18" url="images/52006/18.png"/>
+			</list>
+		</template>
+	</templates>
+</config>

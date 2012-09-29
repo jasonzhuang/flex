@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Map>
+    <Mapping identifier="isReportInstPreviewAuthorized"
+            permissionCode="RPT_INST_PREVEW"/>
+
+    <!-- Permission for report reviewer to approve a report instance -->
+    <Mapping identifier="isReportInstanceApproveAuthorized"
+            permissionCode="RPT_INST_REVIEW_APPROVE"/>
+
+    <Mapping identifier="isVIP"
+            permissionCode="VIP_MOVIES"/>
+</Map>

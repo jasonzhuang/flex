@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import dynamicAuthorize.VIPLogin;
+			import dynamicAuthorize.UserInfo;
+			import dynamicAuthorize.PermissionManager;
+			
+			private function init():void {
+				var userInfo:UserInfo = createUserInfo();
+				PermissionManager.getInstance().active(userInfo);
+				var vip:VIPLogin = new VIPLogin();
+			}
+			
+			private function createUserInfo():UserInfo {
+				var userInfo:UserInfo = new UserInfo();
+				var roleMap:Object = {ACTION : ["VIP_MOVIES", "RPT_INST_REVIEW_APPROVE"]};
+				userInfo.userId = "bluezyg";
+				userInfo.rolePermissionsMap = roleMap;
+				return userInfo;
+			}
+		]]>
+	</fx:Script>
+</s:Application>
