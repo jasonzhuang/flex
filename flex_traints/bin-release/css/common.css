@@ -1,0 +1,12 @@
+/* CSS file */
+.labelCommon {
+    padding-top : 0;
+    padding-left : 2;
+    paddding-right : 2;
+    padding-bottom : 0;
+}
+
+.disabledContainer {
+    color : #009de2;
+    disabled-color : #ff3366;
+}

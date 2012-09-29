@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" creationComplete="init()">
+    <mx:Script>
+        <![CDATA[
+            import components.InvokeManage;
+            import mx.collections.ArrayCollection;
+            import vo.Employee;
+            import events.ExecuteCompleteEvent;
+            import utils.ClassUtil;
+
+            private function init():void {
+                //case1();
+//                case2();
+//                case3();
+//                case4();
+//                case5();
+                //case6();
+                //case7();
+                //case8();
+                case9();
+            }
+
+            /**
+            *Note:the describeType() value only contains public functions and properties,
+            * private function and property not included.
+            * if the Object is [Bindable] or at least one property is [Bindable],
+            * implicit implements IEventDispatcher
+            *
+            */
+            private function case1():void {
+                var e:Employee = new Employee();
+                e.firstName = "Zhuang";
+                e.lastName = "Yougen";
+                //static property is not contained in describeType(e)
+                //but contained in describeType(Employee)
+                var descriptor:XML = describeType(Employee);
+            }
+
+            private function case2():void {
+                var o:Object = {name:"jason", job:"investor"};
+                o.say = function():void {
+                    trace("dynamic function added");
+                }
+                //o.say();
+                var d2:XML = describeType(o);
+            }
+
+            private function case3():void {
+                var content:Dictionary = new Dictionary();
+                var employee:Employee = new Employee("a");
+                content[Employee] = "hi"; //can use a class name as key
+                content[employee.firstName + Employee] = "b";
+                trace(content[Employee] == "hi");//true
+                trace(content[employee] == "hi");//false
+
+                var klass:Class = Object(employee).constructor;
+                var instance:Employee = Employee(new klass());
+            }
+
+            private function case4():void {
+                //duplicate key, only store one
+                var content:Dictionary = new Dictionary();
+                var e:Employee = new Employee("a", "name");
+                for(var i:int = 0; i <3; i++) {
+                    content[e.firstName] = e;
+                }
+
+                for each (var v:Employee in content) {
+                    trace(v);
+                }
+            }
+
+            private function case5():void {
+                var content:Array = [];
+                content.push(null);
+                trace(content.length); //1
+            }
+
+            //type promotion
+            private function case6():void {
+                var count:int = 2;
+                count = count + 1; //The semantics of ECMAScript require that ints often be promoted to Number
+                // for performance reason, use cast: count = int(count + 1);
+            }
+
+            private function case7():void {
+                //NOTICE: never execute "else if"
+                if (true) {
+                    trace("this is if");
+                } else if(true) {
+                    trace("this is else if");
+                }
+            }
+
+            private var container:ArrayCollection;
+
+            private function case8():void {
+                var temp:Array = [];
+                var countTime:Date = new Date();
+                var start:Number = countTime.getTime();
+                for(var i:int = 0; i < 10000000; i++) {
+                    temp.push(i);
+                }
+                container = new ArrayCollection(temp);
+                testPerformance();
+                testPerformance2();
+            }
+
+            private function case9():void {
+                var dictionary:Dictionary = new Dictionary();
+                dictionary[Employee] = [];
+                trace(Employee);
+                var e:Employee = new Employee();
+                var clazz:Class = ClassUtil.getClassFromName(e);
+                var result:Boolean = (clazz in dictionary);
+                trace(result);
+            }
+
+            private var invokeManage1:InvokeManage;
+            private var invokeManage2:InvokeManage;
+
+            //Note:use two different Date object
+            private function testPerformance():void {
+                invokeManage1 = new InvokeManage(this.loopWithLength, this, 1);
+                invokeManage1.addEventListener(ExecuteCompleteEvent.EXECUTE_COMPLETE, onPerformance);
+                invokeManage1.execute();
+            }
+
+            private function testPerformance2():void {
+                invokeManage2 = new InvokeManage(this.loopWithNoLength, this, 1);
+                invokeManage2.addEventListener(ExecuteCompleteEvent.EXECUTE_COMPLETE, onPerformance2);
+                invokeManage2.execute();
+            }
+
+            private function onPerformance(event:Event):void {
+                trace("inner length cost: " + invokeManage1.averageCost);
+            }
+
+            private function onPerformance2(event:Event):void {
+                trace("outer length cost: " + invokeManage2.averageCost);
+            }
+
+            public function loopWithLength():void {
+                for(var i:int = 0;  i< container.length; i++) {
+
+                }
+            }
+
+            public function loopWithNoLength():void {
+                var length:int = container.length;
+                for(var i:int = 0; i<length; i++) {
+
+                }
+            }
+        ]]>
+    </mx:Script>
+</mx:Application>

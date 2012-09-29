@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Label 
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    useHandCursor="true" buttonMode="true">
+    <mx:Script>
+        <![CDATA[
+            import vo.Employee;
+
+            override public function set data(value:Object):void{
+                super.data = value;
+                var employee:Employee = value as Employee;
+                this.text = employee.lastName;
+            }
+        ]]>
+    </mx:Script>
+</mx:Label>

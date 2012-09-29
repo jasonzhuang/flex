@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:components="components.*"
+	>
+	<components:RoundVBox width="500" height="500"/>
+</mx:Application>

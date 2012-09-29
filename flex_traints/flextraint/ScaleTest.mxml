@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns:view="components.*"
+    creationComplete="init()">
+    <mx:Script>
+        <![CDATA[
+            [Embed('assets/Banana.jpg')]
+            public static const Banana:Class;
+
+            private function init():void {
+                trace("width " + innerContainer.width + " height " + innerContainer.height);
+            }
+
+            /**
+            * After parent container is scaled, width(also explicitWidth, measuredWidth) value is not changed(container.scaleX)
+            * After self container is scaled, width(also explicitWidth, measuredWidth) value is changed(innerContainer.scaleX)
+            * In either case, unscaledWidth value will not change
+            */
+            private var scale:Number = 1;
+            private function magnify():void {
+                scale = scale*1.5;
+//                container.scaleX = container.scaleY = scale;
+                innerContainer.scaleX = innerContainer.scaleY = scale;
+                trace("innerContainer width " + innerContainer.width + " height " + innerContainer.height);
+                trace("innerContainer explicitWidth: " + innerContainer.explicitWidth);
+                trace("innerContainer measuredWidth: " + innerContainer.measuredWidth);
+            }
+        ]]>
+    </mx:Script>
+    <mx:VBox id="container" width="500" height="800">
+        <mx:Text text="HHHHHHHHHDDDDDDDD"/>
+        <mx:Image id="banana" source="{Banana}"/>
+        <view:MyContainer id="innerContainer" width="300">
+            <mx:Button label="Magnify" click="magnify()"/>
+            <mx:Label text="hhhhhhhhhhhhh"/>
+        </view:MyContainer>
+    </mx:VBox>
+</mx:Application>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns:view="components.*"
+    creationComplete="init()"
+    layout="horizontal">
+    <mx:Script>
+        <![CDATA[
+            import flash.utils.getTimer;
+
+            [Bindable]
+            private var source:Array;
+
+            private var start:int;
+            private var end:int;
+
+            private function init():void {
+                start = getTimer();
+                source = [];
+                for(var i:int=0; i<10000; i++) {
+                    var obj:Object = {name:"name" + i, age:"age" + i, id: "id" + i};
+                    source.push(obj);
+                }
+            }
+
+            private function onComplete():void {
+                end = getTimer();
+                trace("elapse: " + (end-start));
+            }
+
+            private function onComplete2():void {
+                end = getTimer();
+                trace("elapse2: " + (end-start));
+            }
+        ]]>
+    </mx:Script>
+    <view:DataGridWithLabelFun id="test1" dataProvider="{source}"
+        rowCount="300"
+        creationComplete="onComplete()"/>
+    <view:DataGridWithItemRenderer id="test2" dataProvider="{source}"
+        rowCount="300"
+        creationComplete="onComplete2()"/>
+</mx:Application>

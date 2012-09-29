@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    layout="vertical"
+    xmlns:comp = "components.*">
+    <mx:Script>
+        <![CDATA[
+            import mx.collections.ArrayCollection;
+            import mx.controls.Alert;
+
+            import events.TypeChangeEvent;
+            import vo.Employee;
+
+            [Bindable]
+            private var employeeNames:ArrayCollection =
+                    new ArrayCollection([{firstName:"zhuang",lastName:"Yougen"},{firstName:"Li",lastName:"Qain"},
+                        {firstName:"Wei",lastName:"Zong"}]);
+
+            private function fullName(item:Object):String {
+                return item.firstName + " " + item.lastName;
+            }
+
+            private function handleClick(event:Event):void {
+                trace(event);//event.currentTarget is ComboBox, use it can get selectedItem
+                            //event.target is Button
+            }
+
+            private function handleChange(event:Event):void {
+                trace(this.showName.selectedIndex);
+                //The default value is -1, but it sets to 0 when a dataProvider is assigned,
+                //unless there is a prompt
+                this.showName.selectedIndex = -1;
+            }
+
+            //if data was String type, comboBox no need set labelField or labelFuntion
+            [Bindable]
+            private var actionTypes:ArrayCollection = new ArrayCollection(["Group of Instances",
+                    "Group of Implemetation"]);
+
+            [Bindable]
+            private var dates:Array = [{code:"All", amout:-1}, {code:"Last 30 days", amout:30},
+                    {code:"Last 60 days", amout:60}];
+
+            private var i:int = 0;
+
+            private function changeItem():void {
+                var item:Object = employeeNames.getItemAt(i);
+                //Note:set selectedItem will not trigger change event
+                this.manulChange.selectedItem = item;
+                i++;
+                if (i == employeeNames.length) {
+                    i = 0;
+                }
+            }
+
+            private function employeeChange():void {
+                trace(this.manulChange.selectedItem);
+            }
+        ]]>
+    </mx:Script>
+    <!--set editable=true, arrowButtonWidth=0, cornerRadius=0 will seem like TextInput-->
+    <mx:ComboBox id="showName" dataProvider="{employeeNames}" labelFunction="fullName" cornerRadius="0"
+            change="handleChange(event)"/>
+    <mx:ComboBox id="action" dataProvider="{actionTypes}" width="100"/>
+    <mx:ComboBox id="showDate" dataProvider="{dates}" labelField="code"/>
+    <mx:ComboBox id="manulChange" dataProvider="{employeeNames}" labelFunction="fullName"
+            change="employeeChange()"/>
+    <mx:Button label="ChangeComboItem" click="changeItem()"/>
+</mx:Application>

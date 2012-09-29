@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical">
+    <mx:Script>
+        <![CDATA[
+            import mx.controls.Alert;
+
+            private function handleText():void {
+                this.testInput.selectionBeginIndex = 0;
+                this.testInput.selectionEndIndex = this.testInput.length;
+            }
+
+            //Triggered whenever the user attempts to add new text to test2
+            private function handleTextInput():void {
+                this.testInput.text = "HAHAHA";
+            }
+        ]]>
+    </mx:Script>
+    <mx:TextInput id="testInput" text="This should be selected all"
+            mouseDown="handleText()"/>
+    <mx:TextInput id="test2" textInput="handleTextInput()"/>
+</mx:Application>

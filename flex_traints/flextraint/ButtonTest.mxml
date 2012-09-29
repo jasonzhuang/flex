@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	>
+	<mx:Script>
+		<![CDATA[
+			/**
+			 * Button paddding is between the Button control’s label and icon and the button’s edges
+			 */
+			[Bindable]
+			private var btnWidth:int =50;
+			
+			[Bindable]
+			private var btnHeight:int =50;
+			
+			private function updateWidthAndHeight():void {
+				btnWidth = btnHeight = topSlider.value
+			}
+		]]>
+	</mx:Script>
+	<mx:HBox width="500" height="500">
+		<mx:Button width="{btnWidth}" height="{btnHeight}" label="test" textAlign="center"/>
+	</mx:HBox>
+	<mx:HSlider id="topSlider"
+				minimum="50"
+				maximum="100"
+				snapInterval="10"
+				liveDragging="true"
+				showTrackHighlight="true"
+				change="updateWidthAndHeight();"/>
+</mx:Application>

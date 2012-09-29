@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	layout="vertical"
+	verticalAlign="middle"
+	backgroundColor="white"
+	>
+	<mx:Script>
+		<![CDATA[
+			/**
+			 * TabNavigator width and height control the child(Here is VBox) width and height
+			 * paddingTop:Number of pixels between the container's top border and its content area
+			 */
+
+		]]>
+	</mx:Script>
+<!--	<mx:ApplicationControlBar dock="true">
+		<mx:Form styleName="plain">
+			<mx:FormItem label="paddingTop:">
+				<mx:HSlider id="slider"
+							minimum="0"
+							maximum="20"
+							value="10"
+							liveDragging="true"
+							snapInterval="1"
+							tickInterval="1" />
+			</mx:FormItem>
+		</mx:Form>
+	</mx:ApplicationControlBar>-->
+	<mx:TabNavigator id="tn"
+				     width="302"
+					 height="300"
+					 tabWidth="{(tn.width+1)/tn.numChildren}"
+					 tabHeight="30"
+					 horizontalGap="0"
+					 backgroundColor="#996633"
+					 borderColor="#000000"
+					 borderThickness="1"
+					 horizontalAlign="center"
+					 tabOffset="0"
+					 paddingTop="0">
+		<mx:VBox id="vb1" width="300" label="Tab 1" backgroundColor="#ffffff">
+			<mx:Label text="width:{vb1.width}, height:{vb1.height}" />
+		</mx:VBox>
+		<mx:VBox id="vb2" width="290" label="Tab 2" backgroundColor="#00ffff">
+			<mx:Label text="width:{vb2.width}, height:{vb2.height}" />
+		</mx:VBox>
+	</mx:TabNavigator>
+</mx:Application>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+        initialize="traverse()">
+    <mx:Script>
+        <![CDATA[
+            private var param:XML =
+                <map>
+	                    <defaultParameter klass="com.ssga.ssgai.crs.crscore.shared.SimpleParameter"/>
+	                    <mapping id="reporting_currency">
+	                        <parameterValue sectionCode="GENGRP" groupCode="BASIC"
+	                                parameterCode="LST_SHOW_RC"/>
+	                        <parameterValue sectionCode="RS-MCSG" groupCode="BASIC"
+	                                parameterCode="LST_SHOW_RC"/>
+	                        <parameter klass="com.ssga.ssgai.crs.crscore.shared.CurrencyParameter"/>
+	                    </mapping>
+                </map>;
+
+            private var employees:XML =
+                <employeeList>
+	                    <employee id="347">
+	                        <lastName>Zmed</lastName>
+	                        <firstName>Sue</firstName>
+	                        <position>Data analyst</position>
+	                    </employee>
+	                    <employee id="348">
+	                        <lastName>McGee</lastName>
+	                        <firstName>Chuck</firstName>
+	                        <position>Jr. data analyst</position>
+	                    </employee>
+                </employeeList>;
+
+            private function traverse():void {
+                //case1();
+                //case2();
+                case3();
+            }
+
+            private function case1():void {
+                trace("mapping:" + param.mapping);
+            }
+
+            private function case2():void {
+                var item:Object = param.mapping.parameterValue.(@sectionCode == "GENGRP");
+                trace("parent: " + XML(item.parent()));
+            }
+
+            private function case3():void {
+                var value:XMLList = employees.employee.(@id == 347);//first employee node
+                var id:XMLList = employees.employee.@id;//xmllist contains ids
+                trace(value.toXMLString());
+            }
+        ]]>
+    </mx:Script>
+</mx:Application>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+        layout="vertical">
+    <mx:Style>
+        @font-face {
+            src: url("assets/MyriadWebPro.ttf") ;
+            fontFamily: Myriad;
+}
+    </mx:Style>
+<!--set alpha=0.0 to remove the button image-->
+    <mx:Script>
+        <![CDATA[
+            private function handleStyle(event:MouseEvent):void {
+                var target:Button = event.target as Button;
+            }
+
+            private function disableComponent():void {
+                this.check.enabled = false;
+                this.test2.enabled = false;
+            }
+
+            /**
+            * set disabledOverlayAlpha=0, no disable color
+            */
+            private function enableComponent():void {
+                this.check.enabled = true;
+                this.test2.enabled = true;
+            }
+        ]]>
+    </mx:Script>
+
+    <mx:VBox id="test" disabledOverlayAlpha="0" backgroundColor="#ffffff">
+        <mx:CheckBox id="check" x="25" y="30"/>
+        <mx:Text id="button" text="test" alpha="0.2" fontSize="30" color="0x000000" fontFamily="Myriad"
+             x="100" y="100"/>
+        <mx:Text id="aa" text="test222" fontSize="30" color="0x000000"
+             x="200" y="200"/>
+        <mx:Button id="reports" label="Reports" alpha="0.0" textDecoration="underline" click="handleStyle(event)"/>
+    </mx:VBox>
+    <mx:VBox id="test2" width="200" height="200" disabledOverlayAlpha="0" backgroundColor="red">
+        <mx:Label text="Test disabledOverlayAlpha"/>
+    </mx:VBox>
+    <mx:Button label="Disable" click="disableComponent()"/>
+    <mx:Button label="Enable" click="enableComponent()"/>
+</mx:Application>

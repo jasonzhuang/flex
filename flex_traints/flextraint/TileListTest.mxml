@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:component="components.*"
+	width="100%" height="100%"
+	creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			/**
+			 * add one Item, the maxHorizontalScrollPosition increase by 1
+			 */
+			[Bindable]
+			private var arrColl:ArrayCollection;
+			
+			private function addItem():void {
+				var item:Object = new Object();
+				item.name = "New Item";
+				arrColl.addItem(item);
+				
+//				trace("current position: " + tileList.horizontalScrollPosition);
+//				trace("max position: " + tileList.maxHorizontalScrollPosition);
+			}
+			
+			private function init():void {
+				arrColl = new ArrayCollection();
+				var obj:Object;
+				for (var i:int = 0; i<5; i++) {
+					obj = {name:"name" + i};
+					arrColl.addItem(obj);
+				}
+			}
+			
+			private function deleteItem():void {
+				arrColl.removeItemAt(0);
+				tileList.selectedItem = arrColl.getItemAt(0);
+				trace("tileList selectedIndex: " + tileList.selectedIndex);
+			}
+			
+			private function log():void {
+				trace("tileList selectedIndex: " + tileList.selectedIndex);
+			}
+		]]>
+	</mx:Script>
+	<mx:TileList id="tileList"
+				 width="500" height="200"
+				 dataProvider="{arrColl}"
+				 rowCount="1" maxRows="1"
+				 direction="vertical"
+				 selectionColor="#ff0000"
+				 rollOverColor="#ff77ff"
+				 verticalScrollPolicy="off" horizontalScrollPolicy="off"
+				 verticalAlign="middle"
+				 itemRenderer="components.NameRenderer"
+				 itemClick="log()"/>
+	<mx:Button label="Add Item" click="addItem()"/>
+	<mx:Button label="Delete Item" click="deleteItem()"/>
+</mx:Application>

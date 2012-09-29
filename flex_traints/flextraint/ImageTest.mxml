@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	>
+	<mx:Script>
+		<![CDATA[
+			/**
+			 * Event both set width and height, the image can't has the same width and height
+			 * set contentWidth and contentHeight will work
+			 */
+			import mx.core.UIComponent;
+			[Embed(source="assets/foto.jpg")]
+			private static const IMAGE:Class;
+		
+			[Bindable]
+			private var img_w:Number = 15;
+			
+			[Bindable]
+			private var img_h:Number = 15;
+			
+			private function draw():void {
+				var bitmapData:BitmapData = new BitmapData(70,70,true,0xffffffff);
+				bitmapData.draw(img);
+				var bitmap:Bitmap = new Bitmap(bitmapData);
+				var ui:UIComponent = new UIComponent();
+				ui.addChild(bitmap);
+				outer.addChild(ui);
+			}
+			
+			private function updateWidth():void {
+				img.content.width = slider.value;
+			}
+			
+			private function updateHeight():void {
+				img.content.height = slider2.value;
+			}
+			
+			private function resize():void {
+				img.content.width = 80;
+				img.content.height = 80;
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:VBox id="outer" width="550" height="500" backgroundColor="#ffffff" borderStyle="solid" borderColor="#33FF99" verticalAlign="middle" horizontalAlign="center">
+		<mx:VBox backgroundColor="#CC33CC">
+			<mx:Image id="img" source="{IMAGE}" width="200" height="200"/>
+		</mx:VBox>
+	</mx:VBox>
+	<mx:Form>
+		<mx:FormItem label="Image width">
+			<mx:HSlider id="slider"
+						minimum="0"
+						maximum="300"
+						snapInterval="5"
+						liveDragging="true"
+						showTrackHighlight="true"
+						change="updateWidth();"/>
+		</mx:FormItem>
+		<mx:FormItem label="Image height">
+			<mx:HSlider id="slider2"
+						minimum="0"
+						maximum="300"
+						snapInterval="5"
+						liveDragging="true"
+						showTrackHighlight="true"
+						change="updateHeight();"/>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:Button label="Click" click="draw()"/>
+</mx:Application>

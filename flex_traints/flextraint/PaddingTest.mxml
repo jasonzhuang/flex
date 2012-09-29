@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application 
+	xmlns:mx="http://www.adobe.com/2006/mxml">
+	<mx:Script>
+		<![CDATA[
+			/**
+			 * Notice:
+			 * if set explict height, setting padding will NOT change the height, it only affets the content and edge space
+			 * if not set explict height, setting padding with change the height.
+			 */
+			private function updatePadding():void {
+//				hbox.setStyle("paddingTop", slider.value);
+//				trace("hbox height: " + hbox.height);
+//				hbox2.setStyle("paddingTop", slider.value);
+//				trace("hbox2 height: " + hbox.height);
+ 				btn.setStyle("paddingTop", slider.value);
+				trace("btn height" + btn.height);
+				btn2.setStyle("paddingTop", slider.value);
+				trace("btn2 height" + btn2.height); 
+			}
+		]]>
+	</mx:Script>
+	<mx:HSlider id="slider"
+				minimum="0"
+				maximum="16"
+				snapInterval="1"
+				liveDragging="true"
+				showTrackHighlight="true"
+				change="updatePadding();"/>
+	<mx:HBox id="hbox" height="30" backgroundColor="#00FF33">
+		<mx:Text text="aaaaaaaaaaaaa"/>
+		<mx:Button id="btn" height="20" label="aaaa"/>
+	</mx:HBox>
+	<mx:HBox id="hbox2" backgroundColor="#00FF33">
+		<mx:Text text="aaaaaaaaaaaaa"/>
+		<mx:Button id="btn2" label="aaaa"/>
+	</mx:HBox>
+</mx:Application>

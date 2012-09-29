@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    layout="vertical"
+    initialize="init()">
+    <mx:Script>
+        <![CDATA[
+            import vo.Manager;
+            import mx.controls.Button;
+            import components.TestAsTraint;
+            import vo.Employee;
+            import flash.utils.*;
+
+            private function init():void {
+                testInheritance();
+//                testReflect();
+//                testIs();
+            }
+
+            private function testReflect():void {
+                  var e:Employee = new Employee();
+                  // must contain package.
+                  // claszz = valueObject.Employee$, only has "prototype" property.
+                  var clazz:Class = getDefinitionByName("vo.Employee") as Class;
+                  // e2: = valueObject.Employee.
+                  var e2:Employee = new clazz() as Employee;
+                  trace(getQualifiedClassName(e));//output:valueObject::Employee
+            }
+
+            //can't directly invoke superclass static function
+            private function testInheritance():void {
+                var e1:Manager = new Manager();
+                e1.drink();
+//                Manager.eat(); //Error!
+            }
+
+            private function testIs():void {
+                var e1:Employee = new Manager();
+                var e2:Manager = new Manager();
+                trace(e1 is Employee); //true
+                trace(e1 is Manager); //true
+                trace(e2 is Employee);//true
+            }
+        ]]>
+    </mx:Script>
+</mx:Application>

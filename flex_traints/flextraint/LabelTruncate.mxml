@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical">
+    <mx:VBox id="contain" backgroundColor="yellow">
+        <mx:Label id="show" text="AAAAAAAAAAAAAAAAAAAAAAAAA" width="50" />
+        <mx:Text id="showText" text="BBBBBBBBBBBBBBBBBBBBBBB" width="320"/>
+    </mx:VBox>
+</mx:Application>
