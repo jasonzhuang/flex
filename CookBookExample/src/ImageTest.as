@@ -11,7 +11,7 @@ package
         {
             var loader:Loader = new Loader();
             loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaded);
-            loader.load(new URLRequest("assets/Banana.jpg"));
+            loader.load(new URLRequest("assets/foto.jpg"));
         }
 
         private function loaded(event:Event):void {

@@ -23,7 +23,7 @@ package {
         private var loader:Loader;
         private var progressOutput:TextField; //the text field in which to display load process
 
-        [Embed(source="assets/Banana.jpg")]
+        [Embed(source="assets/foto.jpg")]
          private var logoClass:Class;
 
         public function LoaderUse() {

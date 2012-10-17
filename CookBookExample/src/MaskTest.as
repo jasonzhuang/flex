@@ -1,39 +1,44 @@
 package
 {
     import flash.display.*;
-    import flash.events.MouseEvent;
-    import flash.text.*;
+    import flash.events.*;
+    import flash.net.*;
+	
     public class MaskTest extends Sprite
     {
-        private var square:Shape;
-        private var tf:TextField;
+		private var maskSprite:Sprite;
+		
+		//show mask area
         public function MaskTest() {
-            tf = new TextField();
-            tf.text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, " 
-                        + "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
-            tf.selectable = false;
-            tf.wordWrap = true;
-            tf.width = 150;
-            addChild(tf);
-
-            square = new Shape();
-            square.graphics.beginFill(0x0000FF);
-            square.graphics.drawRect(0, 0, 40, 40);
-            addChild(square);
-
-            //the mask is not draw on the stage
-            tf.mask = square;
-            
-//            tf.addEventListener(MouseEvent.MOUSE_DOWN, drag);
-//            tf.addEventListener(MouseEvent.MOUSE_UP, noDrag);
+			var loader:Loader = new Loader( );
+			loader.load(new URLRequest("assets/foto.jpg"));
+			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, completeHandler);
+			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, errorHandler);
         }
-
-//        private function drag(event:MouseEvent):void {
-//            square.startDrag();
-//        }
-//
-//        private function noDrag(event:MouseEvent):void {
-//            square.stopDrag();
-//        }
+		
+		private function completeHandler(event:Event):void {
+			buildMask();
+			var w:Number = event.target.width;
+			var h:Number = event.target.height;
+			var bitmapData:BitmapData = new BitmapData(w, h, false, 0xffffffff);
+			bitmapData.draw(event.target.content);
+			var bitmap:Bitmap = new Bitmap(bitmapData);
+			bitmap.mask = maskSprite;
+			addChild(bitmap);
+		}
+		
+		private function errorHandler(event:Event):void {
+			
+		}
+		
+		private function buildMask():void {
+			maskSprite = new Sprite( );
+			maskSprite.graphics.lineStyle( );
+			maskSprite.graphics.beginFill(0xFFFFFF);
+			maskSprite.graphics.drawCircle(0, 0, 80);
+			maskSprite.graphics.endFill( );
+			addChild(maskSprite);
+			maskSprite.startDrag(true);
+		}
     }
 }

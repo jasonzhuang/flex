@@ -5,8 +5,8 @@
     creationComplete="init()">
     <mx:Script>
         <![CDATA[
-            [Embed('assets/Banana.jpg')]
-            public static const Banana:Class;
+            [Embed('assets/foto.jpg')]
+            public static const FOTO:Class;
 
             private function init():void {
                 trace("width " + innerContainer.width + " height " + innerContainer.height);
@@ -30,10 +30,10 @@
     </mx:Script>
     <mx:VBox id="container" width="500" height="800">
         <mx:Text text="HHHHHHHHHDDDDDDDD"/>
-        <mx:Image id="banana" source="{Banana}"/>
-        <view:MyContainer id="innerContainer" width="300">
+        <mx:Image id="banana" source="{FOTO}"/>
+        <view:UnscaledContainer id="innerContainer" width="300">
             <mx:Button label="Magnify" click="magnify()"/>
             <mx:Label text="hhhhhhhhhhhhh"/>
-        </view:MyContainer>
+        </view:UnscaledContainer>
     </mx:VBox>
 </mx:Application>

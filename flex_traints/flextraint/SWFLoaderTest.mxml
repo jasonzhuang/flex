@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<mx:Application
-	xmlns:mx="http://www.adobe.com/2006/mxml"
-	width="720" height="800">
-	<mx:SWFLoader id="animation"
-	    width="100%" height="100%"
-		source="assets/home.swf"
-		scaleContent="true"/>
-</mx:Application>
