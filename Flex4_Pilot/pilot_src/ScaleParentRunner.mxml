@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	<fx:Script>
+		<![CDATA[
+			/**
+			 * 0.the position(x,y) proportion is scale as well, for instance, the first
+			 *  slot picture position is (121,128), when set the scale to 1.3, the position
+			 *  will be (158,166)
+	        * 1.when no width assigned, unscaledWidth = width = measuredWidth
+	        * 2.when width or height is explictly assigned, unscaledWidth = width, measuredWidth value is calculated.
+	        * 3.when width is set by percent(width=60%), if the result is small than measuredWidth, unscaledWidth = width = measuredWidth
+	        * otherwise, unscaledWidth = width = parent width * percent, measuredWidth value is calculated.
+	        * 4.width(explicitWidth) will change when set self scaleX, but unscaledWidth and measuredWidth will not change
+	        * 5.explicitWidth has value only when width is set, if width is set by percent or no width is set, the explicitWidth is NaN
+	        * 6.unscaledWidth = width / Math.abs(scaleX)
+			 */
+			private function scaleOutContainer():void {
+				outerContainer.scaleX = outerContainer.scaleY = slider.value;
+				trace("outerContainer.width: " + outerContainer.width);
+				trace("outerContainer.explicitWidth: " + outerContainer.explicitWidth);
+				trace("image width: " + img.width);
+				var containerBound:Rectangle = outerContainer.getBounds(this);
+				trace(containerBound);
+				trace("=====================");
+			}
+		]]>
+	</fx:Script>
+		<s:Group id="outerContainer" left="50" top="80" width="500">
+			<s:layout>
+				<s:VerticalLayout/>
+			</s:layout>
+			<s:BitmapImage id="img" source="@Embed('assets/50725.jpg')"/>
+			<s:Label id="info" text="Test Scale"/>
+		</s:Group>
+		<s:HGroup left="50" top="50">
+			<s:Label text="scale outContainer"/>
+			<s:HSlider id="slider" snapInterval="0.1" value="1" change="scaleOutContainer()"/>
+		</s:HGroup>
+</s:Application>

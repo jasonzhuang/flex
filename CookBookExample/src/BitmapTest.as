@@ -1,16 +1,18 @@
 package {
 	import flash.display.*;
 	import flash.geom.*;
+	import flash.text.*;
 	
 	/**
 	 *	BitmapTest
 	 */
 	public class BitmapTest extends Sprite {
 		public function BitmapTest(){
-			init()
+			//case1();
+			case2();
 		}
 		
-		private function init():void {
+		private function case1():void {
 			var rect:Sprite = new Sprite();
 			var fillType:String = GradientType.LINEAR;
 			var colors:Array = [0xFF0000, 0x00FF00];
@@ -33,6 +35,17 @@ package {
 			var bitmap:Bitmap = new Bitmap(bitmapData);
 			bitmap.x = 300;
 			this.addChild(bitmap);
+		}
+		
+		private function case2():void {
+			//ALPHA COLOR
+			var myBitmapData:BitmapData = new BitmapData(100, 100, true, 0x90000000);
+			var tf:TextField = new TextField();
+			tf.text = "bitmap text";
+			myBitmapData.draw(tf);
+			var bm:Bitmap = new Bitmap(myBitmapData);
+			this.addChild(bm);
+
 		}
 	}
 }

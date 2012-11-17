@@ -33,8 +33,7 @@ package
 		
 		private function buildMask():void {
 			maskSprite = new Sprite( );
-			maskSprite.graphics.lineStyle( );
-			maskSprite.graphics.beginFill(0xFFFFFF);
+			maskSprite.graphics.beginFill(0xFF0000);
 			maskSprite.graphics.drawCircle(0, 0, 80);
 			maskSprite.graphics.endFill( );
 			addChild(maskSprite);

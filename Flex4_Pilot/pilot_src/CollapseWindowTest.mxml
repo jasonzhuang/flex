@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns:ns="library://ns.adobe.com/flex/mx" 
+    xmlns:enhancedtitlewindow="components.collapseWindow.*"
+    minWidth="450" minHeight="400" 
+	>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace components "com.ninem.components.*";
+		@namespace enhancedtitlewindow "components.collapseWindow.*";
+		enhancedtitlewindow|EnhancedTitleWindow{
+			skin-class:ClassReference("skins.collapseWindow.EnhancedTitleWindowSkin");
+			show-expand-indicator:true;
+		}
+	</fx:Style>
+	<s:HGroup left="20" top="20" gap="20">
+		<s:Group width="400">
+			<s:layout>
+				<s:VerticalLayout/>
+			</s:layout>
+<!--			<enhancedtitlewindow:EnhancedTitleWindow id="panel1" width="100%" title="Panel 1" collapsible="true" headerClickable="true" showCloseButton="true">
+				<enhancedtitlewindow:layout>
+					<s:VerticalLayout paddingLeft="10" paddingTop="10" paddingRight="10" paddingBottom="10"/>
+				</enhancedtitlewindow:layout>
+				<s:HGroup>
+					<s:CheckBox id="check1" label="Collapsible" selected="true" change="panel1.collapsible=check1.selected"/>
+					<s:CheckBox id="check3" label="Show Expand Indicator" selected="true" change="panel1.setStyle('showExpandIndicator', check3.selected)"/>
+				</s:HGroup>
+				<s:HGroup paddingBottom="8">
+					<s:CheckBox id="check4" label="Show Close Button" change="panel1.showCloseButton=check4.selected" selected="true"/>
+					<s:CheckBox id="check2" label="Clickable Header" selected="true" change="panel1.headerClickable=check2.selected"/>
+				</s:HGroup>
+				<s:Label width="100%">
+					<fx:String>This shows some of the options available.</fx:String>
+				</s:Label>
+			</enhancedtitlewindow:EnhancedTitleWindow>-->
+			
+			<enhancedtitlewindow:EnhancedTitleWindow id="panel2" width="100%" title="Panel 2" collapsible="true" titleBarHeight="30">
+				<enhancedtitlewindow:layout>
+					<s:VerticalLayout paddingLeft="10" paddingTop="10" paddingRight="10" paddingBottom="10"/>
+				</enhancedtitlewindow:layout>
+				<s:Label width="100%">
+					<fx:String>Arbitrary items can be added to the title bar of the panel (like the checkbox and button above) using the titleBarContent property. The layout class of the titleBar can also be modified or set using the titleBarLayout property.</fx:String>
+				</s:Label>
+				<enhancedtitlewindow:titleBarContent>
+					<s:CheckBox label="Checkbox"/>
+					<s:Button label="Button"/>
+				</enhancedtitlewindow:titleBarContent>
+				<enhancedtitlewindow:titleBarLayout><s:HorizontalLayout verticalAlign="middle" horizontalAlign="center"/></enhancedtitlewindow:titleBarLayout>
+			</enhancedtitlewindow:EnhancedTitleWindow>
+			
+<!--			<enhancedtitlewindow:EnhancedTitleWindow id="panel3" width="100%" title="Panel 3" collapsible="true" headerClickable="true" titleBarHeight="{barHeight.value}">
+				<enhancedtitlewindow:layout>
+					<s:VerticalLayout paddingLeft="10" paddingTop="10" paddingRight="10" paddingBottom="10"/>
+				</enhancedtitlewindow:layout>
+				<s:HGroup verticalAlign="middle">
+					<s:Label text="The title bar height is adjustable:"/>
+					<s:Label text="{barHeight.value}"/>
+					<s:Spinner id="barHeight" value="20" minimum="15" maximum="50" snapInterval="5"/>
+				</s:HGroup>
+			</enhancedtitlewindow:EnhancedTitleWindow>-->
+		</s:Group>
+	</s:HGroup>
+</s:Application>

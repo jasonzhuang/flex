@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<mx:DataGrid
-    xmlns:mx="http://www.adobe.com/2006/mxml">
-    <mx:columns>
-        <mx:DataGridColumn id="eName" headerText="name" itemRenderer="components.NameRenderer"/>
-        <mx:DataGridColumn id="age" headerText="age" itemRenderer="components.AgeRenderer"/>
-    </mx:columns>
-</mx:DataGrid>

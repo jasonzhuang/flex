@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<actionScriptProperties analytics="false" mainApplicationPath="MatrixRunner.mxml" projectUUID="713f5343-d361-4ad3-99ed-a3ae9598ab35" version="10">
+  <compiler additionalCompilerArguments="-locale en_US" autoRSLOrdering="true" copyDependentFiles="true" flexSDK="Flex 4.6.0" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="false" htmlPlayerVersionCheck="false" includeNetmonSwc="false" outputFolderPath="bin-debug" removeUnusedRSL="true" sourceFolderPath="pilot_src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="false" warn="true">
+    <compilerSourcePath>
+      <compilerSourcePathEntry kind="1" linkType="1" path="test"/>
+      <compilerSourcePathEntry kind="1" linkType="1" path="pilot_src"/>
+    </compilerSourcePath>
+    <libraryPath defaultLinkType="0">
+      <libraryPathEntry kind="4" path="">
+        <excludedEntries>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/flex.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/core.swc" useDefaultLinkType="false"/>
+        </excludedEntries>
+      </libraryPathEntry>
+      <libraryPathEntry kind="1" linkType="1" path="libs"/>
+      <libraryPathEntry kind="1" linkType="1" path="${FLEXUNIT_LIB_LOCATION}/version4libs/Common"/>
+      <libraryPathEntry kind="1" linkType="1" path="${FLEXUNIT_LIB_LOCATION}/version4libs/FlexProject"/>
+      <libraryPathEntry kind="1" linkType="1" path="${FLEXUNIT_LIB_LOCATION}/version4libs/FlexProject_Extended"/>
+      <libraryPathEntry kind="1" linkType="1" path="${FLEXUNIT_LOCALE_LOCATION}/version4locale/"/>
+      <libraryPathEntry kind="1" linkType="1" path="D:/flex/flexunit4/swcs"/>
+    </libraryPath>
+    <sourceAttachmentPath/>
+  </compiler>
+  <applications>
+    <application path="ScrollerRunner.mxml"/>
+    <application path="BitmapDrawTest.mxml"/>
+    <application path="GradeStatesComplex.mxml"/>
+    <application path="CoordinateRunner.mxml"/>
+    <application path="DisplayObjectTransformer.mxml"/>
+    <application path="CollapseWindowTest.mxml"/>
+    <application path="FlowLayoutTest.mxml"/>
+    <application path="Test.mxml"/>
+    <application path="FlowLayoutTestMeasure.mxml"/>
+    <application path="TestRunner.mxml"/>
+    <application path="FlashFlexMarriageRunner.mxml"/>
+    <application path="ScaleParentRunner.mxml"/>
+    <application path="DragDropTest.mxml"/>
+    <application path="DynamicAddChild.mxml"/>
+    <application path="TestAsTraint.mxml"/>
+    <application path="TestObject.mxml"/>
+    <application path="TestPerformance.mxml"/>
+    <application path="IconedLabelTest.mxml"/>
+    <application path="LabelTruncate.mxml"/>
+    <application path="OneEventMutilHandler.mxml"/>
+  </applications>
+  <modules/>
+  <buildCSSFiles/>
+  <flashCatalyst validateFlashCatalystCompatibility="false"/>
+</actionScriptProperties>

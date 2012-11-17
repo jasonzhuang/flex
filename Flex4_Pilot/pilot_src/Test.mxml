@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+xmlns:s="library://ns.adobe.com/flex/spark"
+xmlns:mx="library://ns.adobe.com/flex/mx"
+initialize="init()">
+	<fx:Declarations>
+		<fx:Component className="MyAlert">
+			<s:SkinnablePopUpContainer>
+				<s:TitleWindow title="Launching World Domination..." close="close()">
+				<s:VGroup horizontalAlign="center" width="100%">
+				<s:Label text="World Domination failed. Sorry!"/>
+				<s:Button label="OK, nevermind" click="close()"/>
+				</s:VGroup>
+				</s:TitleWindow>
+				</s:SkinnablePopUpContainer>
+		</fx:Component>
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import spark.components.Group;
+			
+			private function init():void {
+				var group:Group = new Group();
+				var child:Group = new Group();
+				group.addElement(child);
+			}
+			
+		]]>
+	</fx:Script>
+	<s:Button label="Launch World Domination" click="(new MyAlert()).open(this, true)"/>
+
+</s:Application>
