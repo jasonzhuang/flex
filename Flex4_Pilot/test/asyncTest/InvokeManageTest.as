@@ -29,7 +29,6 @@ package asyncTest
         [Test(async)]
         public function testInvokeTwice():void
         {
-            var func:Function = dummy.dummyFunction;
             var async:Function = Async.asyncHandler(this, executeComplete, 5000, null, null);
             invokeManage.addEventListener(EventNames.EXECUTE_COMPLETE, async);
             invokeManage.execute();

@@ -3,30 +3,22 @@
 xmlns:s="library://ns.adobe.com/flex/spark"
 xmlns:mx="library://ns.adobe.com/flex/mx"
 initialize="init()">
-	<fx:Declarations>
-		<fx:Component className="MyAlert">
-			<s:SkinnablePopUpContainer>
-				<s:TitleWindow title="Launching World Domination..." close="close()">
-				<s:VGroup horizontalAlign="center" width="100%">
-				<s:Label text="World Domination failed. Sorry!"/>
-				<s:Button label="OK, nevermind" click="close()"/>
-				</s:VGroup>
-				</s:TitleWindow>
-				</s:SkinnablePopUpContainer>
-		</fx:Component>
-	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
-			import spark.components.Group;
+			import mx.core.UIComponent;
+			import mx.controls.Alert;
 			
 			private function init():void {
-				var group:Group = new Group();
-				var child:Group = new Group();
-				group.addElement(child);
+				var rect:Shape = new Shape();
+				rect.graphics.beginFill(0x000000, 0.5);
+				rect.graphics.drawRect(0,0,100,100);
+				rect.graphics.endFill();
+				var ui:UIComponent = new UIComponent();
+				trace("rect height: " + rect.height);
+				ui.addChild(rect);
+				ui.x = 50;
+				this.addElement(ui);
 			}
-			
 		]]>
 	</fx:Script>
-	<s:Button label="Launch World Domination" click="(new MyAlert()).open(this, true)"/>
-
 </s:Application>

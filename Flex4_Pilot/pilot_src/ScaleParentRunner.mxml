@@ -11,19 +11,14 @@
 	        * 1.when no width assigned, unscaledWidth = width = measuredWidth
 	        * 2.when width or height is explictly assigned, unscaledWidth = width, measuredWidth value is calculated.
 	        * 3.when width is set by percent(width=60%), if the result is small than measuredWidth, unscaledWidth = width = measuredWidth
-	        * otherwise, unscaledWidth = width = parent width * percent, measuredWidth value is calculated.
-	        * 4.width(explicitWidth) will change when set self scaleX, but unscaledWidth and measuredWidth will not change
-	        * 5.explicitWidth has value only when width is set, if width is set by percent or no width is set, the explicitWidth is NaN
-	        * 6.unscaledWidth = width / Math.abs(scaleX)
+	        *    otherwise, unscaledWidth = width = parent width * percent, measuredWidth value is calculated.
+	        * 4.explicitWidth has value only when width is set, if width is set by percent or no width is set, the explicitWidth is NaN
 			 */
 			private function scaleOutContainer():void {
 				outerContainer.scaleX = outerContainer.scaleY = slider.value;
 				trace("outerContainer.width: " + outerContainer.width);
 				trace("outerContainer.explicitWidth: " + outerContainer.explicitWidth);
 				trace("image width: " + img.width);
-				var containerBound:Rectangle = outerContainer.getBounds(this);
-				trace(containerBound);
-				trace("=====================");
 			}
 		]]>
 	</fx:Script>

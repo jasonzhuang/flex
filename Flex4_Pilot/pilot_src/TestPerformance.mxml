@@ -34,10 +34,4 @@
             }
         ]]>
     </mx:Script>
-    <view:DataGridWithLabelFun id="test1" dataProvider="{source}"
-        rowCount="300"
-        creationComplete="onComplete()"/>
-    <view:DataGridWithItemRenderer id="test2" dataProvider="{source}"
-        rowCount="300"
-        creationComplete="onComplete2()"/>
 </mx:Application>

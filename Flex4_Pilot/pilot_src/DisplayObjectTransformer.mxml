@@ -31,7 +31,9 @@
         	    maskImage.graphics.endFill();
         	    
         	    // align the mask with the parent imagePanel
+				trace("imagePanel global point: " + imagePanel.localToGlobal(new Point(0,0)));
         	    var maskOrigin:Point = maskImage.globalToLocal(imagePanel.localToGlobal(new Point(0,0)));
+				trace("mask Origin point: " + maskOrigin);
         	    maskImage.x = maskOrigin.x;
         	    maskImage.y = maskOrigin.y;
 

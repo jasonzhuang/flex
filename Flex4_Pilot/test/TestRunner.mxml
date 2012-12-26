@@ -11,13 +11,10 @@
 			import org.flexunit.runner.FlexUnitCore;
 			import org.flexunit.listeners.UIListener;
 			
-			import flashConfigTest.FlashConfigSuite;
-			
 			public function runTests() : void {
 				var core : FlexUnitCore = new FlexUnitCore();
 				core.addListener(new UIListener(uiListener));
-				
-				core.run(FlashConfigSuite);
+				core.run(TestSuite);
 			}
 		]]>
 	</fx:Script>

@@ -11,7 +11,7 @@
             import flash.events.MouseEvent;
 
             // Embed icon image.
-            [Embed(source='assets/moonMap.png')]
+            [Embed(source='assets/foto.jpg')]
             public var globeImage:Class;
 
             // The mouseMove event handler for the Image control
@@ -103,7 +103,7 @@
         
     <!-- The Image control is the drag initiator and the drag proxy. -->
         <mx:Image id="myimg" 
-            source="@Embed(source='assets/moonMap.png')" 
+            source="@Embed(source='assets/foto.jpg')" 
             mouseMove="mouseOverHandler(event);"
             dragComplete="dragCompleteHandler(event);"/> 
     </mx:Canvas>

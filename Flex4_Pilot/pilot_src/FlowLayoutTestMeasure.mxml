@@ -25,6 +25,14 @@
                 <!-- Configure the layout to be the FlowLayout -->    
                 <s:layout>
                     <my:FlowLayout4 horizontalGap="{hGapSlider.value}"/>
+					<!-- Very minimal layout -->
+					<!--<my:FlowLayout1/>-->
+					
+					<!-- Adding Scrolling support -->
+					<!--<my:FlowLayout2/>-->
+					
+					<!-- Adding horizontalGap property -->    
+					<!--<my:FlowLayout3 horizontalGap="4"/>-->
                 </s:layout>
                 
                 <s:Label text="The"/>

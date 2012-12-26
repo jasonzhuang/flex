@@ -4,10 +4,11 @@
         <![CDATA[
             import components.InvokeManage;
             import mx.collections.ArrayCollection;
-            import vo.Employee;
-            import events.ExecuteCompleteEvent;
             import utils.ClassUtil;
-
+			import constants.EventNames;
+			import vo.Employee;
+			import vo.Manager;
+			
             private function init():void {
                 //case1();
 //                case2();
@@ -122,13 +123,13 @@
             //Note:use two different Date object
             private function testPerformance():void {
                 invokeManage1 = new InvokeManage(this.loopWithLength, this, 1);
-                invokeManage1.addEventListener(ExecuteCompleteEvent.EXECUTE_COMPLETE, onPerformance);
+                invokeManage1.addEventListener(EventNames.EXECUTE_COMPLETE, onPerformance);
                 invokeManage1.execute();
             }
 
             private function testPerformance2():void {
                 invokeManage2 = new InvokeManage(this.loopWithNoLength, this, 1);
-                invokeManage2.addEventListener(ExecuteCompleteEvent.EXECUTE_COMPLETE, onPerformance2);
+                invokeManage2.addEventListener(EventNames.EXECUTE_COMPLETE, onPerformance2);
                 invokeManage2.execute();
             }
 

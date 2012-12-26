@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="horizontal">
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="horizontal" xmlns:s="library://ns.adobe.com/flex/spark">
     <mx:Script>
         <![CDATA[
             import mx.rpc.events.FaultEvent;
             import mx.rpc.events.ResultEvent;
             import mx.rpc.AsyncToken;
             import mx.events.DateChooserEvent;
-            import service.MyCommand;
 
-            private function scrollHandler(event:DateChooserEvent):void
+			private function scrollHandler(event:DateChooserEvent):void
             {
                 var month:int = event.currentTarget.displayedMonth;
                 var monthName:String = event.currentTarget.monthNames[month];//April,May....

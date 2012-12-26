@@ -5,12 +5,11 @@
     initialize="init()">
     <mx:Script>
         <![CDATA[
-            import vo.Manager;
             import mx.controls.Button;
-            import components.TestAsTraint;
-            import vo.Employee;
             import flash.utils.*;
-
+			import vo.Employee;
+			import vo.Manager;
+			
             private function init():void {
                 testInheritance();
 //                testReflect();

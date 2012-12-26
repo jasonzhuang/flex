@@ -7,35 +7,20 @@
         <![CDATA[
             import mx.controls.Alert;
 
-            [Embed('/assets/red_dot.png')]
-            public static const RED_DOT:Class;
-
-            [Embed('/assets/remove.png')]
-            public static const REMOVE:Class;
-
-            private function changeImage():void {
-                this.testLabel.iconSource = REMOVE;
-            }
-
-            private function enableTest():void {
-                //this.t4.enabled = false;
-                Alert.show(this.t4.enabled.toString());
-            }
-
             private function buttonEnable():void {
                 Alert.show(this.mybutton.enabled.toString());
             }
         ]]>
     </mx:Script>
-    <mx:Panel width="500" borderColor="#0000ff" borderThickness="2">
+    <mx:Panel width="500" borderColor="#0000ff">
         <mx:VBox width="100%">
-            <view:IconedLabel id="testLabel" text="IconedLabel1" iconSource="{RED_DOT}"
+            <!--<view:IconedLabel id="testLabel" text="IconedLabel1" iconSource="{RED_DOT}"
                     iconPosition="right" leadingSpace="8"
-                    width="8" height="200" click="changeImage()"/>
+                    width="8" height="200" click="changeImage()"/>-->
             <!--<view:IconedLabel id="t2" text="IconedLable2" iconSource="{RED_DOT}" iconPosition="right" tailingSpace="5"/>
             <view:IconedLabel id="t3" text="IconedLable3" iconSource="{RED_DOT}" iconPosition="right" leadingSpace="9"/>-->
-            <view:IconedLabel id="t4" text="IconedLable4" iconSource="{RED_DOT}" iconPosition="left"
-                    click="enableTest()"/>
+            <!--<view:IconedLabel id="t4" text="IconedLable4" iconSource="{RED_DOT}" iconPosition="left"
+                    click="enableTest()"/>-->
             <mx:Button id="mybutton" label="test" click="buttonEnable()" enabled="false"/>
         </mx:VBox>
     </mx:Panel>
