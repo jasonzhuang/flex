@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:flexUnitUIRunner="http://www.adobe.com/2009/flexUnitUIRunner"
+	creationComplete="runTests();"
+	>
+	<fx:Script>
+		<![CDATA[
+			import org.flexunit.runner.FlexUnitCore;
+			import org.flexunit.listeners.UIListener;
+			
+			public function runTests() : void {
+				var core : FlexUnitCore = new FlexUnitCore();
+				core.addListener(new UIListener(uiListener));
+				core.run(TestSuite);
+			}
+		]]>
+	</fx:Script>
+	<flexUnitUIRunner:TestRunnerBase id="uiListener" width="100%" height="100%"/>
+</s:Application>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+        xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+        xmlns:comps="components.itemRenderer.*"
+        width="420" height="125"
+        >
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+		]]>
+	</fx:Script>
+    <s:List left="10" top="10" width="400" height="95" rollOverColor="#ffffff" selectionColor="#ffffff">
+        <mx:ArrayCollection source="[95,85,75,5,101,90,80,-1]"/>
+
+        <s:itemRenderer>
+            <fx:Component>
+                <s:ItemRenderer>
+                    <s:states>
+                        <s:State name="normal" />
+                        <s:State name="hovered" />
+                        <s:State name="selected" />
+                    </s:states>
+
+                    <comps:Grade id="grade" grade="{data}" currentState="{this.currentState}" />
+                </s:ItemRenderer>
+            </fx:Component>
+        </s:itemRenderer>
+
+        <s:layout>
+            <s:HorizontalLayout gap="8" paddingLeft="8" paddingRight="8" paddingTop="8" paddingBottom="8" />
+        </s:layout>
+    </s:List>
+</s:Application>

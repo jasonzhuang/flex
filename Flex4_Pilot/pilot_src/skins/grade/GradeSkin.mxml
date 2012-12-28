@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin
+        xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        minWidth="60" minHeight="60">
+
+    <fx:Metadata>
+        [HostComponent("components.itemRenderer.Grade")]
+    </fx:Metadata>
+
+    <s:states>
+        <s:State name="Anormal" stateGroups="A, normal" />
+        <s:State name="Ahovered" stateGroups="A, hovered" />
+        <s:State name="Aselected" stateGroups="A, selected" />
+        <s:State name="Bnormal" stateGroups="B, normal" />
+        <s:State name="Bhovered" stateGroups="B, hovered" />
+        <s:State name="Bselected" stateGroups="B, selected" />
+        <s:State name="Cnormal" stateGroups="C, normal" />
+        <s:State name="Chovered" stateGroups="C, hovered" />
+        <s:State name="Cselected" stateGroups="C, selected" />
+    </s:states>
+
+    <s:Path scaleX="0.2655" scaleY="0.2655" includeIn="A">
+        <s:data>M 119,0 L 148,86 238,86 166,140 192,226 119,175 46,226 72,140 0,86 90,86 Z</s:data>
+        <s:stroke>
+            <s:SolidColorStroke color="#000000" />
+        </s:stroke>
+        <s:fill>
+            <s:RadialGradient>
+                <s:GradientEntry color="#FFCC00" ratio="0" />
+                <s:GradientEntry color="#FFCC00" color.Ahovered="#CC0066" color.Aselected="#660033" ratio="1" />
+            </s:RadialGradient>
+        </s:fill>
+    </s:Path>
+
+    <s:Ellipse left="0" right="0" top="0" bottom="0" includeIn="B">
+        <s:stroke>
+            <s:SolidColorStroke color="#000000" />
+        </s:stroke>
+        <s:fill>
+            <s:RadialGradient>
+                <s:GradientEntry color="#FF66FF" ratio="0" />
+                <s:GradientEntry color="#FF66FF" color.Bhovered="#CC0066" color.Bselected="#660033" ratio="1" />
+            </s:RadialGradient>
+        </s:fill>
+    </s:Ellipse>
+
+    <s:Rect left="0" right="0" top="0" bottom="0" includeIn="C">
+        <s:stroke>
+            <s:SolidColorStroke color="#000000" />
+        </s:stroke>
+        <s:fill>
+            <s:RadialGradient>
+                <s:GradientEntry color="#6666FF" ratio="0" />
+                <s:GradientEntry color="#6666FF" color.Chovered="#CC0066" color.Cselected="#660033" ratio="1" />
+            </s:RadialGradient>
+        </s:fill>
+    </s:Rect>
+
+    <s:Label left="0" right="0" top="0" bottom="0"
+            text="{hostComponent.grade}"
+            color="#000000"
+            fontWeight="bold"
+            textAlign="center" verticalAlign="middle"
+            />
+
+    <!--<s:filters>
+        <s:GlowFilter color="#000000" alpha="0.5" blurX="8" blurY="8" includeIn="hovered" />
+        <s:DropShadowFilter alpha="0.5" blurX="8" blurY="8" includeIn="selected" />
+    </s:filters>-->
+</s:Skin>

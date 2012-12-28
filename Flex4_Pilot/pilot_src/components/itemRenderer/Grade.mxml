@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SkinnableComponent
+        xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        skinClass="skins.grade.GradeSkin"
+		>
+
+    <fx:Metadata>
+        [SkinState("Anormal")]
+        [SkinState("Ahovered")]
+        [SkinState("Aselected")]
+        [SkinState("Bnormal")]
+        [SkinState("Bhovered")]
+        [SkinState("Bselected")]
+        [SkinState("Cnormal")]
+        [SkinState("Chovered")]
+        [SkinState("Cselected")]
+    </fx:Metadata>
+
+    <fx:Script>
+        <![CDATA[
+            private var _grade:int = 0;
+
+            [Bindable]
+            public function get grade():int {
+                return _grade;
+            }
+            public function set grade(value:int):void {
+                _grade = (value > 100 ? 100 : value < 0 ? 0 : value);
+                invalidateSkinState();
+            }
+
+            override protected function getCurrentSkinState():String {
+                return (grade >= 90 ? 'A' : grade >= 80 ? 'B' : 'C') + currentState;
+            }
+        ]]>
+    </fx:Script>
+
+    <s:states>
+        <s:State name="normal" enterState="invalidateSkinState()" />
+        <s:State name="hovered" enterState="invalidateSkinState()" />
+        <s:State name="selected" enterState="invalidateSkinState()" />
+    </s:states>
+</s:SkinnableComponent>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	layout="absolute">
+	<mx:Script>
+		<![CDATA[
+			import mx.core.UIComponent;
+			
+			import utils.DistortImage;
+			
+			private var container:UIComponent;
+			private var bitmap:Bitmap;
+			private var bitmapData:BitmapData;
+			
+			/**
+			 * the original size is 1000*736
+			 */
+			[Bindable]
+			private var imgUrl:String = "assets/50725.jpg";
+			
+			[Bindable]
+			private var fotoURL:String = "assets/foto.jpg";
+			
+			private function drawPic():void {
+				container = new UIComponent();
+				//if set the third value to true, can't see the bitmap
+				bitmapData = new BitmapData(600,450, false, 0x00000000);
+				bitmap = new Bitmap(bitmapData);
+				container.addChild(bitmap);
+				this.addChild(container);
+				container.x = hcontainer.x + hcontainer.width + 20;
+				container.y = hcontainer.y + hcontainer.y + 10;
+				var matrix:Matrix = new Matrix();
+				matrix.scale(0.5, 0.5);
+				bitmapData.draw(img.content, matrix);
+			}
+			
+			private function distortPic():void {
+				var bmd:BitmapData = Bitmap(img.content).bitmapData;
+				var distortImg:DistortImage = new DistortImage(300,300);
+				distortImg.setTransform(show.graphics, bmd, new Point(121,128), new Point(408,123), new Point(172,632), new Point(450,606));
+			}
+		]]>
+	</mx:Script>
+	<mx:VBox id="hcontainer" x="0" y="0" width="600" height="600" backgroundColor="#ff0000">
+		<mx:Image id="img" source="{imgUrl}"/>
+		<mx:Image id="foto" source="{fotoURL}" visible="false" includeInLayout="false"/>
+	</mx:VBox>
+	<mx:VBox x="0" y="0" >
+		<mx:Button label="draw" click="drawPic()"/>
+		<mx:Button label="distort" click="distortPic()"/>
+	</mx:VBox>
+	<mx:HBox id="show" x="{hcontainer.width+20}" y="20">
+	</mx:HBox>
+</mx:Application>
