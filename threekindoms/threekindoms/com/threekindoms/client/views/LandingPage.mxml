@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns:views="com.threekindoms.client.views.*"
+    width="100%" height="100%"
+    backgroundColor="#ffffff"
+    >
+    <mx:Script>
+    	<![CDATA[
+    	]]>
+    </mx:Script>
+    <views:LoginView id="login" width="100%" height="100%"/>
+    <views:RegisterView id="register" width="100%" height="100%"/>
+</mx:VBox>

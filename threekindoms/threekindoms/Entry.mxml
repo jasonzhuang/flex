@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+                xmlns:views="com.threekindoms.client.views.*"
+                xmlns:gameControl="com.threekindoms.client.control.*"
+                creationComplete="onCreationComplete()">
+
+    <mx:Script>
+        <![CDATA[
+            import mx.core.Container;
+            import mx.events.FlexEvent;
+
+            import com.electrotank.electroserver5.api.EsObject;
+            import com.electrotank.electroserver5.api.EsObjectRO;
+            import com.electrotank.electroserver5.ElectroServer;
+            import com.electrotank.electroserver5.api.ConnectionResponse;
+            import com.electrotank.electroserver5.api.MessageType;
+            import com.electrotank.electroserver5.api.PluginMessageEvent;
+            import com.electrotank.electroserver5.api.ZoneUpdateEvent;
+            import com.electrotank.electroserver5.api.ZoneUpdateAction;
+            import com.electrotank.electroserver5.api.PluginMessageEvent;
+
+            //Logger imports
+            import com.electrotank.electroserver5.util.ES5TraceAdapter;
+            import com.electrotank.logging.adapter.Log;
+            import com.electrotank.logging.adapter.ILogger;
+
+            import com.threekindoms.client.model.ViewType;
+            import com.threekindoms.client.plugins.IPluginAction;
+            import com.threekindoms.client.services.ElectroServerService;
+            import com.threekindoms.client.model.PluginActionType;
+            import com.threekindoms.client.model.PluginConstants;
+            import com.threekindoms.client.utils.PluginActionFactory;
+            import com.threekindoms.client.events.RegisterFailedEvent;
+            import com.threekindoms.client.events.ViewToggleEvent;
+            import com.threekindoms.client.events.RetrieveAllPlayersEvent;
+
+            private var service:ElectroServerService;
+            private var pluginAction:IPluginAction;
+
+            private function init():void
+            {
+                Log.setLogAdapter(new ES5TraceAdapter());
+                service = ElectroServerService.getInstance();
+                service.loadAndConnect("settings.xml");
+                addServerListeners();
+                addEventListeners();
+            }
+
+            private function addServerListeners():void
+            {
+                service.addEventListener(MessageType.ConnectionResponse.name, onConnectionResponse);
+            }
+
+            private function addEventListeners():void
+            {
+                this.addEventListener(RetrieveAllPlayersEvent.TYPE, onStoreAllPlayers);
+                this.addEventListener(ViewToggleEvent.VIEW_TOGGLE, onViewToggle);
+                this.addEventListener(RegisterFailedEvent.REGISTER_FAILED, onRegisterFailed);
+            }
+
+            private function onStoreAllPlayers(event:RetrieveAllPlayersEvent):void {
+                gameScreen.players = event.players;
+            }
+
+            private function onViewToggle(event:ViewToggleEvent):void
+            {
+                chooseViewToShow(event.viewType);
+            }
+
+            private function chooseViewToShow(viewType:ViewType):void
+            {
+                var containerToShow:Container;
+
+                if (viewType == ViewType.GameFlowView)
+                {
+                    containerToShow = gameFlowView;
+                }
+                else if (viewType == ViewType.LandingView)
+                {
+                    containerToShow = landingPage;
+                }
+                else if (viewType == ViewType.WaitingView)
+                {
+                    containerToShow = waitingView;
+                } else if (viewType == ViewType.GameScreen)
+                {
+                    containerToShow = gameScreen;
+                }
+                else
+                {
+                    throw new IllegalOperationError("the viewType: " + viewType.viewName + " is not support");
+                }
+
+                if (containerToShow)
+                {
+                    mainView.selectedChild = containerToShow;
+                }
+            }
+
+            private function onRegisterFailed(event:RegisterFailedEvent):void
+            {
+                var errorMessage:String = "Register failed: " + event.message;
+                waitingView.waitingPm.setLog(errorMessage);
+            }
+
+            private function onCreationComplete():void
+            {
+                mainView.selectedChild = waitingView;
+                init();
+            }
+
+            /**
+             * Fired when a connection to the server has either succeeded or failed.
+             */
+            private function onConnectionResponse(e:ConnectionResponse):void
+            {
+                if (e.successful)
+                {
+                    chooseViewToShow(ViewType.LandingView);
+                }
+                else
+                {
+                    waitingView.waitingPm.setLog("Connection failed!");
+                }
+            }
+        ]]>
+    </mx:Script>
+    <gameControl:GameController id="controller"/>
+
+    <mx:ViewStack id="mainView"
+                  width="100%"
+                  height="100%">
+        <views:WaitingView id="waitingView"
+                           width="100%"
+                           height="100%"/>
+        <views:LandingPage id="landingPage"
+                           width="100%"
+                           height="100%"/>
+        <views:GameFlowView id="gameFlowView"
+                        width="100%"
+                        height="100%"/>
+        <views:GameScreen id="gameScreen"
+                        width="100%"
+                        height="100%"/>
+    </mx:ViewStack>
+</mx:Application>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application 
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    creationComplete="init()">
+    <mx:Script>
+        <![CDATA[
+            import com.threekindoms.client.vo.Coordinate;
+            import com.threekindoms.client.utils.datamap.CardManager;
+            import com.threekindoms.client.utils.datamap.Parser;
+            import com.threekindoms.client.model.CardTypeConstant;
+
+            private var cardManager:CardManager;
+
+            private function init():void
+            {
+                cardManager = Parser.getInstance().constructMap();
+                getLocation();
+            }
+
+            private function getLocation():void
+            {
+                var identifier:Coordinate = new Coordinate();
+                identifier.identifierX = 0;
+                identifier.identifierY = 1;
+                var location:Coordinate = cardManager.getLocationFromIdentifier(identifier);
+                trace(location.locationX);
+                trace(location.locationY);
+            }
+
+            private function handleClick(event:Event):void
+            {
+                var card:DisplayObject = event.target as DisplayObject;
+                var coordinate:Coordinate = new Coordinate();
+                coordinate.locationX = card.x;
+                coordinate.locationY = card.y;
+                var identifier:Coordinate = cardManager.getIdentifierFromLocation(coordinate);
+                trace(identifier.identifierX);
+                trace(identifier.identifierY);
+            }
+        ]]>
+    </mx:Script>
+    <mx:Canvas>
+        <mx:Panel id="hand1"
+                  title="hand1"
+                  width="100"
+                  height="200"
+                  click="handleClick(event)"/>
+        <mx:Panel id="hand2"
+                  title="hand2"
+                  width="100"
+                  height="200"/>
+        <mx:Panel id="hand3"
+                  title="hand3"
+                  width="100"
+                  height="200"/>
+        <mx:Panel id="hand4"
+                  title="hand4"
+                  width="100"
+                  height="200"/>
+        <mx:Panel id="hand5"
+                  title="hand5"
+                  width="100"
+                  height="200"/>
+    </mx:Canvas>
+</mx:Application>

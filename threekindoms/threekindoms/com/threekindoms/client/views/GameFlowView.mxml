@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml"
+          width="100%"
+          height="100%"
+          title="Chat"
+          creationComplete="init()">
+    <mx:Script>
+        <![CDATA[
+            import com.threekindoms.client.services.ElectroServerService;
+            import com.threekindoms.client.events.ViewToggleEvent;
+            import com.electrotank.electroserver5.zone.Room;
+            import com.threekindoms.client.vo.RoomInfo;
+            import com.threekindoms.client.presentmodel.GameFlowPm;
+            import com.threekindoms.client.events.LogEvent;
+            import com.threekindoms.client.events.StartGameEvent;
+            import com.threekindoms.client.model.PluginConstants;
+            import com.threekindoms.client.events.GameStateEvent;
+            import com.threekindoms.client.model.ViewType;
+            import com.threekindoms.client.events.RetrieveAllPlayersEvent;
+
+            private var _gameFlowPm:GameFlowPm;
+            private var service:ElectroServerService;
+
+            public function get gameFlowPm():GameFlowPm
+            {
+                if (!this._gameFlowPm)
+                {
+                    this._gameFlowPm = new GameFlowPm(this);
+                    service = ElectroServerService.getInstance();
+                }
+                return this._gameFlowPm;
+            }
+
+            private function init():void
+            {
+                this.addEventListener(LogEvent.VIEW_LOG, onLog);
+                this.addEventListener(StartGameEvent.STARTGAME, onStartGame);
+                this.addEventListener(GameStateEvent.GAME_STATE, onGameState);
+            }
+
+            private function onGameState(event:GameStateEvent):void
+            {
+                historyField.text += event.message + "\n";
+            }
+
+            //!!!!should change server side, add players value
+            private function onStartGame(event:StartGameEvent):void
+            {
+                historyField.text += event.message + "\n";
+                var players:Array = event.players;
+                this.dispatchEvent(new RetrieveAllPlayersEvent(players));
+                this.dispatchEvent(new ViewToggleEvent(ViewType.GameScreen));
+            }
+
+            private function onLog(event:LogEvent):void
+            {
+                historyField.text += event.message + "\n";
+                historyField.verticalScrollPosition = int.MAX_VALUE;
+            }
+
+            private function createRoom():void
+            {
+                var roomInfo:RoomInfo = buildRoomInfo();
+                this.gameFlowPm.createRoom(roomInfo);
+            }
+
+            private function joinRoom():void
+            {
+                var roomInfo:RoomInfo = buildRoomInfo();
+                this.gameFlowPm.joinRoom(roomInfo);
+            }
+
+            private function leaveRoom(room:Room):void
+            {
+                this.gameFlowPm.leaveRoom(room);
+            }
+
+            private function changeState(room:Room):void
+            {
+                this.gameFlowPm.changeState(room);
+            }
+
+            private function buildRoomInfo():RoomInfo
+            {
+                var roomInfo:RoomInfo = new RoomInfo();
+                roomInfo.rooName = roomNameField.text;
+                roomInfo.password = roomPasswordField.text;
+                return roomInfo;
+            }
+        ]]>
+    </mx:Script>
+    <mx:Form width="100%"
+             height="100%">
+        <mx:FormItem width="100%"
+                     height="100%">
+            <mx:HBox width="100%"
+                     height="100%">
+                <mx:TextArea width="100%"
+                             height="100%"
+                             selectable="false"
+                             id="historyField"/>
+            </mx:HBox>
+        </mx:FormItem>
+        <mx:FormItem label="Room name"
+                     width="50%">
+            <mx:TextInput width="50%"
+                          id="roomNameField"/>
+        </mx:FormItem>
+        <mx:FormItem label="Room Password"
+                     width="50%">
+            <mx:TextInput width="50%"
+                          id="roomPasswordField"/>
+        </mx:FormItem>
+    </mx:Form>
+    <mx:ControlBar>
+        <mx:Button label="Join"
+                   click="joinRoom();"/>
+        <mx:Button label="Create"
+                   click="createRoom();"/>
+        <mx:Button label="Leave"
+                   click="leaveRoom(GameFlowPm.currentRoom);"/>
+        <mx:Button label="GetReady"
+                   click="changeState(GameFlowPm.currentRoom);"/>
+    </mx:ControlBar>
+</mx:Panel>

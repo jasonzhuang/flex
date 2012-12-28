@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml"
+	width="100%" height="100%"
+	title="Waiting View"
+	creationComplete="init()">
+    <mx:Script>
+        <![CDATA[
+            import com.threekindoms.client.presentmodel.WaitingPm;
+            import com.threekindoms.client.events.LogEvent;
+            import com.threekindoms.client.events.LoginFailedEvent;
+
+            private var _waitingPm:WaitingPm;
+
+            public function get waitingPm():WaitingPm {
+                if (this._waitingPm == null) {
+                    this._waitingPm = new WaitingPm(this);
+                }
+                return this._waitingPm;
+            }
+
+            private function init():void {
+                this.waitingPm.addEventListener(LogEvent.VIEW_LOG, onLog);
+                this.addEventListener(LoginFailedEvent.LOGIN_FAILED, onLoginFailed);
+            }
+            
+            private function onLog(event:LogEvent):void {
+            	var message:String = event.message;
+            	waitingField.text = message;
+            }
+            
+            private function onLoginFailed(event:LoginFailedEvent):void {
+                var errorMessage:String = "Login failed: " + event.message;
+                waitingField.text = errorMessage;
+            }
+    	]]>
+    </mx:Script>
+    <mx:Text id="waitingField"
+    	   width="100%" height="100%"
+    	   text="Please wait..."/>
+</mx:Panel>

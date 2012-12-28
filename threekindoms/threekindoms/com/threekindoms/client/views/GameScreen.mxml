@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    initialize="init()">
+    <mx:Script>
+        <![CDATA[
+            import com.threekindoms.client.vo.OperationInfo;
+            import com.threekindoms.client.vo.Coordinate;
+            import com.threekindoms.client.utils.datamap.CardManager;
+            import com.threekindoms.client.presentmodel.PlayGamePm;
+            import com.threekindoms.client.events.MoveCardEvent;
+            import com.threekindoms.client.events.OperationEvent;
+            import com.threekindoms.client.events.ChangePlayerAttributesEvent;
+            import com.threekindoms.client.utils.datamap.Parser;
+            import com.threekindoms.client.utils.DisplayCardFactory;
+            import com.threekindoms.client.vo.DisplayCard;
+            import com.threekindoms.client.vo.Card;
+
+            private var _playgamePm:PlayGamePm
+            private var cardManager:CardManager;
+
+            private function init():void {
+                cardManager = Parser.getInstance().constructMap();
+            }
+
+            public function get playgamePm():PlayGamePm {
+                if (!this._playgamePm) {
+                    this._playgamePm = new PlayGamePm(this);
+                    this._playgamePm.addEventListener(MoveCardEvent.MOVE_CARD, handleMoveCard, false, 0 ,true);
+                    this._playgamePm.addEventListener(OperationEvent.OPERATION_RECEIVE, handleOperation, false, 0, true);
+                    this._playgamePm.addEventListener(ChangePlayerAttributesEvent.CHANGE_PLAYER_ATTRIBUES,
+                            handlePlayerAttributes, false, 0, true);
+                }
+                return this._playgamePm;
+            }
+
+            public function set players(value:Array):void {
+                this.playgamePm.players = value;
+            }
+
+            private function handleMoveCard(event:MoveCardEvent):void {
+                var cards:Array = event.cards;
+                var displayCard:DisplayCard;
+                var displayCards:Array = [];
+                for each (var card:Card in cards) {
+                    displayCard = DisplayCardFactory.constrcutDisplayCard(card);
+                    displayCards.push(displayCard);
+                }
+                for each (var displayCard:DisplayCard in displayCards) {
+                   var coordinate:Coordinate = cardManager.getLocationFromIdentifier(displayCard.destCoordinate);
+                   //TODO:dynamic load card from card id
+                   //var cardFX:cardFX = new CardFX(displayCard.cardId);
+                   //cardFX.x = coordinate.locationX;
+                   //cardFX.y = coordinate.locationY;
+                   //this.addChild(card);
+                }
+            }
+
+            private function handleOperation(event:OperationEvent):void {
+                var operations:Array = event.operations;
+                for each (var operation:OperationInfo in operations) {
+                    //TODO:update operation list in the ui
+                }
+            }
+
+            private function handlePlayerAttributes(event:ChangePlayerAttributesEvent):void {
+                //TODO:invoke ui compoenent to change the attributes
+            }
+
+            //handle when click a card
+            private function onClickCard(event:Event):void {
+                var target:DisplayObject = event.target as DisplayObject;
+                var coordinate:Coordinate = new Coordinate();
+                coordinate.locationX = target.x;
+                coordinate.locationY = target.y;
+                var identifier:Coordinate = cardManager.getIdentifierFromLocation(coordinate);
+                var card:Card = new Card();
+                card.x = identifier.identifierX;
+                card.y = identifier.identifierY;
+                this.playgamePm.cardChosen(card);
+            }
+        ]]>
+    </mx:Script>
+</mx:Canvas>

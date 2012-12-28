@@ -1,0 +1,99 @@
+<CardEntries>
+    <CardEntry name="myHandCards">
+        <Variable identifierX="0" identifierY="0" locationX="20" locationY="5"/>
+        <Variable identifierX="0" identifierY="1" locationX="80" locationY="5"/>
+        <Variable identifierX="0" identifierY="2" locationX="140" locationY="5"/>
+        <Variable identifierX="0" identifierY="3" locationX="200" locationY="5"/>
+        <Variable identifierX="0" identifierY="4" locationX="260" locationY="5"/>
+        <Variable identifierX="0" identifierY="5" locationX="320" locationY="5"/>
+        <Variable identifierX="0" identifierY="6" locationX="380" locationY="5"/>
+    </CardEntry>
+    <CardEntry name="myArmCards">
+        <Variable identifierX="1" identifierY="0" locationX="30" locationY="50"/>
+        <Variable identifierX="1" identifierY="1" locationX="50" locationY="50"/>
+        <Variable identifierX="1" identifierY="2" locationX="70" locationY="50"/>
+        <Variable identifierX="1" identifierY="3" locationX="90" locationY="50"/>
+    </CardEntry>
+    <CardEntry name="myStrategyCards">
+        <Variable identifierX="2" identifierY="0" locationX="30" locationY="50"/>
+        <Variable identifierX="2" identifierY="1" locationX="50" locationY="50"/>
+        <Variable identifierX="2" identifierY="2" locationX="70" locationY="50"/>
+        <Variable identifierX="2" identifierY="3" locationX="90" locationY="50"/>
+        <Variable identifierX="2" identifierY="4" locationX="110" locationY="50"/>
+    </CardEntry>
+    <CardEntry name="myEventsCards">
+        <Variable identifierX="3" identifierY="0" locationX="30" locationY="50"/>
+        <Variable identifierX="3" identifierY="1" locationX="50" locationY="50"/>
+    </CardEntry>
+    <CardEntry name="myOfficersCards">
+        <Variable identifierX="4" identifierY="0" locationX="30" locationY="50"/>
+        <Variable identifierX="4" identifierY="1" locationX="50" locationY="50"/>
+        <Variable identifierX="4" identifierY="2" locationX="70" locationY="50"/>
+        <Variable identifierX="4" identifierY="3" locationX="90" locationY="50"/>
+        <Variable identifierX="4" identifierY="4" locationX="90" locationY="50"/>
+        <Variable identifierX="4" identifierY="5" locationX="90" locationY="50"/>
+    </CardEntry>
+    <CardEntry name="myUnknowCards">
+        <Variable identifierX="5" identifierY="0" locationX="90" locationY="50"/>
+    </CardEntry>
+    <CardEntry name="myDiscardCards">
+        <Variable identifierX="6" identifierY="0" locationX="90" locationY="50"/>
+    </CardEntry>
+
+
+
+    <CardEntry name="oppositeHandCards">
+        <Variable identifierX="10" identifierY="0" locationX="20" locationY="5"/>
+        <Variable identifierX="10" identifierY="1" locationX="80" locationY="5"/>
+        <Variable identifierX="10" identifierY="2" locationX="140" locationY="5"/>
+        <Variable identifierX="10" identifierY="3" locationX="200" locationY="5"/>
+        <Variable identifierX="10" identifierY="4" locationX="260" locationY="5"/>
+        <Variable identifierX="10" identifierY="5" locationX="320" locationY="5"/>
+        <Variable identifierX="10" identifierY="6" locationX="380" locationY="5"/>
+    </CardEntry>
+    <CardEntry name="oppositeArmCards">
+        <Variable identifierX="11" identifierY="0" locationX="20" locationY="5"/>
+        <Variable identifierX="11" identifierY="1" locationX="80" locationY="5"/>
+        <Variable identifierX="11" identifierY="2" locationX="140" locationY="5"/>
+        <Variable identifierX="11" identifierY="3" locationX="200" locationY="5"/>
+        <Variable identifierX="11" identifierY="4" locationX="260" locationY="5"/>
+        <Variable identifierX="11" identifierY="5" locationX="320" locationY="5"/>
+        <Variable identifierX="11" identifierY="6" locationX="380" locationY="5"/>
+    </CardEntry>
+    <CardEntry name="oppositeStrategyCards">
+        <Variable identifierX="12" identifierY="0" locationX="20" locationY="5"/>
+        <Variable identifierX="12" identifierY="1" locationX="80" locationY="5"/>
+        <Variable identifierX="12" identifierY="2" locationX="140" locationY="5"/>
+        <Variable identifierX="12" identifierY="3" locationX="200" locationY="5"/>
+        <Variable identifierX="12" identifierY="4" locationX="260" locationY="5"/>
+        <Variable identifierX="12" identifierY="5" locationX="320" locationY="5"/>
+        <Variable identifierX="12" identifierY="6" locationX="380" locationY="5"/>
+    </CardEntry>
+    <CardEntry name="oppositeEventsCards">
+        <Variable identifierX="13" identifierY="0" locationX="20" locationY="5"/>
+        <Variable identifierX="13" identifierY="1" locationX="80" locationY="5"/>
+        <Variable identifierX="13" identifierY="2" locationX="140" locationY="5"/>
+        <Variable identifierX="13" identifierY="3" locationX="200" locationY="5"/>
+        <Variable identifierX="13" identifierY="4" locationX="260" locationY="5"/>
+        <Variable identifierX="13" identifierY="5" locationX="320" locationY="5"/>
+        <Variable identifierX="13" identifierY="6" locationX="380" locationY="5"/>
+    </CardEntry>
+    <CardEntry name="oppositeOfficersCards">
+        <Variable identifierX="14" identifierY="0" locationX="30" locationY="50"/>
+        <Variable identifierX="14" identifierY="1" locationX="50" locationY="50"/>
+        <Variable identifierX="14" identifierY="2" locationX="70" locationY="50"/>
+        <Variable identifierX="14" identifierY="3" locationX="90" locationY="50"/>
+        <Variable identifierX="14" identifierY="4" locationX="90" locationY="50"/>
+        <Variable identifierX="14" identifierY="5" locationX="90" locationY="50"/>
+    </CardEntry>
+    <CardEntry name="oppositeUnknowCards">
+        <Variable identifierX="15" identifierY="0" locationX="90" locationY="50"/>
+    </CardEntry>
+    <CardEntry name="oppositeDiscardCards">
+        <Variable identifierX="16" identifierY="0" locationX="90" locationY="50"/>
+    </CardEntry>
+
+    <CardEntry name="recapCards">
+        <Variable identifierX="20" identifierY="0" locationX="90" locationY="50"/>
+    </CardEntry>
+</CardEntries>
