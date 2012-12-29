@@ -65,7 +65,7 @@ package com.netease.component
 			loupe1.visible = loupe1.mouseChildren =  loupe2.visible = loupe2.mouseChildren = true;
 		}
 		
-		private function doAnimation():void {
+		public function doAnimation():void {
 			showLoupes();
 			loupe1Ease();
 			loupe2Ease();

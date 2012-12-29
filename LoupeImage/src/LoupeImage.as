@@ -10,15 +10,17 @@ package
 	import flash.events.IOErrorEvent;
 	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
+	import flash.system.Security;
 	
 	public class LoupeImage extends Sprite 
 	{
-		public static const BASE:String = "http://st1.yxp.126.net/builder/flash/albumPage";
+		public static const BASE:String = "http://st1.yxp.126.net/builder/flash/albumPage/";
 		
 		private var imageSelector_:int;
 		
 		public function LoupeImage():void 
 		{
+			Security.allowDomain("*");
 			init();
 		}
 		
