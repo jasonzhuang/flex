@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<actionScriptProperties analytics="false" mainApplicationPath="DragTest.as" projectUUID="9e349d99-4d1e-48c4-8698-e0c154afe524" version="10">
+<actionScriptProperties analytics="false" mainApplicationPath="BitmapTest.as" projectUUID="9e349d99-4d1e-48c4-8698-e0c154afe524" version="10">
   <compiler additionalCompilerArguments="-use-network=false" autoRSLOrdering="true" copyDependentFiles="true" flexSDK="Flex 4.6.0" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="false" includeNetmonSwc="false" outputFolderPath="bin-debug" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
     <libraryPath defaultLinkType="1">
@@ -29,10 +29,8 @@
     <application path="GraphicsTest.as"/>
     <application path="AutofillPhotoTest.as"/>
     <application path="CutomerButtonTest.as"/>
-    <application path="DragTest.as"/>
     <application path="LoaderUse.as"/>
     <application path="SocketExample.as"/>
-    <application path="FlashListRunner.as"/>
     <application path="BallToss.as"/>
     <application path="LifeCycleTest.as"/>
     <application path="DragSliderRunner.as"/>

@@ -104,6 +104,7 @@ package
 			rect.x = 50;
 			addChild(rect);
 			trace(rect.getBounds(this));//[150,100,200,200]
+			trace("rect width: ", rect.width);
 		}
 		
 		/**

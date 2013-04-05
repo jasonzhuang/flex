@@ -267,7 +267,7 @@ package components {
             var iconHeight:Number = this.icon.getExplicitOrMeasuredHeight();
             this.icon.setActualSize(iconWidth, iconHeight);
 
-            //calculate label width and heigh
+            //calculate label width and height
             var labelWidth:Number =
                     unscaledWidth - iconWidth
                             - this.getGap() - this.getLeadingSpace() - this.getTailingSpace();

@@ -7,20 +7,57 @@ package {
 	
 	import spark.primitives.Rect;
 	
-	/**
-	 * bitmap.width is photo width pixel, bitmap.height is photo height pixel
-	 */
 	public class BitmapTest extends Sprite {
 		private var _loader:Loader;
 		
 		public function BitmapTest(){
+			//applyScale()
 			//applyMatrix();
-			//applyAlpha();
-			//applyClip();
 			//copyPixels();
 			//rotateBitmap();
 			//applyGraphicsFill();
-			applyScale();
+			//modify();
+			applyMatrix2();
+		}
+	
+		private function applyMatrix2():void {
+			_loader = new Loader( );
+			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, beginDraw);
+			_loader.load(new URLRequest("assets/1.jpg"));
+		}
+		
+		private function beginDraw(event:Event):void {
+			var loader:Loader = (event.target as LoaderInfo).loader;
+			var bitmap:Bitmap = loader.content as Bitmap;
+		    bitmap.x = 50;
+			bitmap.y = 50;
+			addChild(bitmap);
+			trace(bitmap.transform.matrix);
+			
+			var oriBitmapData:BitmapData = bitmap.bitmapData;
+			var maxSize:Number = 50;
+			var w:Number;
+			var h:Number;
+			if(oriBitmapData.width >  oriBitmapData.height) {
+				w = maxSize;
+				h = maxSize / oriBitmapData.width * oriBitmapData.height;
+			} else {
+				h = maxSize;
+				w = maxSize / oriBitmapData.height * oriBitmapData.width;
+			}
+			//the canvas size
+			var result:BitmapData = new BitmapData(w, h);
+			//calculate the new dimensions of the resized bitmap
+			var matrix:Matrix = new Matrix();
+			matrix.scale(w / oriBitmapData.width, h/oriBitmapData.height);
+			
+			//apply matrix will not affect the oriBitmapData
+			result.draw(oriBitmapData, matrix, null, null, null, true);
+			
+			var newBitmap:Bitmap = new Bitmap(result);
+			newBitmap.x = 50;
+			newBitmap.y = 300;
+			addChild(newBitmap);
 		}
 		
 		private function applyScale():void {
@@ -42,7 +79,7 @@ package {
 			slot.graphics.beginFill(0xff0000, 1);
 			slot.graphics.drawRect(0,0,slotWidth,slotHeight);
 		    addChild(slot);
-			
+			trace("width, height -----", this.width, this.height);//300,100
 			//满足slot最长边比例填充
 			var ratio:Number = slotWidth/sourceWidth;
 			var tx:Number = 0;
@@ -61,6 +98,7 @@ package {
 			bitmapData.draw(bitmap.bitmapData, matrix, null, null, null, true);
 			var result:Bitmap = new Bitmap(bitmapData);
 			addChild(result);
+			trace("width, height -----", this.width, this.height);
 		}
 		
 		private function applyGraphicsFill():void {
@@ -102,89 +140,71 @@ package {
 		}
 		
 		/**
-		 * copyPixels(sourceBitmapData:BitmapData, sourceRect:Rectangle, destPoint:Point)
-		 *
-		 * sourceRect of x, y corresponds to the upper-left corner of the source object
-		 * destPoint of x,y corresponds to upper-left corner of the rectangular area(BitmapData area) where the new pixels(the bitmap) are placed
+		 * copyPixels( ) operations proved to be 25% to 300% faster than equivalent draw( ) operations
+		 * 	sourceRect: A Rectangle object specifying the region of sourceBitmapData that will be copied
+					into destinationBitmapData. When alphaBitmapData is supplied, this parameter also
+					specifies the width and height of the rectangular region within alphaBitmapData
+		 * destPoint: A Point object specifying the top-left corner of the rectangular region within
+				destinationBitmapData where the copied pixels will be placed
+		 * alphaBitmapData: An optional BitmapData object, separate from sourceBitmapData, whose Alpha
+						channel values will become the new Alpha channel values of the pixels written to
+						destinationBitmapData
+		 * alphaPoint: A Point object specifying the top-left corner of the rectangular region within
+					alphaBitmapData
+		 * mergeAlpha: the Alpha channels of destinationBitmapData and sourceBitmapData should be combined (true) or the
+				Alpha channel of sourceBitmapData should completely replace the existing
+				destinationBitmapData Alpha channel (false).
 		 */
 		private function copyPixels():void {
-			_loader = new Loader( );
-			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, beginCopyPixels);
-			_loader.load(new URLRequest("assets/50725.jpg"));
+			var redSquare:BitmapData = new BitmapData(100, 100, true, 0xFFFF0000);
+			var blueSquare:BitmapData = new BitmapData(100, 100, true, 0xFF0000FF);
+			
+			var sourceRect:Rectangle = new Rectangle(50, 50, 50, 50);
+			var destPoint:Point = new Point(10, 20);
+			
+			redSquare.copyPixels(blueSquare, sourceRect, destPoint);
+			
+			var b:Bitmap = new Bitmap(redSquare);
+			addChild(b);
 		}
 		
-		private function beginCopyPixels(event:Event):void {
-			var loader:Loader = (event.target as LoaderInfo).loader;
-			var bitmap:Bitmap = loader.content as Bitmap;
-			bitmap.x = 100;//no effect for destPoint
-			var bitmapData:BitmapData = new BitmapData(bitmap.width, bitmap.height, false, 0xff0000);
-			var image:Bitmap = new Bitmap(bitmapData);
-			addChild(image);
-			bitmapData.copyPixels(bitmap.bitmapData, new Rectangle(100,0,200,200), new Point(100,50));
+		 /**
+		 * Note:
+		 * 	draw(source, matrix, ...) if source is a DisplayObject, its transformations are not included when it is drawn
+		 *	into destinationBitmapData.
+		 * Matrix is applied to source pixels.
+		 * clipRect defines the area of the source object(after apply matrix) to draw on destinationBitmapData
+		 * */
+		private function applyMatrix():void {
+			var rect:Shape = new Shape( );
+			rect.graphics.beginFill(0xFF0000);
+			rect.graphics.drawRect(0,0,100,100);
+			rect.rotation = 30;
+			
+			var canvas:BitmapData = new BitmapData(100, 100, false, 0xFFFFFFFF);
+			var matrix:Matrix = new Matrix();
+			matrix.translate(50, 50);
+			canvas.draw(rect, matrix, null, null, null, true);
+			
+			addChild(new Bitmap(canvas));
 		}
 		
 		/**
-		 * clipRect defines the area of the source object(after apply matrix) to draw on bitmapData
+		 * 1.Alpha channel value for pixels in nontransparent bitmaps is always 255, even when a different Alpha value is assigned
+		 * 2.setPixel() sets only the Red, Green, and Blue channels of a pixel’s color value, leaving the pixel’s
+              original Alpha channel unaltered. Using setPixel32() for change alpha channel.
 		 */
-		private function applyClip():void {
-			_loader = new Loader( );
-			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, beginClip);
-			_loader.load(new URLRequest("assets/50725.jpg"));
-		}
-		
-		private function beginClip(event:Event):void {
-			var loader:Loader = (event.target as LoaderInfo).loader;
-			var bitmap:Bitmap = loader.content as Bitmap;
-			var bitmapData:BitmapData = new BitmapData(bitmap.width, bitmap.height, false, 0x09000000);
-			var matrix:Matrix = new Matrix();
-			matrix.scale(0.5, 0.5);
-			var clip:Rectangle = new Rectangle(100,100,200,200);
-			bitmapData.draw(bitmap, matrix, null, null, clip, true);
-			var image:Bitmap = new Bitmap(bitmapData);
-			addChild(image);
-			//draw the rect with specific color
-			bitmapData.fillRect(new Rectangle(25, 25, 50, 50), 0xffff0000);
-		}
-		
-		
-		 /**
-		 * 1. bitmapData only draw 100 width and 150 height of sourceBitmap which begin from (0,0) of sourceBitmap
-		 * 2. bitmapData.draw(rect , matrix,...), the matrix object used to scale, rotate, or translate the coordinates of the source object.
-		 * 3. clipRect defines the area of the source object(after apply matrix) to draw on bitmapData
-		*/
-		private function applyMatrix():void {
-			_loader = new Loader( );
-			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, beginMatrix);
-			_loader.load(new URLRequest("assets/50725.jpg"));
-		}
-		
-		private function beginMatrix(event:Event):void {
-			var loader:Loader = (event.target as LoaderInfo).loader;
-			var bitmap:Bitmap = loader.content as Bitmap;
-			bitmap.smoothing = true;
-			var ratio:Number = 0.3;
-			var matrix:Matrix = new Matrix();
-			matrix.scale(ratio, ratio);
-			matrix.translate(100,100);//move the sourceBitmap 100,100
-		    //bitmap.transform.matrix = matrix;
-			//addChild(bitmap);
-			//following code has the same effect
-			var clip:Rectangle = new Rectangle(200,150,50,50);
-			var bitmapData:BitmapData = new BitmapData(bitmap.width*ratio, bitmap.height*ratio, true, 0xffff0000);
-			bitmapData.draw(bitmap.bitmapData, matrix, null, null, clip, true);
-			var result:Bitmap = new Bitmap(bitmapData);
-			trace("result width: " + result.width + ", result height: " + result.height);
-			addChild(result);
-		}
-		
-		private function applyAlpha():void {
-			var myBitmapData:BitmapData = new BitmapData(100, 100, true, 0x90000000);
-			var tf:TextField = new TextField();
-			tf.text = "bitmap text";
-			myBitmapData.draw(tf);
-			var bm:Bitmap = new Bitmap(myBitmapData);
-			this.addChild(bm);
-
+		private function modify():void {
+			var imgData:BitmapData = new BitmapData(100, 100, false, 0xFF0000FF);
+			imgData.setPixel32(20, 30, 0xFF000000);
+			var bitmap:Bitmap = new Bitmap(imgData);
+			addChild(bitmap);
+			
+			var imgData2:BitmapData = new BitmapData(100, 100, true, 0x660000FF);
+			imgData2.setPixel(0, 0, 0xFFFFFF);
+			var aphaBitmap:Bitmap = new Bitmap(imgData2);
+			addChild(aphaBitmap);
+			aphaBitmap.x = aphaBitmap.y = 200;
 		}
 	}
 }

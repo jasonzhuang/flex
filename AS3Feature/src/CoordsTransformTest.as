@@ -14,28 +14,28 @@ package {
 		{
 			//rotationCenter();
 			//mouseLocation();
-			//pointTransform();
-			translateObj();
+			pointTransform();
+			//translateObj();
 		}
 		
 		/**
-		 *Note: when using var matrix:Matrix = new Matrix(), the coordination is relative to parent origin (0,0) if it has parent, otherwise relative to screen (0,0)
+		 * when set x, y, rotation, matrix is automatically created 
 		 */
 		private function translateObj():void {
+			var container:Sprite = new Sprite();
+			container.x = 100;
+			addChild(container);
+			trace("container matrix: ", container.transform.matrix);//(a=1, b=0, c=0, d=1, tx=100, ty=0) =====tx=100=====
 			var rect:Sprite = new Sprite();
 			rect.graphics.beginFill(0xff0000,1);
 			rect.graphics.drawRect(0,0,100,100);
 			rect.graphics.endFill();
-			var container:Sprite = new Sprite();
 			container.addChild(rect);
-			container.x = 100
-			addChild(container);
-			trace("container matrix: " + container.transform.matrix);
-			trace(rect.transform.matrix);
+			trace("rect matrix: ", rect.transform.matrix);//(a=1, b=0, c=0, d=1, tx=0, ty=0)
 			var matrix:Matrix = new Matrix();
 			matrix.translate(100,100);
 			rect.transform.matrix = matrix;
-			trace(rect.transform.matrix);
+			trace("rect matrix", rect.transform.matrix);//(a=1, b=0, c=0, d=1, tx=100, ty=100)
 			var matrix1:Matrix = new Matrix(1,0,0,1,100,0);
 			var matrix2:Matrix = new Matrix(1,0,0,1,100,0);
 			matrix1.concat(matrix2);

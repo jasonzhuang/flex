@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
-xmlns:s="library://ns.adobe.com/flex/spark"
-xmlns:mx="library://ns.adobe.com/flex/mx"
-initialize="init()">
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+ 	xmlns:components="components.*"
+	initialize="init()"
+	>
 	<fx:Script>
 		<![CDATA[
-			import mx.core.UIComponent;
-			import mx.controls.Alert;
-			
 			private function init():void {
-				var rect:Shape = new Shape();
-				rect.graphics.beginFill(0x000000, 0.5);
-				rect.graphics.drawRect(0,0,100,100);
-				rect.graphics.endFill();
-				var ui:UIComponent = new UIComponent();
-				trace("rect height: " + rect.height);
-				ui.addChild(rect);
-				ui.x = 50;
-				this.addElement(ui);
+			}
+			
+			private function imgComplete(event:Event):void {
+				trace(event.target);
+				trace("complete handler");
+			}
+			
+			private function imgCreated(event:Event):void {
+				trace(event.target);
+				trace("creationComplete handler");
 			}
 		]]>
 	</fx:Script>
+	<s:Image source="@Embed('assets/1.jpg')" complete="imgComplete(event)" creationComplete="imgCreated(event)"/>
 </s:Application>
