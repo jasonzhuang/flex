@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	>
+	<fx:Script>
+		<![CDATA[
+			//The Spark Group, DataGroup, and RichEditableText components implement the IViewport interface 
+			private function inspect():void {
+				trace(viewport.contentWidth + ", " + viewport.contentHeight);//110 120
+			}
+		]]>
+	</fx:Script>
+<!--	<s:Scroller id="scroller" width="200" height="200" left="300" top="300" creationComplete="inspect()">
+		<s:Group id="viewport"
+			horizontalScrollPosition="50" verticalScrollPosition="50"> 
+			<mx:Image width="300" height="400" 
+					  source="@Embed(source='assets/foto.jpg')"/> 
+		</s:Group>                 
+	</s:Scroller>-->
+	<s:Group id="viewport" creationComplete="inspect()">
+		<s:Rect x="10" y="20" width="100" height="100">
+			<s:fill>
+				<s:SolidColor color="#ff0000"/>
+			</s:fill>
+		</s:Rect>
+	</s:Group>
+</s:Application>

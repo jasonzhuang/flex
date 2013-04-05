@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+        creationComplete="registerListener()">
+    <mx:Script>
+        <![CDATA[
+        	import mx.controls.Label;
+            import closure.sampleClosure;
+            /**
+            * This demo demonstrates:
+            * Immediately before ActionScript dispatches a given event, it <b>predetermines</b> the entire
+            * event flow for that dispatch based on the current state of the event target’s display
+            * hierarchy.
+            * Once the event dispatch begins, objects are notified of the event according to
+            * that predetermined order—even even the structure of the target object’s display hierarchy
+            * is modified by event listeners during the event dispatch.
+            */
+            private function registerListener():void {
+                // If an ancestor listener should be triggered both during the capture
+                // phase and the bubbling phase, we must register that listener twice
+                this.addEventListener(MouseEvent.CLICK, outHandler, true);
+                this.addEventListener(MouseEvent.CLICK, outHandler, false);
+                // 1. To prove that the invoke button object receives MouseEvent.CLICK event
+                // notification even after it is removed from displaylist
+                // 2.when multiple event listeners are registered for a single event type with a
+                // given object, those listeners are triggered in the order in which they registered.
+                // Following snippet shows <code>invokeHandler</code> execute before <code>functionClosure</code>
+                // 3.There is no way to force a listener of one object in the event flow to be
+                // triggered before or after a listener of another object in the same event flow.
+                this.invoke.addEventListener(MouseEvent.CLICK, invokeHandler);
+                //register a package level function closure
+                //When registering an event listener directly with an event target for
+                //target-phase notification, the useCapture parameter should always be
+                //either set to false or omitted. Otherwise, the listener will never be
+                //triggered.
+                //this.invoke.addEventListener(MouseEvent.CLICK, sampleClosure, true); the handler 
+                //will not be triggered
+                this.invoke.addEventListener(MouseEvent.CLICK, sampleClosure);
+                this.preventDefaultShow.addEventListener(TextEvent.TEXT_INPUT, textInputListener);
+                stopEventCase();
+            }
+
+            private function outHandler(e:MouseEvent):void {
+                this.removeChild(this.invoke);
+                this.invoke = null;
+                trace("this is out handler");
+            }
+
+            private function invokeHandler(e:MouseEvent):void {
+                // By now, outHandler( ) has removed the invoke button object,
+                // but this listener is still triggered.
+                // So, before set an object to null, remove all eventListners
+                trace("this is invoke button handler");
+            }
+
+            //the default behavior of a TextEvent.TEXT_INPUT event is text
+            //being added to the target text field
+            /**
+            * The TextEvent.TEXT_INPUT event indicates that the user is attempting to add new text
+              to an input text field and provides the application with an opportunity to eithe
+              thwart or allow that attempt.
+              the Event.CHANGE event indicates that a user’s
+              attempt to add new text to an input text field has succeeded, and that Flash Player
+              has finished updating the text field’s content accordingly
+            */
+            private function textInputListener(event:TextEvent):void {
+                trace("Attempted text input is: " + event.text);
+                // Stop the user-entered text from appearing in the text field
+                event.preventDefault();
+                // Add the letter "yougen" to the text field instead of
+                // the user-entered text
+                preventDefaultShow.text = "yougen";
+            }
+
+            private function stopEventCase():void {
+                var container:VBox = new VBox( );
+                var child:Label = new Label();
+                child.text = "This is child";
+                container.addChild(child);
+				container.addEventListener(MouseEvent.CLICK, containerClickListenerOne, true);
+				container.addEventListener(MouseEvent.CLICK, containerClickListenerTwo, true);
+                child.addEventListener(MouseEvent.CLICK, childClickListener, false);
+            }
+
+            private function containerClickListenerOne(e:MouseEvent):void {
+                trace("containerClickListenerOne");
+                // Prevent containerClickListenerTwo() and childClickListener( ) from
+                // receiving the event
+                e.stopImmediatePropagation();
+                // containerClickListenerTwo() receives the event, but
+                // childClickListener() does not.
+                e.stopPropagation();
+            }
+
+            private function containerClickListenerTwo(e:MouseEvent):void {
+                trace("containerClickListenerTwo");
+            }
+
+            private function childClickListener(e:MouseEvent):void {
+                trace("childClickListener");
+            }
+        ]]>
+    </mx:Script>
+    <mx:Button id="invoke" label="invoke"/>
+    <mx:TextInput id="preventDefaultShow"/>
+</mx:VBox>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	>
+	<fx:Script>
+		<![CDATA[
+			private var _dragViewSource:Object;
+			private var dragSourceChanged:Boolean; 
+			
+			private var _selectedPhotoes:int;
+			private var photoNumChanged:Boolean;
+			
+			public function get selectedPhotoes():int
+			{
+				return _selectedPhotoes;
+			}
+
+			public function set selectedPhotoes(value:int):void
+			{
+				if(value == this._selectedPhotoes) {
+					return;
+				}
+				_selectedPhotoes = value;
+				photoNumChanged = true;
+				this.invalidateProperties();
+				this.invalidateDisplayList();
+			}
+
+			public function get dragViewSource():Object
+			{
+				return _dragViewSource;
+			}
+
+			public function set dragViewSource(value:Object):void
+			{
+				if(value == this._dragViewSource) {
+					return;
+				}
+				
+				_dragViewSource = value;
+				dragSourceChanged = true;
+				this.invalidateProperties();
+				this.invalidateDisplayList();
+			}
+
+			override protected function commitProperties():void {
+				super.commitProperties();
+				
+				if(photoNumChanged) {
+					photoNumChanged = false;
+					img.source = this._dragViewSource;
+				}
+				
+				if(dragSourceChanged) {
+					dragSourceChanged = false;
+					selectNum.text = String(this._selectedPhotoes);
+				}
+			}
+			
+			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
+				super.updateDisplayList(unscaledWidth, unscaledHeight);
+				
+				ribbon.x = img.width/2;
+				ribbon.y = img.height/2;
+				
+				selectNum.x= (ribbon.x + ribbon.width)/2;
+				selectNum.y = (ribbon.y + ribbon.height)/2;
+			}
+		]]>
+	</fx:Script>
+	<s:BitmapImage id="img" width="{this.width}" height="{this.height}"/>
+	<s:BitmapImage id="ribbon" source="@Embed('assets/ribbon.png')"/>
+	<s:Label id="selectNum"/>
+</s:Group>

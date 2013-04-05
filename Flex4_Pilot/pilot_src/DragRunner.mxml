@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	initialize="init()">
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayList;
+			import mx.core.IUIComponent;
+			import mx.events.DragEvent;
+			import mx.managers.DragManager;
+			/**
+			 * A component that acts as a drag initiator handles the following events to manage the drag-and-drop operation
+			 * 
+			 * mouseDown or mouseMove
+			 * dragStart
+			 * dragComplete
+			 */ 
+			
+			
+			/**
+			 * To use a component as a drop target, you handle the following events:
+			 * dragEnter
+			 * dragOver
+			 * dragDrop
+			 * dragExit
+			 */ 
+			
+			[Bindable]
+			private var bagsData:ArrayList;
+			
+			private function init():void {
+				bagsData = new ArrayList(["one", "two", "three"]);
+				factory.dataProvider = new ArrayList(["f1", "f2", "f3"]);
+			}
+			
+			private function dragEnterHandler(event:DragEvent):void {
+				DragManager.acceptDragDrop(event.target as IUIComponent);
+			}
+			
+			private function dragDropHandler(event:DragEvent):void {
+				trace("bag droped");
+			}
+			
+			private function dragOverHandler(event:DragEvent):void {
+				factory.setStyle("borderColor", "#ffff00");
+			}
+
+			private function dragExitHandler(event:DragEvent):void {
+				factory.setStyle("borderColor", "#ff0000");
+			}
+		]]>
+	</fx:Script>
+	<s:List left="50" top="50" id="bags" dataProvider="{bagsData}"
+			dragEnabled="true">
+		<s:layout>
+			<s:TileLayout requestedRowCount="1" paddingLeft="10" paddingRight="10"/>
+		</s:layout>
+	</s:List>
+	<s:List id="factory" left="50" top="200"
+					   width="300" height="300"
+					   borderColor="#ff0000"
+					   dragEnabled="false"
+					   dragEnter="dragEnterHandler(event)"
+					   dragOver="dragOverHandler(event)"
+					   dragDrop="dragDropHandler(event)"
+					   dragExit="dragExitHandler(event)">
+		<s:layout>
+			<s:TileLayout requestedRowCount="1" paddingLeft="10" paddingRight="10"/>
+		</s:layout>
+	</s:List>
+</s:Application>

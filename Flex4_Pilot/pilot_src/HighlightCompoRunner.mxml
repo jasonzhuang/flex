@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	updateComplete="drawGuide()">
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
+				super.updateDisplayList(unscaledWidth, unscaledHeight);
+				trace("updateDisplayList...");
+				drawGuide();
+			}
+			
+			private function drawGuide():void {
+				trace("drawGuide...");
+				if(content) {
+					content.removeAllElements();
+					content.graphics.clear();
+					content.graphics.beginFill(0xffffff,0.01);
+					content.graphics.drawRect(0,0,FlexGlobals.topLevelApplication.width, FlexGlobals.topLevelApplication.height);
+					content.graphics.endFill();
+					content.graphics.beginFill(0x212121,0.7);
+					content.graphics.drawRect(0,0, this.width, this.height);
+					drawHighlightPart();
+					content.graphics.endFill();
+				}
+			}
+			
+			private function drawHighlightPart():void {
+				var rect:Rectangle = btn.getBounds(FlexGlobals.topLevelApplication as DisplayObject);//important
+				trace(rect);
+				var offset:int = 4;
+				content.graphics.drawRoundRectComplex(rect.x-offset, rect.y-offset, rect.width+2*offset, rect.height+2*offset,5,5,5,5);
+			}
+		]]>
+	</fx:Script>
+	<s:Group id="content" width="100%" height="100%"/>
+	<s:Button id="btn" label="OK" width="50" height="30" x="100" y="300"/>
+</s:Application>

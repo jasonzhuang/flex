@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	creationComplete="creationCompleteHandler()">
+	<fx:Script>
+		<![CDATA[
+			import mx.core.DragSource;
+			import mx.events.DragEvent;
+			import mx.events.SandboxMouseEvent;
+			import mx.managers.DragManager;
+			
+			private function creationCompleteHandler():void
+			{
+				xfactory.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
+				ofactory.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
+				grid.addEventListener(DragEvent.DRAG_ENTER, dragEnterHandler);
+				grid.addEventListener(DragEvent.DRAG_OVER, dragOverHandler);
+				grid.addEventListener(DragEvent.DRAG_EXIT, dragExitHandler);
+				grid.addEventListener(DragEvent.DRAG_DROP, dragDropHandler);
+			}
+			
+			private function makeTile(text:String):Group
+			{
+				var tile:Group = new Group();
+				tile.width = 50;
+				tile.height = 50;
+				
+				var rect:Rect = new Rect();
+				tile.addElement(rect);
+				rect.width = 50;
+				rect.height = 50;
+				rect.fill = new SolidColor();
+				SolidColor(rect.fill).color = text == "X" ? 0xFF0000 : 0x00FF00;
+				
+				var label:Label = new Label();
+				tile.addElement(label);
+				label.text = text;
+				label.setStyle("fontSize", 40);
+				label.horizontalCenter = 0;
+				label.verticalCenter = 0;
+				
+				tile.validateNow();
+				
+				return tile;
+			}
+			
+			private var mouseTarget:Group;
+			private var mouseDownX:Number;
+			private var mouseDownY:Number;
+			
+			private function mouseDownHandler(event:MouseEvent):void
+			{
+				// lower priority so DragProxy moves first
+				systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, true, -1);
+				systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true);
+				systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseUpHandler);
+				if (xfactory.contains(event.target as DisplayObject))
+					mouseTarget = xfactory;
+				else
+					mouseTarget = ofactory;
+				mouseDownX = event.stageX;
+				mouseDownY = event.stageY;
+			}
+			
+			private function mouseMoveHandler(event:MouseEvent):void
+			{
+				if (DragManager.isDragging)
+				{
+					if (grid.hitTestPoint(event.stageX, event.stageY))
+					{
+						// figure out where you really want it to be
+						var pt:Point = getGridPosition(event);
+						pt = grid.localToGlobal(pt);
+						
+						// shove the dragImage and cursor there.  I can use getChildAt(0)
+						// in this example since I know there are no other popups.  Your
+						// code may have to be smarter.
+						var cursorOffsetX:Number;
+						var cursorOffsetY:Number;
+						var cursor:DisplayObject = systemManager.cursorChildren.getChildAt(0);
+						var image:DisplayObject = systemManager.popUpChildren.getChildAt(0);
+						cursorOffsetX = image.x - cursor.x;
+						cursorOffsetY = image.y - cursor.y;
+						image.x = pt.x;
+						image.y = pt.y;
+						cursor.x = image.x - cursorOffsetX;
+						cursor.y = image.y - cursorOffsetY;
+					}
+					return;
+				}
+				
+				if (Math.abs(event.stageX - mouseDownX) > 4 ||
+					Math.abs(event.stageY - mouseDownY) > 4)
+				{
+					var dragImage:Group = makeTile(mouseTarget == xfactory ? "X" : "O");
+					
+					var dragSource:DragSource = new DragSource();
+					dragSource.addData(mouseTarget == xfactory ? "X" : "O", "value");
+					DragManager.doDrag(mouseTarget,
+						dragSource,
+						event,
+						dragImage,
+						0, 0, 0.5, false);
+				}
+			}
+			
+			private function mouseUpHandler(event:Event):void
+			{
+				systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, true);
+				systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true);
+				systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseUpHandler);
+				mouseTarget = null;
+			}
+			
+			private function dragEnterHandler(event:DragEvent):void
+			{
+				DragManager.acceptDragDrop(grid);
+				DragManager.showFeedback(DragManager.COPY);
+			}
+			
+			private function dragOverHandler(event:DragEvent):void
+			{
+				DragManager.acceptDragDrop(grid);
+				DragManager.showFeedback(DragManager.COPY);
+			}
+			
+			private function dragExitHandler(event:DragEvent):void
+			{
+				DragManager.showFeedback(DragManager.NONE);
+			}
+			
+			private function dragDropHandler(event:DragEvent):void
+			{
+				var text:String = event.dragSource.dataForFormat("value") as String;
+				var tile:Group = makeTile(text);
+				grid.addElement(tile);
+				var pos:Point = getGridPosition(event);
+				tile.x = pos.x;
+				tile.y = pos.y;
+			}
+			
+			private function getGridPosition(event:MouseEvent):Point
+			{
+				return new Point(Math.floor(grid.mouseX / 55) * 55,
+					Math.floor(grid.mouseY / 55) * 55);
+			}
+			
+		]]>
+	</fx:Script>
+	<s:Group id="xfactory" width="50" height="50" >
+		<s:Rect width="50" height="50">
+			<s:fill>
+				<s:SolidColor color="0xFF0000" />
+			</s:fill>
+		</s:Rect>
+		<s:Label horizontalCenter="0" verticalCenter="0" 
+				 text="X" fontSize="40" />
+	</s:Group>
+	<s:Group id="ofactory" width="50" height="50" x="50" >
+		<s:Rect width="50" height="50">
+			<s:fill>
+				<s:SolidColor color="0x00FF00" />
+			</s:fill>
+		</s:Rect>
+		<s:Label horizontalCenter="0" verticalCenter="0" 
+				 text="O" fontSize="40" />
+	</s:Group>
+	
+	<s:Group y="100" id="grid">
+		<s:Rect width="160" height="160">
+			<s:fill>
+				<s:SolidColor color="0xeeeeee" />
+			</s:fill>
+		</s:Rect>
+		<s:Rect x="50" y="0" width="5" height="160">
+			<s:fill>
+				<s:SolidColor color="0x000000" />
+			</s:fill>
+		</s:Rect>
+		<s:Rect x="105" y="0" width="5" height="160">
+			<s:fill>
+				<s:SolidColor color="0x000000" />
+			</s:fill>
+		</s:Rect>
+		<s:Rect x="0" y="50" width="160" height="5">
+			<s:fill>
+				<s:SolidColor color="0x000000" />
+			</s:fill>
+		</s:Rect>
+		<s:Rect x="0" y="105" width="160" height="5">
+			<s:fill>
+				<s:SolidColor color="0x000000" />
+			</s:fill>
+		</s:Rect>
+	</s:Group>
+	
+</s:Application>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx" 
+	mouseChildren="false">
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="hovered" />
+		<s:State name="selected" />
+		<s:State name="dragging"/>
+	</s:states>
+	<fx:Script>
+		<![CDATA[
+			import vo.PhotoVO;
+			
+			private var photoVO:PhotoVO;
+			
+			override public function set data(value:Object):void {
+				super.data = value;
+				
+				if(!value) {
+					return;
+				}
+				
+				photoVO = value as PhotoVO;
+				
+				img.source = photoVO.url;
+				desc.text = photoVO.desc ? photoVO.desc : "";
+			}
+		]]>
+	</fx:Script>
+	<s:Image id="img" x="0" y="0" width="200" height="200" mouseEnabled="false" mouseChildren="false"/>
+	<s:Label id="desc" x="{img.width/2}" y="{img.height/2}" mouseEnabled="false" mouseChildren="false"/>
+</s:ItemRenderer>
