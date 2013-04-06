@@ -1,0 +1,8 @@
+-include-libraries "../libs/automation_monkey3.2.swc" "${flexlib}/libs/automation_agent.swc"
+
+refer help doc for deploy issue in flexmonkium, essential actionscript 798 page
+
+external-library-path when an increase in the overall application's file is not acceptable(essential actionscript 818 page)
+
+external swf include essential actionscript 821page
+

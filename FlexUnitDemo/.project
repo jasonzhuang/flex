@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>FlexUnitDemo</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>com.adobe.flexbuilder.project.flexbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.adobe.flexbuilder.project.flexnature</nature>
+		<nature>com.adobe.flexbuilder.project.actionscriptnature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>[source path] FlexUnit4</name>
+			<type>2</type>
+			<location>C:/learn_flex/flexunit-source/FlexUnit4</location>
+		</link>
+		<link>
+			<name>[source path] FlexUnit4CIListener</name>
+			<type>2</type>
+			<location>C:/learn_flex/flexunit-source/FlexUnit4CIListener</location>
+		</link>
+	</linkedResources>
+</projectDescription>

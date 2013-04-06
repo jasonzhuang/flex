@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites>
+  <testsuite errors="0" failures="0" hostname="CN-PC-HZ1615" id="0" name="SimpleMathTest" package="testSuite" skipped="0" tests="4" time="0.019" timestamp="2011-07-28T11:38:19">
+      <testcase classname="testSuite::SimpleMathTest" name="addition" time="0.016" />
+
+      <testcase classname="testSuite::SimpleMathTest" name="subtraction" time="0.001" />
+
+      <testcase classname="testSuite::SimpleMathTest" name="divisionWithException" time="0.001" />
+
+      <testcase classname="testSuite::SimpleMathTest" name="testAddExtreme" time="0.001" />
+
+  </testsuite>
+</testsuites>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" creationComplete="init()" height="600" width="800" xmlns:local="*">
+    <mx:Script>
+        <![CDATA[
+            import mx.binding.utils.BindingUtils;
+            import mx.collections.ArrayCollection;
+            import mx.controls.Alert;
+            import mx.events.ValidationResultEvent;
+            import mx.formatters.DateBase;
+            [Bindable]
+            private var _contacts:ArrayCollection = new ArrayCollection();      
+            public function get contacts():ArrayCollection {
+                return _contacts;
+            }
+            
+            [Bindable]
+            public var input:MonkeyContact = new MonkeyContact();
+            
+            private function init():void {
+                BindingUtils.bindProperty(this, "input", grid, "selectedItem");
+                
+                /* uncomment this trace statement to run the tests 
+                   whenever the app is launched, e.g. in the debugger */
+                // trace(FlexMonkeyTestController);
+            }
+            
+            private function add():void {
+                if (phoneval.validate().type == ValidationResultEvent.INVALID) {
+                    inPhone.setFocus();
+                    return;
+                }
+                addContact();                   
+            }
+            
+            private function addContact():void {
+                _contacts.addItemAt(makeContact(), 0); 
+                grid.selectedIndex = 0;             
+            }
+            
+            private function makeContact():MonkeyContact {
+                var contact:MonkeyContact = new MonkeyContact();
+                contact.name = inName.text;
+                contact.phone = inPhone.text;
+                contact.type = inType.selectedItem as String;
+                contact.birthday = inDate.selectedDate;
+                return contact;
+            }
+            
+            private function change():void {
+                var index:int = grid.selectedIndex; 
+                _contacts.addItemAt(makeContact(), index); 
+                deleteRow();
+                grid.selectedIndex = index              
+            }
+            
+            private function deleteRow():void {
+                _contacts.removeItemAt(grid.selectedIndex)
+                //another comment                           
+            }
+            
+            private function formatDate(item:Object, column:DataGridColumn):String {
+                return item.birthday ? item.birthday.toDateString() : "";
+            }
+            
+        ]]>
+    </mx:Script>
+    <mx:StringValidator id="phoneval" required="true" requiredFieldError="You must specify a phone number."
+                        source="{inPhone}" property="text" trigger="{addBut}" triggerEvent="click"/>
+    <mx:TitleWindow x="10" y="10" width="100%" height="100%" layout="absolute">
+        <mx:VDividedBox x="10" y="10" width="100%" height="100%">
+            <mx:VBox>               
+                <mx:Form width="100%" height="100%">
+                    <mx:Text text="Monkey Contact Manager" fontSize="33"/>
+                    <mx:FormItem label="Name">
+                        <mx:TextInput id="inName" text="{input.name}"  />
+                    </mx:FormItem>
+                    <mx:FormItem label="Phone Type">
+                        <mx:ComboBox 
+                            openDuration = "0"
+                            closeDuration = "0" 
+                            id="inType" dataProvider="{['Home', 'Work', 'Mobile']}" selectedIndex="{input.type == 'Home' ? 0 : input.type == 'Work' ? 1 : 2}"/>
+                    </mx:FormItem>              
+                    <mx:FormItem label="Phone">
+                        <mx:TextInput id="inPhone" text="{input.phone}"/>
+                    </mx:FormItem>
+                    <mx:FormItem label="Birthday">
+                        <mx:DateField id="inDate" selectedDate="{input.birthday}"/>
+                    </mx:FormItem>
+                    
+                </mx:Form>
+                <mx:ControlBar>
+                    <mx:Button id="addBut" label="Add" click="add()"/>
+                    <mx:Button label="Change" click="change()" enabled="{grid.selectedIndex > -1}"/>
+                    <mx:Button label="Delete" click="deleteRow()" enabled="{grid.selectedIndex > -1}"/>
+                </mx:ControlBar>
+            </mx:VBox>          
+            <mx:DataGrid id="grid" width="100%" height="100%" dataProvider="{_contacts}" editable="true">
+                <mx:columns>
+                    <mx:DataGridColumn width="20" editable="false"/>                        
+                    <mx:DataGridColumn headerText="Name" dataField="name" />
+                    <mx:DataGridColumn headerText="Phone Type" 
+                                       dataField="type"
+                                       itemEditor="PhoneGridItemRenderer" editorDataField="value" 
+                                       />
+                    <mx:DataGridColumn headerText="Phone" dataField="phone"/>
+                    <mx:DataGridColumn headerText="Birthday" dataField="birthday" labelFunction="formatDate" editorDataField="selectedDate" itemEditor="mx.controls.DateField"/>                        
+                </mx:columns>
+            </mx:DataGrid>
+            <mx:Label text="MonkeyContacts Example"/>               
+        </mx:VDividedBox>
+    </mx:TitleWindow>
+    <!-- Uncomment the following line to link tests directly into SWF, rather than running module from ant -->
+    <!-- local:TestModule id="tests" creationComplete="MonkeyLinkTestLauncher.monkeyLinkTestLauncher.runTests(tests, 'snapshots')"/ -->
+</mx:Application>

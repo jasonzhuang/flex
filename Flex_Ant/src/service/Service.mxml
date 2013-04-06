@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<business:ServiceLocator
+        xmlns:mx="http://www.adobe.com/2006/mxml"
+        xmlns:business="com.adobe.cairngorm.business.*">
+    <mx:Script>
+        <![CDATA[
+            public static const RETRIEVE_EMPLOYEE:String = "employeeService";
+
+            /**
+            * Notice:if endpointUrl configured wrong, if throw
+            * <code>Channel.Connect.Failed error NetConnection.Call.Failed: HTTP: Failed</code>
+            */
+            [Bindable]
+            protected var endpointUrl:String = "http://localhost:7001/flex_java_Integration/messagebroker/amf";
+        ]]>
+    </mx:Script>
+    <!--SHOULD indicate endpoint in RemoteObject-->
+    <mx:RemoteObject id="employeeService"
+            destination="employeeServiceDestination"
+            endpoint="{this.endpointUrl}"
+            showBusyCursor="true"
+            />
+</business:ServiceLocator>

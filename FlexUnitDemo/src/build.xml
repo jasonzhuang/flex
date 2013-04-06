@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="My App Builder" basedir=".">
+
+    <property environment="env" />
+
+    <property name="src" location="${basedir}" />
+    <property name="dist" location="../dist"/>
+    <property name="libs" location="../libs"/>
+    <property name="reports" location="../reports"/>
+
+    <property name="FLEX_HOME" location="${env.FLEX_HOME}" />
+
+    <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
+    <taskdef resource="flexUnitTasks.tasks">
+        <classpath>
+            <fileset dir="${libs}">
+                <include name="flexUnitTasks*.jar" />
+            </fileset>
+        </classpath>
+     </taskdef>
+
+    <target name="init">
+        <mkdir dir="${dist}"/>
+        <mkdir dir="${reports}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${dist}"/>
+        <delete dir="${reports}"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <mxmlc file="${src}/FlexUnitDemo.mxml" output="${dist}/FlextUnitDemo.swf">
+            <compiler.source-path path-element="${basedir}"/>
+            <compiler.source-path path-element="${FLEX_HOME}/frameworks"/>
+            <library-path dir="${libs}" append="true">
+                <include name="*.swc" />
+            </library-path>
+        </mxmlc>
+    </target>
+
+    <target name="test" depends="compile">
+        <flexunit
+                swf="${dist}/FlextUnitDemo.swf"
+                toDir="${reports}"
+                haltonfailure="false"
+                verbose="true"
+                localTrusted="true"
+                port="1024"
+                >
+              <library dir="${libs}" />
+        </flexunit>
+
+        <!-- Generate readable JUnit-style reports , if remove the junitreport, will not produce html-->
+        <junitreport todir="${reports}">
+            <fileset dir="${reports}">
+                <include name="TEST-*.xml" />
+            </fileset>
+            <report format="frames" todir="${reports}/html" />
+        </junitreport>
+    </target>
+</project>

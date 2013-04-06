@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="AutoTest app" basedir=".">
+
+    <property name="src" location="${basedir}/src" />
+    <property name="dist" location="${basedir}/dist"/>
+	<property name="libs" location="${basedir}/libs"/>
+    <property name="reports" location="${basedir}/reports"/>
+	
+	<property file="build.properties"/>
+	<fail unless="flex.home">
+        Environment Variable FLEX_HOME is required for compiling Flex application!
+	</fail>
+	<property name="FLEX_HOME" value="${flex.home}"/>
+
+    <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
+	<taskdef resource="flexUnitTasks.tasks">
+	    <classpath>
+	        <fileset dir="${libs}">
+	            <include name="flexUnitTasks*.jar" />
+	        </fileset>
+	    </classpath>
+	 </taskdef>
+    
+    <target name="init">
+        <mkdir dir="${dist}"/>
+    </target>
+
+	<target name="clean">
+        <delete dir="${dist}"/>
+    </target>
+    
+    <target name="compile" depends="init">
+        <echo message="Compiling Flex application to SWF"/>
+		<mxmlc file="${src}/${main}.mxml" output="${dist}/${main}.swf" debug="true" dir="." maxmemory="512m" fork="true">
+			<compiler.source-path path-element="${basedir}/src"/>
+            <compiler.source-path path-element="${FLEX_HOME}/frameworks"/> 
+			<compiler.include-libraries dir="${libs}" append="true">
+                <include name="automation_monkey3.2.swc"/>
+            </compiler.include-libraries>
+			<compiler.include-libraries dir="${FLEX_HOME}/frameworks/libs" append="true">
+                <include name="automation.swc"/>
+                <include name="automation_agent.swc"/>
+            </compiler.include-libraries>   
+			<library-path dir="${libs}" append="true">
+				<include name="*.swc"/>
+			</library-path>
+        </mxmlc>
+    </target>
+	
+	<target name="wrapper">	
+		<echo message="wrapping swf to html"/>
+		<html-wrapper
+	        title="FlexMonkey Testing"
+	        file="${main}.html"
+	        height="100%"
+	        width="100%"
+	        bgcolor="#ffffff"
+	        application="${main}"
+	        swf="${main}"
+	        version-major="10"
+	        version-minor="0"
+	        version-revision="0"
+	        history="false"
+	        output="${dist}"/>
+	</target>	
+	
+	<target name="deploy">
+		<echo message="copying ${main}.swf and ${main}.html to weblogic"/>
+		<copy todir="${weblogic.deployment.dir}" overwrite="true">
+            <fileset dir="${dist}">
+                <include name="**/*.*"/>
+            </fileset>
+		</copy>
+	</target>
+</project>

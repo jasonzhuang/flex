@@ -24,37 +24,19 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
-    <servlet>
-        <servlet-name>AttachmentUploadServlet</servlet-name>
-        <display-name>AttachmentUploadServlet</display-name>
-        <servlet-class>com.ssga.ssgai.crs.imc.client.servlet.secure.AttachmentUploadServlet</servlet-class>
-    </servlet>
-
     <!-- For Flex Messaging URL Mapping -->
     <servlet-mapping>
         <servlet-name>MessageBrokerServlet</servlet-name>
-        <url-pattern>/secure/messagebroker/*</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>FlexForbiddenServlet</servlet-name>
-        <url-pattern>*.as</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>FlexForbiddenServlet</servlet-name>
-        <url-pattern>*.swc</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>FlexInternalServlet</servlet-name>
-        <url-pattern>/flex-internal/*</url-pattern>
+        <url-pattern>/messagebroker/*</url-pattern>
     </servlet-mapping>
 
     <!-- Common Servlet URL Mapping -->
-    <servlet-mapping>
+    <!--
+	<servlet-mapping>
         <servlet-name>AttachmentUploadServlet</servlet-name>
         <url-pattern>/secure/AttachmentUploadServlet</url-pattern>
     </servlet-mapping>
-
+	-->
 
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
