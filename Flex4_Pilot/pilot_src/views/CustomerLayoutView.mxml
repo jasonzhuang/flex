@@ -24,7 +24,7 @@
 	</fx:Script>
 	<s:List dataProvider="{DATA}">
 		<s:layout>
-			<layout:CustomerColumnLayout/>
+			<layout:DifferentColumnLayout/>
 		</s:layout>
 	</s:List>
 </s:Group>

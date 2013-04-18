@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" 
+			   xmlns:customtabbar="components.customerTab.*"
+			   creationComplete="complete()"
+			   >
+	<fx:Script>
+		<![CDATA[
+			import components.customerTab.CustomTabBarCloseEvent;
+			import components.customerTab.CustomTabBarReorderEvent;
+			private function complete():void {
+				tabBar.addEventListener(CustomTabBarCloseEvent.CLOSE_TAB, onClosedTab);
+			}
+			
+			private function onClosedTab(event:CustomTabBarCloseEvent):void {
+				//don't close the last tab
+				if(tabBar.dataProvider.length <= 1){
+					tabBar.setCloseableTab(0, false);
+				}
+			}
+			
+			private function addTab():void{
+				tabBar.dataProvider.addItem('Foo');
+				//reset the first tab so it can be closed
+				tabBar.setCloseableTab(0, true);
+			}
+			
+			private function onTabReordered(event:CustomTabBarReorderEvent):void {
+				//prevent the reordering of the tab by calling event.preventDefault()
+				//event.preventDefault();
+				//trace("tab reordered newIndex:"+event.newIndex+" oldIndex:"+event.oldIndex);
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace customtabbar "components.customerTab.*";
+		customtabbar|CustomTabBar {
+			skin-class: ClassReference("skins.customerTab.CustomTabBarSkin");
+			drag-indicator-class: ClassReference("skins.customerTab.CustomButtonBarButtonDragProxy");
+			drop-indicator-skin: ClassReference("skins.customerTab.CustomTabBarDropIndicator");
+		}
+		
+		customtabbar|CustomTabBarButton {
+			skin-class: ClassReference("skins.customerTab.CustomTabBarButtonSkin");
+		}
+		
+		s|Button {
+			fontSize:11;
+		}
+	</fx:Style>
+	<customtabbar:CustomTabBar id="tabBar"
+							   dragEnabled="{checkBox.selected}" 
+							   tabReordered="onTabReordered(event)"
+							   left="5" top="5" maxWidth="490">
+		<s:ArrayCollection source="['Moons of Saturn','Epimetheus','Iapetus','Dione','Enceladus']" />
+	</customtabbar:CustomTabBar>
+	
+	<s:HGroup left="5" top="55">
+		<s:Button label="Add Tab" click="addTab()" enabled="{tabBar.dataProvider.length &lt; 8}" />
+		<s:CheckBox id="checkBox" label="Drag Enabled" selected="true" />
+	</s:HGroup>
+</s:Application>

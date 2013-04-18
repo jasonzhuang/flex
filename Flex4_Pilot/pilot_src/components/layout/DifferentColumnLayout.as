@@ -8,7 +8,7 @@ package components.layout
 	 * Scenario: First row has only one item, and its size is bigger than the other rows
 	 * The other rows has two items
 	 */
-	public class CustomerColumnLayout extends LayoutBase
+	public class DifferentColumnLayout extends LayoutBase
 	{
 		//hardcoded variables
 		public var columnCount:int = 2;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<actionScriptProperties analytics="false" mainApplicationPath="BitmapTest.as" projectUUID="9e349d99-4d1e-48c4-8698-e0c154afe524" version="10">
+<actionScriptProperties analytics="false" mainApplicationPath="DragConstrainedTest.as" projectUUID="9e349d99-4d1e-48c4-8698-e0c154afe524" version="10">
   <compiler additionalCompilerArguments="-use-network=false" autoRSLOrdering="true" copyDependentFiles="true" flexSDK="Flex 4.6.0" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="false" includeNetmonSwc="false" outputFolderPath="bin-debug" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
     <libraryPath defaultLinkType="1">
@@ -23,21 +23,22 @@
     <sourceAttachmentPath/>
   </compiler>
   <applications>
-    <application path="SoundExample.as"/>
-    <application path="VideoExample.as"/>
-    <application path="AddChildTest.as"/>
-    <application path="GraphicsTest.as"/>
-    <application path="AutofillPhotoTest.as"/>
-    <application path="CutomerButtonTest.as"/>
-    <application path="LoaderUse.as"/>
-    <application path="SocketExample.as"/>
-    <application path="BallToss.as"/>
-    <application path="LifeCycleTest.as"/>
-    <application path="DragSliderRunner.as"/>
-    <application path="CoordsTransformTest.as"/>
-    <application path="URLLoaderExample.as"/>
-    <application path="BitmapTest.as"/>
     <application path="MaskTest.as"/>
+    <application path="SocketExample.as"/>
+    <application path="SoundExample.as"/>
+    <application path="LifeCycleTest.as"/>
+    <application path="AddChildTest.as"/>
+    <application path="DragConstrainedTest.as"/>
+    <application path="VideoExample.as"/>
+    <application path="AutofillPhotoTest.as"/>
+    <application path="URLLoaderExample.as"/>
+    <application path="GraphicsTest.as"/>
+    <application path="BitmapTest.as"/>
+    <application path="LoaderUse.as"/>
+    <application path="CoordsTransformTest.as"/>
+    <application path="DragSliderRunner.as"/>
+    <application path="CutomerButtonTest.as"/>
+    <application path="BallToss.as"/>
   </applications>
   <modules/>
   <buildCSSFiles/>

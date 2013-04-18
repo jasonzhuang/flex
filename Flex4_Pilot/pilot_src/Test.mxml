@@ -9,18 +9,18 @@
 	<fx:Script>
 		<![CDATA[
 			private function init():void {
-			}
-			
-			private function imgComplete(event:Event):void {
-				trace(event.target);
-				trace("complete handler");
-			}
-			
-			private function imgCreated(event:Event):void {
-				trace(event.target);
-				trace("creationComplete handler");
+				var date:Date = new Date(2013, 4, 13);
+				var date2:Date = new Date(2013, 4, 16);
+				trace(date.time);
+				trace(date2.time);
 			}
 		]]>
 	</fx:Script>
-	<s:Image source="@Embed('assets/1.jpg')" complete="imgComplete(event)" creationComplete="imgCreated(event)"/>
+	<s:Group x="50" y="100">
+		<s:Rect left="0" right="0" top="0" bottom="0" >
+			<s:stroke>
+				<s:SolidColorStroke color="#ff0000"/>
+			</s:stroke>
+		</s:Rect>
+	</s:Group>
 </s:Application>

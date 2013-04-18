@@ -3,23 +3,30 @@
 	xmlns:fx="http://ns.adobe.com/mxml/2009" 
 	xmlns:s="library://ns.adobe.com/flex/spark" 
 	xmlns:mx="library://ns.adobe.com/flex/mx"
-	xmlns:views="views.*" xmlns:layout="components.layout.*"
-	>
+	xmlns:common="com.netease.view.common.*"
+	initialize="init()"
+	width="100%" height="100%" xmlns:layout="components.layout.*">
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			private function init():void {
+				var testData:ArrayCollection = new ArrayCollection();
+				for (var i:int = 0; i<100; i++) {
+					testData.addItem(i);
+				}
+				pics.dataProvider = testData;
+			}
+		]]>
+	</fx:Script>
 	<s:layout>
-		<s:VerticalLayout horizontalAlign="center"	 paddingTop="40" gap="20"/>
+		<s:VerticalLayout horizontalAlign="center"
+						  paddingTop="40"/>
 	</s:layout>
-	<!--case1-->
-	<!--<views:CustomerLayoutView/>-->
-	
-	<!--case2-->
-	<s:Group>
+	<s:List id="pics" width="100%" height="100%"
+				 itemRenderer="components.itemRenderer.SimpleRenderer"
+				 >
 		<s:layout>
-			<layout:CustomerColumnLayout/>
+			<layout:HorizontalMultilineLayout/>
 		</s:layout>
-		<s:Label text="one"/>
-		<s:Label text="two"/>
-		<s:Label text="three"/>
-		<s:Label text="four"/>
-		<s:Label text="five"/>
-	</s:Group>
+	</s:List>
 </s:Application>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:components="components.superTextInput.*"
+	width="240" height="94"
+	>
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace components "components.superTextInput.*";
+		
+		components|SuperTextInput {
+			skinClass:ClassReference('skins.superTextInput.SuperTextInputSkin');
+		}
+	</fx:Style>
+	<components:SuperTextInput id="superTxt" promptLabel="super text input" left="10" top="62" width="220" tabIndex="3" />
+</s:Application>

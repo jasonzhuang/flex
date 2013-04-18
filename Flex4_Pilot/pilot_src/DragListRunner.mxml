@@ -7,6 +7,22 @@
 	
 	<fx:Script>
 		<![CDATA[
+			/**
+			 * A component that acts as a drag initiator handles the following events to manage the drag-and-drop operation
+			 * 
+			 * mouseDown or mouseMove
+			 * dragStart
+			 * dragComplete
+			 */ 
+			
+			
+			/**
+			 * To use a component as a drop target, you handle the following events:
+			 * dragEnter
+			 * dragOver
+			 * dragDrop
+			 * dragExit
+			 */ 
 			import mx.core.IUIComponent;
 			import mx.events.DragEvent;
 			import mx.managers.DragManager;

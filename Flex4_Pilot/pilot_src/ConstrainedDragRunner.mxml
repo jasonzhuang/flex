@@ -10,6 +10,7 @@
 			import mx.events.DragEvent;
 			import mx.events.SandboxMouseEvent;
 			import mx.managers.DragManager;
+			import mx.managers.ISystemManager;
 			
 			private function creationCompleteHandler():void
 			{
@@ -52,6 +53,8 @@
 			
 			private function mouseDownHandler(event:MouseEvent):void
 			{
+				//sandboxRoot is same as systemManager
+				//var sandboxRoot:DisplayObject =  systemManager.getSandboxRoot()
 				// lower priority so DragProxy moves first
 				systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, true, -1);
 				systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true);
