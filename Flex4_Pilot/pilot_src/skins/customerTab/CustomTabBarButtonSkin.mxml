@@ -12,7 +12,7 @@
 		/** 
 		* @copy spark.skins.spark.ApplicationSkin#hostComponent
 		*/
-		[HostComponent("components.customerTab.CustomTabBarButton")]
+		[HostComponent("components.dragableTab.CustomTabBarButton")]
 		]]>
 	</fx:Metadata>
 	

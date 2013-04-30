@@ -31,7 +31,7 @@ created by the TabBarSkin use the TabBarButtonSkin class.
 	xmlns:fx="http://ns.adobe.com/mxml/2009" 
 	xmlns:s="library://ns.adobe.com/flex/spark"
 	xmlns:fb="http://ns.adobe.com/flashbuilder/2009"     
-	alpha.disabled="0.5" xmlns:local="*" xmlns:customtabbar="components.customerTab.*">
+	alpha.disabled="0.5" xmlns:local="*" xmlns:dragableTab="components.dragableTab.*">
 	
 	<fx:Metadata>
 		<![CDATA[ 
@@ -75,11 +75,11 @@ created by the TabBarSkin use the TabBarButtonSkin class.
 	<!--- @copy spark.components.SkinnableDataContainer#dataGroup -->
 	<s:DataGroup id="dataGroup" width="100%" height="100%">
 		<s:layout>
-			<customtabbar:CustomTabBarHorizontalLayout gap="-1" />
+			<dragableTab:CustomTabBarHorizontalLayout gap="-1" />
 		</s:layout>
 		<s:itemRenderer>
 			<fx:Component>
-				<customtabbar:CustomTabBarButton />
+				<dragableTab:CustomTabBarButton />
 			</fx:Component>
 		</s:itemRenderer>
 	</s:DataGroup>

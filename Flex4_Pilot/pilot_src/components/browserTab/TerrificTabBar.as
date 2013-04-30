@@ -30,7 +30,8 @@ package components.browserTab {
 		}
 		
 		public function closeTab(closedTab:int, selectedTab:int):void {
-			if (dataProvider.length == 0) return;
+			if (dataProvider.length == 0)
+				return;
 			
 			if (dataProvider is IList) {
 				dataProvider.removeItemAt(closedTab);

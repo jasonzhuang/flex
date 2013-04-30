@@ -18,7 +18,7 @@
 	</s:states>
 	
 	<!-- transitions -->
-	<s:transitions>
+	<!--<s:transitions>
 		<s:Transition fromState="up" toState="over">
 			<s:Parallel duration="250">
 				<s:AnimateColor target="{circleFill}" />
@@ -35,7 +35,7 @@
 				</s:Animate>
 			</s:Parallel>
 		</s:Transition>
-	</s:transitions>
+	</s:transitions>-->
 	
 	<!-- circle -->
 	<s:Ellipse width="12" height="12">

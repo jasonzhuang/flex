@@ -1,4 +1,4 @@
-package components.customerTab {
+package components.dragableTab {
 	import flash.geom.Rectangle;
 	
 	import mx.core.IVisualElement;

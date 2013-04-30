@@ -4,23 +4,17 @@
 	xmlns:s="library://ns.adobe.com/flex/spark"
 	xmlns:mx="library://ns.adobe.com/flex/mx"
  	xmlns:components="components.*"
-	initialize="init()"
+	creationComplete="init()"
 	>
 	<fx:Script>
 		<![CDATA[
 			private function init():void {
-				var date:Date = new Date(2013, 4, 13);
-				var date2:Date = new Date(2013, 4, 16);
-				trace(date.time);
-				trace(date2.time);
+				input.setFocus();			
 			}
 		]]>
 	</fx:Script>
-	<s:Group x="50" y="100">
-		<s:Rect left="0" right="0" top="0" bottom="0" >
-			<s:stroke>
-				<s:SolidColorStroke color="#ff0000"/>
-			</s:stroke>
-		</s:Rect>
-	</s:Group>
+	<s:layout>
+		<s:VerticalLayout paddingTop="40" horizontalAlign="center"/>
+	</s:layout>	
+	<s:TextInput id="input"/>
 </s:Application>

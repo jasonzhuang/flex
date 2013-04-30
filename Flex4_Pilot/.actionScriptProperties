@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<actionScriptProperties analytics="false" mainApplicationPath="Test.mxml" projectUUID="713f5343-d361-4ad3-99ed-a3ae9598ab35" version="10">
+<actionScriptProperties analytics="false" mainApplicationPath="CustomerLayoutRunner.mxml" projectUUID="713f5343-d361-4ad3-99ed-a3ae9598ab35" version="10">
   <compiler additionalCompilerArguments="-locale en_US" autoRSLOrdering="true" copyDependentFiles="true" flexSDK="Flex 4.6.0" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="false" htmlPlayerVersionCheck="false" includeNetmonSwc="false" outputFolderPath="bin-debug" removeUnusedRSL="true" sourceFolderPath="pilot_src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="false" warn="true">
     <compilerSourcePath>
       <compilerSourcePathEntry kind="1" linkType="1" path="test"/>
@@ -19,27 +19,30 @@
   </compiler>
   <applications>
     <application path="TestAsTraint.mxml"/>
-    <application path="TestObject.mxml"/>
     <application path="BitmapDrawTest.mxml"/>
     <application path="TestPerformance.mxml"/>
-    <application path="LabelTruncate.mxml"/>
+    <application path="WheelLayoutRunner.mxml"/>
+    <application path="components/customScroller/CustomScrollerStepSize.mxml"/>
     <application path="GradeStatesComplex.mxml"/>
     <application path="CustomerLayoutRunner.mxml"/>
     <application path="DisplayObjectTransformer.mxml"/>
-    <application path="CollapseWindowTest.mxml"/>
     <application path="Test.mxml"/>
-    <application path="OneEventMutilHandler.mxml"/>
-    <application path="IconedLabelTest.mxml"/>
+    <application path="DragableTabRunner.mxml"/>
     <application path="ConstrainedDragRunner.mxml"/>
     <application path="TestRunner.mxml"/>
+    <application path="BrowserTabRunner.mxml"/>
     <application path="DragListRunner.mxml"/>
     <application path="FlashFlexMarriageRunner.mxml"/>
+    <application path="SuperTextInputRunner.mxml"/>
+    <application path="BrowserDragListRunner.mxml"/>
     <application path="ScaleParentRunner.mxml"/>
     <application path="HighlightCompoRunner.mxml"/>
+    <application path="TestObject.mxml"/>
+    <application path="LabelTruncate.mxml"/>
+    <application path="CollapseWindowTest.mxml"/>
+    <application path="OneEventMutilHandler.mxml"/>
+    <application path="IconedLabelTest.mxml"/>
     <application path="ScrollerViewport.mxml"/>
-    <application path="SuperTextInputRunner.mxml"/>
-    <application path="BrowserTabRunner.mxml"/>
-    <application path="CustomerTabRunner.mxml"/>
   </applications>
   <modules/>
   <buildCSSFiles/>

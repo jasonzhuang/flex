@@ -12,7 +12,11 @@
 		<![CDATA[
 			private function complete():void {
 				//make first tab un-closeable
-				tabBar.setCloseableTab(0,false);
+				tabBar.setCloseableTab(0, false);
+			}
+			
+			private function logDragStart():void {
+				trace("drag started");
 			}
 			
 			private function forceClose():void{

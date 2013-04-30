@@ -1,4 +1,4 @@
-package components.customerTab {
+package components.dragableTab {
 	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -23,7 +23,7 @@ package components.customerTab {
 	[Style(name="dragIndicatorClass", type="Class", inherit="no")]
 	[Style(name="dropIndicatorSkin", type="Class", inherit="no")]
 	
-	[Event(name='tabReordered', type='components.customerTab.CustomTabBarReorderEvent')]
+	[Event(name='tabReordered', type='components.dragableTab.CustomTabBarReorderEvent')]
 	
 	public class CustomTabBar extends TabBar {
 		
@@ -38,10 +38,10 @@ package components.customerTab {
 		}
 		
 		private var _dragEnabled:Boolean = false;
+		
 		public function get dragEnabled():Boolean {
 			return _dragEnabled;
 		}
-		
 		
 		public function set dragEnabled(value:Boolean):void {
 			if (value == _dragEnabled)
@@ -50,6 +50,7 @@ package components.customerTab {
 			
 			if (_dragEnabled) {
 				addEventListener(DragEvent.DRAG_START, dragStartHandler, false, EventPriority.DEFAULT_HANDLER);
+				//DRAG_COMPLETE is dispatched by DragProxy : mx.managers.dragClasses.DragProxy
 				addEventListener(DragEvent.DRAG_COMPLETE, dragCompleteHandler, false, EventPriority.DEFAULT_HANDLER);
 				addEventListener(DragEvent.DRAG_ENTER, dragEnterHandler, false, EventPriority.DEFAULT_HANDLER);
 				addEventListener(DragEvent.DRAG_EXIT, dragExitHandler, false, EventPriority.DEFAULT_HANDLER);

@@ -9,9 +9,10 @@
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
+			
 			private function init():void {
 				var testData:ArrayCollection = new ArrayCollection();
-				for (var i:int = 0; i<100; i++) {
+				for (var i:int = 0; i<20; i++) {
 					testData.addItem(i);
 				}
 				pics.dataProvider = testData;
@@ -22,11 +23,15 @@
 		<s:VerticalLayout horizontalAlign="center"
 						  paddingTop="40"/>
 	</s:layout>
-	<s:List id="pics" width="100%" height="100%"
+	<s:List id="pics"
+				 width="100%"
+				 useVirtualLayout="false"
+				 borderVisible="false"
 				 itemRenderer="components.itemRenderer.SimpleRenderer"
 				 >
 		<s:layout>
-			<layout:HorizontalMultilineLayout/>
+			<!--<layout:HorizontalMultilineLayout/>-->
+			<layout:WheelLayout/>
 		</s:layout>
 	</s:List>
 </s:Application>

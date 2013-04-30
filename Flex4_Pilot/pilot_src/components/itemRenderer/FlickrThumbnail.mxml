@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+////////////////////////////////////////////////////////////////////////////////
+// ADOBE SYSTEMS INCORPORATED
+// Copyright 2007 Adobe Systems Incorporated
+// All Rights Reserved.
+//
+// NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the 
+// terms of the Adobe license agreement accompanying it.  If you have received this file from a 
+// source other than Adobe, then your use, modification, or distribution of it requires the prior 
+// written permission of Adobe.
+////////////////////////////////////////////////////////////////////////////////
+-->
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
+                xmlns:s="library://ns.adobe.com/flex/spark"
+                xmlns:mx="library://ns.adobe.com/flex/mx" 
+                click="itemrenderer1_clickHandler(event)" cacheAsBitmap="true">
+
+    <fx:Script>
+        <![CDATA[
+			import components.layout.NumberInterpolatorWrapping;
+			
+			import spark.components.supportClasses.GroupBase;
+			import spark.effects.Animate;
+			import spark.effects.animation.MotionPath;
+			import spark.effects.animation.SimpleMotionPath;
+			
+            protected function itemrenderer1_clickHandler(event:MouseEvent):void
+            {
+                var g:GroupBase = parent as GroupBase;
+                var p:Point = g.layout.getScrollPositionDeltaToElement(this.itemIndex);
+                if (p)
+                {
+                    var startX:Number = g.horizontalScrollPosition;
+                    var startY:Number = g.verticalScrollPosition;
+                    var anim:Animate = new Animate();
+                    anim.motionPaths = new <MotionPath>[
+                        new SimpleMotionPath("horizontalScrollPosition", startX, startX + p.x, 500),
+                        new SimpleMotionPath("verticalScrollPosition", startY, startY + p.y, 500)
+                    ];
+                    
+                    var interpolator:NumberInterpolatorWrapping = new NumberInterpolatorWrapping(0, g.contentWidth - g.width);
+                    var scrollLength:Number = interpolator.getLength(startX, startX + p.x);
+                    anim.interpolator = interpolator;
+                    anim.duration = Math.max(550, Math.min(2500, scrollLength * 2));
+                    
+                    anim.play([g]);
+                }
+            }
+            
+        private static const loaderContext:LoaderContext = new LoaderContext(true);
+        ]]>
+    </fx:Script>
+
+	
+	<s:states>
+	    <s:State name="normal"/>
+        <s:State name="hovered"/>
+        <s:State name="selected"/>
+	</s:states>
+	
+    <s:Rect id="border" left="0" right="0" top="0" bottom="0">
+        <s:fill>
+            <s:SolidColor color="0xDFDFDF" color.hovered="0xa8c1db" color.selected="0xa8dba8"/>
+        </s:fill>
+    </s:Rect>
+
+	<s:Group left="1" right="1" top="1" bottom="1">
+    	<s:layout>
+    	    <s:VerticalLayout horizontalAlign="center"/>
+    	</s:layout>
+    	
+    	<mx:Image id="img"
+            maxWidth="120"
+    		maxHeight="120" loaderContext="{loaderContext}"
+    		source="{data.thumbnail.url}" smoothBitmapContent="true" />
+    	<s:Label text="{data.credit}" maxWidth="100" textAlign="center"/>
+    </s:Group>
+	
+</s:ItemRenderer>
+

@@ -1,4 +1,4 @@
-package components.customerTab {
+package components.dragableTab {
 	import flash.events.MouseEvent;
 	
 	import spark.components.Button;

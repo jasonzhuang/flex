@@ -9,8 +9,29 @@ seeing all of this makes it a little easier to understand how the various parts 
 <s:Application 
 	xmlns:fx="http://ns.adobe.com/mxml/2009" 
 	xmlns:s="library://ns.adobe.com/flex/spark" 
-	xmlns:mx="library://ns.adobe.com/flex/halo">
-	
+	xmlns:mx="library://ns.adobe.com/flex/halo"
+	>
+	<fx:Script>
+		<![CDATA[
+			import spark.core.NavigationUnit;
+			private function inspect():void {
+				trace("vp.contentHeight", vp.contentHeight);
+				trace("scroller.height",  scroller.height);
+				trace("vp.height", vp.height);
+				trace("scrollPosition HOME: ", vp.getVerticalScrollPositionDelta(NavigationUnit.HOME));
+				trace("scrollPosition END: ", vp.getVerticalScrollPositionDelta(NavigationUnit.END));
+				trace("current verticalScrollPosition: ", vp.verticalScrollPosition);
+			}
+			
+			private function down():void {
+				vp.verticalScrollPosition += 20;
+			}
+			
+			private function up():void {
+				vp.verticalScrollPosition -= 20;
+			}
+		]]>
+	</fx:Script>
 	<s:layout>
 		<s:VerticalLayout horizontalAlign="center"
 						  paddingTop="120"/>
@@ -18,7 +39,7 @@ seeing all of this makes it a little easier to understand how the various parts 
 	
 	<s:Group>
 		<s:Group left="20" top="1" width="110" height="160">
-			<s:Scroller left="2" right="2" top="2" bottom="2">
+			<s:Scroller id="scroller" left="2" right="2" top="2" bottom="2">
 				<s:Group id="vp" horizontalScrollPosition="57" verticalScrollPosition="198">
 					<s:Image source="assets/gyro-original.jpg"/>
 				</s:Group>
@@ -40,5 +61,7 @@ seeing all of this makes it a little easier to understand how the various parts 
 		<s:Label text="viewport.horizontalScrollPosition = {vp.horizontalScrollPosition}"/>
 		<s:Label text="viewport.verticalScrollPosition = {vp.verticalScrollPosition}"/>
 	</s:VGroup>
-	
+	<s:Button label="inspect" click="inspect()"/>
+	<s:Button label="scroll DOWN" click="down()"/>
+	<s:Button label="scroll UP" click="up()"/>
 </s:Application>

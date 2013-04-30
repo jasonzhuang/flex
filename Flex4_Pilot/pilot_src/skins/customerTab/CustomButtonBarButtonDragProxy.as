@@ -8,7 +8,7 @@ package skins.customerTab {
 	import spark.components.DataGroup;
 	import spark.components.Group;
 	import spark.components.IItemRenderer;
-	import components.customerTab.CustomTabBar;
+	import components.dragableTab.CustomTabBar;
 	
 	
 	public class CustomButtonBarButtonDragProxy extends Group {

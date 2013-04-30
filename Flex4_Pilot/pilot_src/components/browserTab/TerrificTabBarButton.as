@@ -5,6 +5,7 @@ package components.browserTab {
 	
 	import spark.components.Button;
 	import spark.components.ButtonBarButton;
+	import spark.components.Label;
 	
 	[Event('closeTab',type='events.TerrificTabBarEvent')]
 	
@@ -21,14 +22,16 @@ package components.browserTab {
 			this.mouseChildren = true;
 		}
 		
-		[Bindable]public function get closeable():Boolean {
+		[Bindable]
+		public function get closeable():Boolean {
 			return _closeable;
 		}
+		
 		public function set closeable(val:Boolean):void {
 			if (_closeable != val) {
 				_closeable = val;
 				closeButton.visible = val;
-				//labelDisplay.right = (val ? 30 : 14);
+				Label(labelDisplay).right = (val ? 30 : 14);
 			}
 		}
 		
@@ -43,7 +46,7 @@ package components.browserTab {
 				closeButton.addEventListener(MouseEvent.CLICK, closeHandler);
 				closeButton.visible = closeable;
 			} else if (instance == labelDisplay) {
-				//labelDisplay.right = (closeable ? 30 : 14);
+				Label(labelDisplay).right = (closeable ? 30 : 14);
 			}
 		}
 		

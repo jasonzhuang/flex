@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:comp="components.browserDragList.*"
+	creationComplete="init()" xmlns:layout="components.layout.*">
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.core.UIComponent;
+			
+			private function init():void {
+				var feed:Array = [];
+				for(var i:int = 0; i<20; i++) {
+					feed[feed.length] = i;
+				}
+				dragList.dataProvider = new ArrayCollection(feed);
+			}
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="center"
+						  paddingTop="40"/>
+	</s:layout>
+	<comp:BrowserDragList id="dragList"
+			width="100%"
+			useVirtualLayout="false"
+			itemRenderer="components.itemRenderer.SimpleRenderer"
+			dragEnabled="true"
+			dropEnabled="true"
+			dragMoveEnabled="true"
+			>
+		<comp:layout>
+			<layout:HorizontalMultilineLayout/>
+		</comp:layout>
+	</comp:BrowserDragList>
+</s:Application>

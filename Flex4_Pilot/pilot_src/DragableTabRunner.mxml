@@ -2,13 +2,13 @@
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx" 
-			   xmlns:customtabbar="components.customerTab.*"
+			   xmlns:dragableTab="components.dragableTab.*"
 			   creationComplete="complete()"
 			   >
 	<fx:Script>
 		<![CDATA[
-			import components.customerTab.CustomTabBarCloseEvent;
-			import components.customerTab.CustomTabBarReorderEvent;
+			import components.dragableTab.CustomTabBarCloseEvent;
+			import components.dragableTab.CustomTabBarReorderEvent;
 			private function complete():void {
 				tabBar.addEventListener(CustomTabBarCloseEvent.CLOSE_TAB, onClosedTab);
 			}
@@ -38,13 +38,14 @@
 		@namespace s "library://ns.adobe.com/flex/spark";
 		@namespace mx "library://ns.adobe.com/flex/mx";
 		@namespace customtabbar "components.customerTab.*";
-		customtabbar|CustomTabBar {
+		@namespace dragableTab "components.dragableTab.*";
+		dragableTab|CustomTabBar {
 			skin-class: ClassReference("skins.customerTab.CustomTabBarSkin");
 			drag-indicator-class: ClassReference("skins.customerTab.CustomButtonBarButtonDragProxy");
 			drop-indicator-skin: ClassReference("skins.customerTab.CustomTabBarDropIndicator");
 		}
 		
-		customtabbar|CustomTabBarButton {
+		dragableTab|CustomTabBarButton {
 			skin-class: ClassReference("skins.customerTab.CustomTabBarButtonSkin");
 		}
 		
@@ -52,12 +53,12 @@
 			fontSize:11;
 		}
 	</fx:Style>
-	<customtabbar:CustomTabBar id="tabBar"
+	<dragableTab:CustomTabBar id="tabBar"
 							   dragEnabled="{checkBox.selected}" 
 							   tabReordered="onTabReordered(event)"
 							   left="5" top="5" maxWidth="490">
 		<s:ArrayCollection source="['Moons of Saturn','Epimetheus','Iapetus','Dione','Enceladus']" />
-	</customtabbar:CustomTabBar>
+	</dragableTab:CustomTabBar>
 	
 	<s:HGroup left="5" top="55">
 		<s:Button label="Add Tab" click="addTab()" enabled="{tabBar.dataProvider.length &lt; 8}" />
