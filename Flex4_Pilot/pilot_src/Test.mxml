@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Application
-	xmlns:fx="http://ns.adobe.com/mxml/2009"
-	xmlns:s="library://ns.adobe.com/flex/spark"
-	xmlns:mx="library://ns.adobe.com/flex/mx"
- 	xmlns:components="components.*"
-	creationComplete="init()"
-	>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:common="com.netease.view.common.*" xmlns:layout="components.layout.*">
 	<fx:Script>
 		<![CDATA[
-			private function init():void {
-				input.setFocus();			
+			import mx.collections.ArrayCollection;
+			import mx.collections.IList;
+			
+			private function generateData():IList {
+				var arrayList:ArrayCollection;
+				var list:Array = [];
+				for (var i:int = 0; i<20; i++) {
+					list.push(i);
+				}
+				arrayList = new ArrayCollection(list);
+				return arrayList;
 			}
 		]]>
 	</fx:Script>
-	<s:layout>
-		<s:VerticalLayout paddingTop="40" horizontalAlign="center"/>
-	</s:layout>	
-	<s:TextInput id="input"/>
+	<s:List
+		width="100%"
+		useVirtualLayout="false"
+		itemRenderer="components.itemRenderer.SimpleRenderer"
+		dataProvider="{generateData()}"
+		>
+		<s:layout>
+			<layout:PostcardLayout paddingLeft="5" paddingRight="5" paddingTop="20" paddingBottom="20"/>
+		</s:layout>
+	</s:List>
 </s:Application>

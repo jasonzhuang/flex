@@ -19,27 +19,29 @@
   </compiler>
   <applications>
     <application path="TestAsTraint.mxml"/>
-    <application path="BitmapDrawTest.mxml"/>
     <application path="TestPerformance.mxml"/>
-    <application path="WheelLayoutRunner.mxml"/>
+    <application path="BitmapDrawTest.mxml"/>
     <application path="components/customScroller/CustomScrollerStepSize.mxml"/>
+    <application path="WheelLayoutRunner.mxml"/>
     <application path="GradeStatesComplex.mxml"/>
+    <application path="CustomTabRunner.mxml"/>
     <application path="CustomerLayoutRunner.mxml"/>
     <application path="DisplayObjectTransformer.mxml"/>
-    <application path="Test.mxml"/>
     <application path="DragableTabRunner.mxml"/>
+    <application path="Test.mxml"/>
     <application path="ConstrainedDragRunner.mxml"/>
     <application path="TestRunner.mxml"/>
-    <application path="BrowserTabRunner.mxml"/>
     <application path="DragListRunner.mxml"/>
     <application path="FlashFlexMarriageRunner.mxml"/>
     <application path="SuperTextInputRunner.mxml"/>
     <application path="BrowserDragListRunner.mxml"/>
     <application path="ScaleParentRunner.mxml"/>
+    <application path="SmoothScrollingApp.mxml"/>
     <application path="HighlightCompoRunner.mxml"/>
     <application path="TestObject.mxml"/>
-    <application path="LabelTruncate.mxml"/>
+    <application path="ListAnimation.mxml"/>
     <application path="CollapseWindowTest.mxml"/>
+    <application path="EffectRunner.mxml"/>
     <application path="OneEventMutilHandler.mxml"/>
     <application path="IconedLabelTest.mxml"/>
     <application path="ScrollerViewport.mxml"/>

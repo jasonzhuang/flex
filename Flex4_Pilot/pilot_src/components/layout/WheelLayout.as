@@ -410,7 +410,11 @@ public class WheelLayout extends LayoutBase
         }
         else
             g.scrollRect = null;
-    } 
+    }
+	
+	override public function getNavigationDestinationIndex(currentIndex:int, navigationUnit:uint, arrowKeysWrapFocus:Boolean):int {
+		return super.getNavigationDestinationIndex(currentIndex, navigationUnit, arrowKeysWrapFocus);
+	}
 }
 }
 

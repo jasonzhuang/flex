@@ -76,7 +76,6 @@ package qs.controls
 			progress= 0;
 			_data = value;
 			var url:String = String((_data is String)? _data:_data.thumb);
-			trace("url is: ", url);
 			_loader.load(new URLRequest(url));
 			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE,loadComplete);	
 			_loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS,updateProgress);	

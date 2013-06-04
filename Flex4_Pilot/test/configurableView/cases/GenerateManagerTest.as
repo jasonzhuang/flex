@@ -7,7 +7,7 @@ package configurableView.cases
 	
 	import utils.ConfigManager;
 	import views.NoteCard2;
-	import views.MyNoteCard;
+	import components.MyNoteCard;
 	
 	public class GenerateManagerTest
 	{

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	>
+	<fx:Script>
+		<![CDATA[
+			/**
+			 * set the first child height to 0, will auto make the second one "pull up"
+			 * 
+			 * when play effect, turn the parent container "autoLayout" to false, otherwise it can actually reverse the results of the effect
+			 */
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:Parallel id="fadeResizeShow"
+					target="{container1}"
+					duration="1000"
+					>
+			<s:Resize id="resizeShow" 
+					  widthTo="0" 
+					  heightTo="0"/>
+			<s:Fade id="fadeShow" 
+					alphaFrom="1.0"
+					alphaTo="0.0"/>
+		</s:Parallel>
+	</fx:Declarations>
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<s:Group id="container1" width="300" height="300">
+		<s:Rect width="100%" height="100%">
+			<s:fill>
+				<s:SolidColor color="#ff0000"/>
+			</s:fill>
+		</s:Rect>
+	</s:Group>
+	<s:Group id="container2" width="300" height="300">
+		<s:Rect width="100%" height="100%">
+			<s:fill>
+				<s:SolidColor color="#ffff00"/>
+			</s:fill>
+		</s:Rect>
+	</s:Group>
+	<s:Button label="hide" click="fadeResizeShow.end();fadeResizeShow.play()"/>
+</s:Application>

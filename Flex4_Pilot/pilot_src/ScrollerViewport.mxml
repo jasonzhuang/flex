@@ -1,67 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<!--
-This is a somewhat more complicated version of the example from the text.  It displays
-the IViewport actual and content sizes, as well as the current scroll positions.   Hopefully
-seeing all of this makes it a little easier to understand how the various parts fit together.
--->
-
-<s:Application 
-	xmlns:fx="http://ns.adobe.com/mxml/2009" 
-	xmlns:s="library://ns.adobe.com/flex/spark" 
-	xmlns:mx="library://ns.adobe.com/flex/halo"
-	>
+<!-- http://blog.flexexamples.com/2009/11/11/creating-an-animated-transition-when-scrolling-through-items-in-a-spark-hgroup-container/ -->
+<s:Application name="Spark_HGroup_horizontalScrollPosition_test"
+			   xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/halo">
+	
 	<fx:Script>
 		<![CDATA[
 			import spark.core.NavigationUnit;
-			private function inspect():void {
-				trace("vp.contentHeight", vp.contentHeight);
-				trace("scroller.height",  scroller.height);
-				trace("vp.height", vp.height);
-				trace("scrollPosition HOME: ", vp.getVerticalScrollPositionDelta(NavigationUnit.HOME));
-				trace("scrollPosition END: ", vp.getVerticalScrollPositionDelta(NavigationUnit.END));
-				trace("current verticalScrollPosition: ", vp.verticalScrollPosition);
-			}
 			
-			private function down():void {
-				vp.verticalScrollPosition += 20;
-			}
-			
-			private function up():void {
-				vp.verticalScrollPosition -= 20;
+			protected function scrollToThere(dir:uint):void {
+				var value:Number = hGr.getHorizontalScrollPositionDelta(dir);
+				if (value != 0) {
+					pth.valueBy = value;
+					anim.play();
+				}
 			}
 		]]>
 	</fx:Script>
-	<s:layout>
-		<s:VerticalLayout horizontalAlign="center"
-						  paddingTop="120"/>
-	</s:layout>
 	
-	<s:Group>
-		<s:Group left="20" top="1" width="110" height="160">
-			<s:Scroller id="scroller" left="2" right="2" top="2" bottom="2">
-				<s:Group id="vp" horizontalScrollPosition="57" verticalScrollPosition="198">
-					<s:Image source="assets/gyro-original.jpg"/>
-				</s:Group>
-			</s:Scroller>
-			
-			<s:Rect left="0" right="0" top="0" bottom="0">
-				<s:stroke>
-					<s:SolidColorStroke weight="1" color="0xD8D8D8"/>
-				</s:stroke>
-			</s:Rect>
-		</s:Group>
-		<s:Label horizontalCenter="10" top="175" text="viewport.width = {vp.width}"/>
-		<s:Label horizontalCenter="10"  top="200" text="viewport.height = {vp.height}"/>                
-	</s:Group>
+	<fx:Declarations>
+		<s:Animate id="anim" target="{hGr}" duration="500">
+			<s:motionPaths>
+				<s:SimpleMotionPath id="pth" property="horizontalScrollPosition" />
+			</s:motionPaths>
+		</s:Animate>
+	</fx:Declarations>
 	
-	<s:VGroup left="140" top="10" gap="15">
-		<s:Label text="viewport.contentWidth = {vp.contentWidth}"/>
-		<s:Label text="viewport.contentHeight = {vp.contentHeight}"/>
-		<s:Label text="viewport.horizontalScrollPosition = {vp.horizontalScrollPosition}"/>
-		<s:Label text="viewport.verticalScrollPosition = {vp.verticalScrollPosition}"/>
-	</s:VGroup>
-	<s:Button label="inspect" click="inspect()"/>
-	<s:Button label="scroll DOWN" click="down()"/>
-	<s:Button label="scroll UP" click="up()"/>
+	<s:Panel title="HGroup horizontalScrollPosition test"
+			 horizontalCenter="0" verticalCenter="0">
+		<s:layout>
+			<s:HorizontalLayout verticalAlign="middle" />
+		</s:layout>
+		<s:Button label="&lt;"
+				  click="scrollToThere(NavigationUnit.PAGE_LEFT);"
+				  width="30" />
+		<s:HGroup id="hGr"
+				  requestedColumnCount="3"
+				  columnWidth="100"
+				  variableColumnWidth="false"
+				  height="100"
+				  clipAndEnableScrolling="true">
+			<s:Label text="One" backgroundColor="red" backgroundAlpha="0.1" height="100%" />
+			<s:Label text="Two" backgroundColor="red" backgroundAlpha="0.2" height="100%" />
+			<s:Label text="Three" backgroundColor="red" backgroundAlpha="0.3" height="100%" />
+			<s:Label text="Four" backgroundColor="red" backgroundAlpha="0.4" height="100%" />
+			<s:Label text="Five" backgroundColor="red" backgroundAlpha="0.5" height="100%" />
+			<s:Label text="Six" backgroundColor="red" backgroundAlpha="0.6" height="100%" />
+			<s:Label text="Seven" backgroundColor="red" backgroundAlpha="0.7" height="100%" />
+			<s:Label text="Eight" backgroundColor="red" backgroundAlpha="0.8" height="100%" />
+			<s:Label text="Nine" backgroundColor="red" backgroundAlpha="0.9" height="100%" />
+			<s:Label text="Ten" backgroundColor="red" backgroundAlpha="1.0" height="100%" />
+		</s:HGroup>
+		<s:Button label="&gt;"
+				  click="scrollToThere(NavigationUnit.PAGE_RIGHT);"
+				  width="30" />
+	</s:Panel>
+	
 </s:Application>

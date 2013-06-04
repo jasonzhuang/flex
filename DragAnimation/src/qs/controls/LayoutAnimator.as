@@ -117,6 +117,7 @@ package qs.controls {
 		{
 			return _timer.running;
 		}
+		
 		public function set items(value:Object):void
 		{
 			_targets = new Dictionary(true);
@@ -142,10 +143,12 @@ package qs.controls {
 		{
 			return _targets;
 		}
+		
 		public function set animationSpeed(value:Number):void
 		{
 			_animationSpeed = (isNaN(value)?DEFAULT_ANIMATION_SPEED:value);
 		}
+		
 		public function get animationSpeed():Number
 		{
 			return _animationSpeed;
@@ -160,6 +163,7 @@ package qs.controls {
 				updateLayout();
 			}
 		}
+		
 		public function invalidateLayout(updateNow:Boolean = false):void
 		{
 			_layoutInvalid = true;
@@ -169,6 +173,7 @@ package qs.controls {
 				updateLayout();
 			}
 		}
+		
 		private function startTimer():void
 		{
 			if(_timer.running == false)
@@ -178,6 +183,7 @@ package qs.controls {
 				running++;
 			}
 		}
+		
 		private function stopTimer():void
 		{
 			if(_timer.running)
@@ -186,6 +192,7 @@ package qs.controls {
 				_timer.stop();
 			}
 		}
+		
 		private function timerHandler(e:TimerEvent):void
 		{
 			updateLayout();
@@ -230,7 +237,7 @@ package qs.controls {
 				m.tx = target.x;
 				m.ty = target.y;
 				m.a = target.scaleX;					
-				m.d = target.scaleY
+				m.d = target.scaleY;
 				
 				DisplayObject(item).alpha = target.alpha;
 				DisplayObject(item).transform.matrix = m;

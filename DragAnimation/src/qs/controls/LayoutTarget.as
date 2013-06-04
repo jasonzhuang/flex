@@ -28,11 +28,6 @@ package qs.controls {
 	import flash.display.DisplayObject;
 	
 	public class LayoutTarget {
-		
-		public function LayoutTarget(item:IFlexDisplayObject):void
-		{
-			this.item = item;
-		}
 		public var scaleX:Number = 1;
 		public var scaleY:Number = 1;
 		public var x:Number = 0;
@@ -40,7 +35,7 @@ package qs.controls {
 		public var unscaledWidth:Number = 0;
 		public var unscaledHeight:Number = 0;
 		public var alpha:Number = 1;
-		public var item:IFlexDisplayObject;		
+		public var item:IFlexDisplayObject;	//here is renderer
 		public var priority:int = 0;
 		public var initializeFunction:Function;
 		public var releaseFunction:Function;
@@ -51,6 +46,12 @@ package qs.controls {
 		public var state:String = "added";
 		
 		private var _capturedValues:LayoutTarget;
+
+		public function LayoutTarget(item:IFlexDisplayObject):void
+		{
+			this.item = item;
+		}
+		
 		public function capture():void
 		{
 			if(_capturedValues == null)
@@ -63,6 +64,7 @@ package qs.controls {
 			_capturedValues.scaleX = m.a;
 			_capturedValues.scaleY = m.d;
 		}
+		
 		public function release():void
 		{
 			unscaledHeight = item.height;

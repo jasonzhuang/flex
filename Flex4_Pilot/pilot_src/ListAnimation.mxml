@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:components="components.*" xmlns:layout="components.layout.*"
+	>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.events.DragEvent;
+			import mx.managers.DragManager;
+			
+			private function generateList():ArrayCollection {
+				var items:Array = [];
+				for (var i:int = 0; i<15; i++) {
+					items.push(i);
+				}
+				return new ArrayCollection(items);
+			}
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="center"/>
+	</s:layout>
+	<components:AnimationList dataProvider="{generateList()}"
+			allowMultipleSelection="true"
+			useVirtualLayout="false"
+			itemRenderer="components.itemRenderer.SimpleRenderer"
+			dragEnabled="true"
+			dragMoveEnabled="true"
+			dropEnabled="true"
+			>
+		<components:layout>
+			<layout:AnimationTileLayout/>
+		</components:layout>
+	</components:AnimationList>
+</s:Application>

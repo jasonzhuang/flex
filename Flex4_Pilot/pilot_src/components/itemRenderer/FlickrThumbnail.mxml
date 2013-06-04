@@ -29,6 +29,7 @@
             {
                 var g:GroupBase = parent as GroupBase;
                 var p:Point = g.layout.getScrollPositionDeltaToElement(this.itemIndex);
+				//only apply to WheelLayout
                 if (p)
                 {
                     var startX:Number = g.horizontalScrollPosition;

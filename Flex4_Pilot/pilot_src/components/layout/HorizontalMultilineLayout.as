@@ -136,6 +136,7 @@ public class HorizontalMultilineLayout extends LayoutBase
 			invalidateTargetSizeAndDisplayList();
 		}    
 		
+		//in the updateDisplayList(), trigger remeasure
 		override public function measure():void
 		{
 			trace("trigger measure()....");
@@ -153,8 +154,11 @@ public class HorizontalMultilineLayout extends LayoutBase
 			var element:ILayoutElement;
 			var i:int;
 			var width:Number = layoutTarget.explicitWidth;
-			if (isNaN(width) && lastWidth != -1)
+			trace("layoutTarget.explicitWidth: ", layoutTarget.explicitWidth);//NaN. for List, DataGroup doesn't set value(width=100% still not work)
+			if (isNaN(width) && lastWidth != -1) {
 				width = lastWidth;
+			}
+			
 			if (isNaN(width)) // width is not defined by parent or user
 			{
 				// do not specify measuredWidth and measuredHeight to real
@@ -292,9 +296,8 @@ public class HorizontalMultilineLayout extends LayoutBase
 			if (lastWidth == -1 || lastWidth != width)
 			{
 				lastWidth = width;
-				invalidateTargetSizeAndDisplayList();//trigger remeasure
+				invalidateTargetSizeAndDisplayList();//!!!IMPORT: trigger remeasure
 			}
-			trace("rowCount: ---", _rowCount, " ---columnCount: ----", _columnCount);
 		}
 		
 		private var startNewLine:Boolean = false;

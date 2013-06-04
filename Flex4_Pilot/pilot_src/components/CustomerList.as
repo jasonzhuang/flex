@@ -1,8 +1,11 @@
 package components {
+	import flash.geom.Point;
+	
 	import mx.core.DragSource;
 	import mx.core.IFlexDisplayObject;
 	import mx.core.ILayoutElement;
 	import mx.core.IVisualElement;
+	import mx.core.mx_internal;
 	import mx.events.DragEvent;
 	import mx.managers.DragManager;
 	
@@ -11,6 +14,7 @@ package components {
 	
 	import vo.PhotoVO;
 	
+	use namespace mx_internal;
 	/**
 	 *	CustomerList
 	 */
@@ -22,7 +26,7 @@ package components {
 		
 		override protected function dragStartHandler(event:DragEvent):void {
 			if (event.isDefaultPrevented())
-			return;
+				return;
 			
 			var dragSource:DragSource = new DragSource();
 			addDragData(dragSource);
@@ -41,7 +45,6 @@ package components {
 			var count:uint = items.length;
 			
 			var showPhoto:PhotoVO = items[0] as PhotoVO;
-			trace("selected photo desc: ", showPhoto.desc);
 			
 			var dragView:CustomDragIndicator = new CustomDragIndicator();
 			
@@ -57,12 +60,12 @@ package components {
 				element = layout.target.getElementAt(selectedIndex);
 			}
 			
-			dragView.x = element.getLayoutBoundsX();
-			dragView.y = element.getLayoutBoundsY();
-			
-			dragView.width = element.getPreferredBoundsWidth();
-			dragView.height = element.getPreferredBoundsHeight();
-			dragView.dragViewSource = showPhoto.url;
+			//here we want the dragView point be equal with mouseDown
+			//refer List source code of mouseMoveHandler 
+			var localMouseDownPoint:Point = this.globalToLocal(mouseDownPoint);
+			dragView.x = localMouseDownPoint.x; /*- element.dragThumb.width/2;*/
+			dragView.y = localMouseDownPoint.y; /*- element.dragThumb.height/2;*/
+			dragView.dragViewSource = element;
 			dragView.selectedPhotoes = count;
 			return dragView;
 		}

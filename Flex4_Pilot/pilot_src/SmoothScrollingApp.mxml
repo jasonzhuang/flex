@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" verticalGap="0" xmlns:local="components.*" height="500" xmlns:s="library://ns.adobe.com/flex/spark" >
+	<mx:Script>
+	<![CDATA[
+		private var arr:Array = [
+			{ firstName: "Alex", lastName: "Harui" },
+			{ firstName: "Gordon", lastName: "Smith" },
+			{ firstName: "Deepa", lastName: "Subramanian" },
+			{ firstName: "Matt", lastName: "Chotin" },
+			{ firstName: "Ely", lastName: "Greenfield" },
+			{ firstName: "Kevin", lastName: "Lynch" },
+			{ firstName: "Shantanu", lastName: "Narayan" },
+			{ firstName: "Joan", lastName: "Lafferty" },
+			{ firstName: "Ryan", lastName: "Frishberg" },
+			{ firstName: "Jason", lastName: "Szeto" },
+			{ firstName: "Mark", lastName: "Anders" },
+			{ firstName: "Peter", lastName: "Flynn" },
+			{ firstName: "Heidi", lastName: "Williams" }
+
+		];
+
+	]]>
+	</mx:Script>
+	<local:SmoothScrollingList id="list" initialize="list.dataProvider=arr" labelField="lastName" />
+</mx:Application>

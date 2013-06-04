@@ -50,6 +50,8 @@
 				
 				if(photoNumChanged) {
 					photoNumChanged = false;
+					img.width = dragViewSource.width;
+					img.height = dragViewSource.height;
 					img.source = this._dragViewSource;
 				}
 				
@@ -62,15 +64,20 @@
 			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
 				super.updateDisplayList(unscaledWidth, unscaledHeight);
 				
-				ribbon.x = img.width/2;
-				ribbon.y = img.height/2;
+				img.x = (unscaledWidth - img.width)/2;
+				img.y = (unscaledHeight - img.height)/2;
 				
-				selectNum.x= (ribbon.x + ribbon.width)/2;
-				selectNum.y = (ribbon.y + ribbon.height)/2;
+				ribbon.x = unscaledWidth - ribbon.width;
+				ribbon.y = (unscaledHeight - ribbon.height)/2;
+				
+				countContainer.x = ribbon.x;
+				countContainer.y = ribbon.y;
 			}
 		]]>
 	</fx:Script>
 	<s:BitmapImage id="img" width="{this.width}" height="{this.height}"/>
 	<s:BitmapImage id="ribbon" source="@Embed('assets/ribbon.png')"/>
-	<s:Label id="selectNum"/>
+	<s:VGroup id="countContainer" width="{ribbon.width}" height="{ribbon.height}" horizontalAlign="center" verticalAlign="middle">
+		<s:Label id="selectNum" color="#ffffff" fontSize="12" fontFamily="simsun"/>
+	</s:VGroup>
 </s:Group>

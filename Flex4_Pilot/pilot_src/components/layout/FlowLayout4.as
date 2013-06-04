@@ -4,6 +4,13 @@ import mx.core.ILayoutElement;
 import spark.components.supportClasses.GroupBase;
 import spark.layouts.supportClasses.LayoutBase;
 
+/**
+ * Note:only when set width = 100%, then the layout could be "flow"
+ * 
+ * For the layout, measuredWidth != contentWidth, measuredHeight != contentHeight
+ * when measuredWidth < contentWidth, HScroller will appear
+ * when measuredHeihht < contentHeight, VScroller will appear
+ */
 public class FlowLayout4 extends LayoutBase
 {
     //---------------------------------------------------------------
@@ -62,12 +69,17 @@ public class FlowLayout4 extends LayoutBase
             var elementWidth:Number = element.getPreferredBoundsWidth();
             var elementHeight:Number = element.getPreferredBoundsHeight();
             
+			//measuredWidth is sum of all item width
             totalWidth += elementWidth;
+			//measuredHeight is the tallest item
             totalHeight = Math.max(totalHeight, elementHeight);
         }
+		
         if (count > 0)
             totalWidth += (count - 1) * _horizontalGap;
         
+		trace("total width: ", totalWidth, ", total height: ", totalHeight);
+		
         layoutTarget.measuredWidth = totalWidth;
         layoutTarget.measuredHeight = totalHeight;
         
@@ -135,6 +147,7 @@ public class FlowLayout4 extends LayoutBase
             x += elementWidth + _horizontalGap;
         }
         
+		trace("content width: ", maxWidth , " content height: ", maxHeight);
         // Scrolling support - update the content size
         layoutTarget.setContentSize(maxWidth, maxHeight);
     }

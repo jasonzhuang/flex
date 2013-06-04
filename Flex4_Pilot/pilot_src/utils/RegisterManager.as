@@ -1,6 +1,6 @@
 package utils
 {
-	import views.MyNoteCard;
+	import components.MyNoteCard;
 	
 	public class RegisterManager extends ConfigManager
 	{

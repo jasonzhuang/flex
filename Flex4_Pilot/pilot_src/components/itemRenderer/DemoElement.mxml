@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	rollOver="underline = true;"
+	rollOut="underline = false;"
+	useHandCursor="true" buttonMode="true" click="remove();"
+	>
+	<fx:Script>
+	<![CDATA[
+		[Bindable]
+		public var text:String;
+		
+		private function set underline(value:Boolean):void
+		{
+			label.setStyle("textDecoration", value ? "underline" : null);
+		}
+		
+		private function remove():void
+		{
+			// better to dispatch and event and remove in parent
+			Group(parent).removeElement(this);
+		}
+	]]>
+	</fx:Script>
+	
+	<s:Rect width="100%" height="100%">
+		<s:stroke>
+			<s:SolidColorStroke color="0x888888"/>
+		</s:stroke>
+	</s:Rect>
+	
+	<s:Label id="label" text="{text}" paddingBottom="5" paddingLeft="5" 
+		paddingRight="5" paddingTop="5"/>
+</s:Group>

@@ -4,18 +4,20 @@
 	xmlns:s="library://ns.adobe.com/flex/spark" 
 	xmlns:mx="library://ns.adobe.com/flex/mx"
 	xmlns:common="com.netease.view.common.*"
-	initialize="init()"
-	width="100%" height="100%" xmlns:layout="components.layout.*">
+	xmlns:layout="components.layout.*"
+	width="100%" height="100%">
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
+			import mx.collections.IList;
+			import mx.core.UIComponent;
 			
-			private function init():void {
+			private function generateData():IList {
 				var testData:ArrayCollection = new ArrayCollection();
 				for (var i:int = 0; i<20; i++) {
 					testData.addItem(i);
 				}
-				pics.dataProvider = testData;
+				return testData;
 			}
 		]]>
 	</fx:Script>
@@ -24,6 +26,7 @@
 						  paddingTop="40"/>
 	</s:layout>
 	<s:List id="pics"
+				 dataProvider="{generateData()}"
 				 width="100%"
 				 useVirtualLayout="false"
 				 borderVisible="false"
@@ -31,7 +34,8 @@
 				 >
 		<s:layout>
 			<!--<layout:HorizontalMultilineLayout/>-->
-			<layout:WheelLayout/>
+			<!--<layout:WheelLayout/>-->
+			<layout:FlowLayout4/>
 		</s:layout>
 	</s:List>
 </s:Application>

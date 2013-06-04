@@ -57,6 +57,7 @@ package qs.controls
 		private var _dragMousePos:Point;
 		private var _dragPosStart:Point;
 		private var _dragAction:String;
+		//renderer cache
 		private var _renderCache:AssociativeInstanceCache;
 				
 		private var animator:LayoutAnimator;
@@ -79,15 +80,12 @@ package qs.controls
 			_renderCache.factory = _itemRendererFactory;
 			
 			addEventListener(MouseEvent.MOUSE_DOWN,startReorder);
-//			addEventListener(DragEvent.DRAG_ENTER,dragEnter);
-//			addEventListener(DragEvent.DRAG_OVER,dragOver);
 			addEventListener(DragEvent.DRAG_EXIT,dragOut);
 			addEventListener(DragEvent.DRAG_DROP,dragDrop);
 			addEventListener(DragEvent.DRAG_COMPLETE,dragComplete);
 						
 		}
 		//-----------------------------------------------------------------
-		
 		
 		public var addItems:Function;
 		public var removeItem:Function;
@@ -103,6 +101,7 @@ package qs.controls
 			itemsChanged = true;
 			invalidateProperties();			
 		}
+		
 		public function get dataProvider():Array
 		{
 			return _items;
@@ -150,6 +149,7 @@ package qs.controls
 		{
 			return _itemRendererFactory;
 		}
+		
 		public function set itemRenderer(value:IFactory):void
 		{
 			_itemRendererFactory = value;
@@ -175,13 +175,15 @@ package qs.controls
 			{
 				// something has forced us to reallocate our renderers. start by throwing out the old ones.
 				renderersDirty = false;
-				for(var i:int=numChildren-1;i>= 0;i--)
+				for(var i:int = numChildren-1; i>= 0; i--)
+				{
 					removeChildAt(i);
+				}
 				
 				renderers = [];
 				_renderCache.beginAssociation();
 				// allocate new renderers, assign the data.
-				for(i = 0;i<_items.length;i++)
+				for(i = 0; i<_items.length; i++)
 				{
 					var renderer:IUIComponent = _renderCache.associate(_items[i]);
 					IDataRenderer(renderer).data = _items[i];
@@ -234,11 +236,11 @@ package qs.controls
 			{
 				if(isNaN(_userTileHeight) || isNaN(_userTileWidth))
 				{
-					for(var i:int=0;i<renderers.length;i++)
+					for(var i:int=0; i<renderers.length; i++)
 					{
 						var itemRenderer:IUIComponent = renderers[i];
-						_tileWidth = Math.ceil(Math.max(_tileWidth,itemRenderer.getExplicitOrMeasuredWidth()));
-						_tileHeight = Math.ceil(Math.max(_tileHeight,itemRenderer.getExplicitOrMeasuredHeight()));
+						_tileWidth = Math.ceil(Math.max(_tileWidth, itemRenderer.getExplicitOrMeasuredWidth()));
+						_tileHeight = Math.ceil(Math.max(_tileHeight, itemRenderer.getExplicitOrMeasuredHeight()));
 					}
 				}
 				if(!isNaN(_userTileHeight))
@@ -246,22 +248,20 @@ package qs.controls
 				if(!isNaN(_userTileWidth))
 					_tileWidth = _userTileWidth;
 			}
-			// square them off
-			//_tileWidth = Math.max(_tileWidth,_tileHeight);
-			//_tileHeight = _tileWidth;
 						
-			var itemsInRow:Number = Math.min(renderers.length,Math.min(_maxRowLength,_rowLength));
+			var itemsInRow:Number = Math.min(renderers.length, Math.min(_maxRowLength, _rowLength));
+			
+			trace("items in row: ", itemsInRow);
 			
 			var spacing:Number = spacingWidthDefault;
 			var hGap:Number = hGapWithDefault;
 			var vGap:Number= vGapWithDefault;
 			
 			measuredWidth = itemsInRow * _tileWidth + (itemsInRow - 1) * hGap;
-			var defaultColumnCount:Number = Math.ceil(renderers.length / Math.min(_maxRowLength,_rowLength));
+			var defaultColumnCount:Number = Math.ceil(renderers.length / Math.min(_maxRowLength, _rowLength));
 			measuredHeight = defaultColumnCount*_tileHeight + (defaultColumnCount-1)*vGap;
 	
 			animator.invalidateLayout();		
-							
 		}
 		
 		private function findItemAt(px:Number,py:Number,seamAligned:Boolean):Number
@@ -314,7 +314,7 @@ package qs.controls
 			}
 		}
 				
-						
+		//start drag
 		private function startReorder(e:MouseEvent):void
 		{
 			var dragIdx:Number = findItemAt(mouseX,mouseY,false);
@@ -338,6 +338,8 @@ package qs.controls
 			pt = globalToLocal(pt);
 			DragManager.doDrag(this,dragSrc,e,dragImage,-pt.x - 4 ,-pt.y - 4,.6);
 		}
+		
+		//drag enter handler
 		public function allowDrag(e:DragEvent,dragAction:String = "move"):void
 		{
 			_dragAction = dragAction;
@@ -356,19 +358,16 @@ package qs.controls
 			animator.animationSpeed = .1;
 		}
 
-/*		
-		private function dragOver(e:DragEvent):void
-		{
-			
-		}
-*/		public function showDragFeedback(e:DragEvent,dragAction:String = "move"):void
+		//drag over handler, delegate to LayoutAnimator
+		public function showDragFeedback(e:DragEvent,dragAction:String = "move"):void
 		{
 			_dragAction = dragAction;
-			DragManager.showFeedback(_dragAction);				
+			DragManager.showFeedback(_dragAction);
 			_dragTargetIdx = findItemAt(mouseX,mouseY,true);
 			_dragMousePos = new Point(mouseX,mouseY);
-			animator.invalidateLayout(true);						
+			animator.invalidateLayout(true);
 		}
+		
 		private function dragDrop(e:DragEvent):void
 		{
 			_dragTargetIdx = findItemAt(mouseX,mouseY,true);
@@ -383,7 +382,7 @@ package qs.controls
 				var dragFromIndex:Number = Number(e.dragSource.dataForFormat("index"));
 				if(moveItems != null)
 				{
-					moveItems(e,_dragTargetIdx,dragFromIndex,this);
+					moveItems(e, _dragTargetIdx, dragFromIndex, this);
 					renderersDirty = true;
 					invalidateProperties();
 				}
@@ -461,6 +460,7 @@ package qs.controls
 			addChild(DisplayObject(r));
 			return r;
 		}
+		
 		private function dragComplete(e:DragEvent):void
 		{
 			if(e.action == DragManager.MOVE && e.dragSource.dataForFormat("target") != this)
@@ -496,6 +496,8 @@ package qs.controls
 		{
 			validateDisplayList();
 		}
+		
+		//assign renderer to LayoutAnimator
 		private function generateLayout():void
 		{
 			var spacing:Number = spacingWidthDefault;
@@ -503,16 +505,16 @@ package qs.controls
 			var vGap:Number= vGapWithDefault;
 			var padding:Number = paddingWidthDefault;
 			var targetWidth:Number = unscaledWidth - 2*padding + hGap;
-			var rowLength:Number = Math.max(1,Math.min(renderers.length,Math.min(_maxRowLength,Math.floor(targetWidth/(hGap + _tileWidth)) )));
+			var rowLength:Number = Math.max(1, Math.min(renderers.length, Math.min(_maxRowLength, Math.floor(targetWidth/(hGap + _tileWidth)) )));
 			var colLength:Number = Math.ceil(renderers.length / rowLength);
-			
+			trace("row length: ", rowLength);
 			var hAlign:String = getStyle("horizontalAlign");
 			
 			var leftSide:Number = (hAlign == "left")? 	padding:
 								  (hAlign == "right")? 	(unscaledWidth - (rowLength * _tileWidth + (rowLength-1) * hGap + 2*padding)):
 													  	(unscaledWidth - (rowLength * _tileWidth + (rowLength-1) * hGap + 2*padding))/2
 			
-			var positionFunc:Function = function(r:int,c:int,offset:Number):void
+			var positionFunc:Function = function(r:int, c:int, offset:Number):void
 			{			
 				var idx:int = c*rowLength + r;
 				if(idx >= renderers.length)
@@ -525,13 +527,13 @@ package qs.controls
 				target.unscaledHeight = renderer.getExplicitOrMeasuredHeight();
 				target.x = offset + r * (_tileWidth + hGap) + _tileWidth/2 - target.unscaledWidth/2;
 				target.y = vGap + c * (_tileHeight + vGap)+ _tileHeight/2 - target.unscaledHeight/2;
-				target.animate = true;					
+				target.animate = true;
 			}
 
 			var insertRowPos:Number = _dragTargetIdx % rowLength;
 			var insertColPos:Number = Math.floor(_dragTargetIdx / rowLength);
 			
-			for(var c:int = 0;c<colLength;c++)			
+			for(var c:int = 0; c<colLength; c++)			
 			{
 				if(c == insertColPos)
 				{
@@ -566,6 +568,7 @@ package qs.controls
 			
 			super.updateDisplayList(unscaledWidth,unscaledHeight);
 		}
+		
 		override public function styleChanged(styleProp:String):void
 		{
 			invalidateSize();
