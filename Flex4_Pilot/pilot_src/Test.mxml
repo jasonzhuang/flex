@@ -1,32 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
-			   xmlns:s="library://ns.adobe.com/flex/spark" 
-			   xmlns:mx="library://ns.adobe.com/flex/mx"
-			   xmlns:common="com.netease.view.common.*" xmlns:layout="components.layout.*">
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	creationComplete="init()">
 	<fx:Script>
 		<![CDATA[
-			import mx.collections.ArrayCollection;
-			import mx.collections.IList;
+			import mx.core.UIComponent;
 			
-			private function generateData():IList {
-				var arrayList:ArrayCollection;
-				var list:Array = [];
-				for (var i:int = 0; i<20; i++) {
-					list.push(i);
-				}
-				arrayList = new ArrayCollection(list);
-				return arrayList;
+			private function init():void {
+				var a:UIComponent = new UIComponent();
+				a.id= "a";
+				var b:UIComponent = new UIComponent();
+				b.id = "b";
+				var c:UIComponent = new UIComponent();
+				c.id= "c";
+				container.addElement(a);
+				container.addElement(b);
+				//container.addElement(c);
+				var d:UIComponent = new UIComponent();
+				d.id = "d";
+				container.addElementAt(d, 1);
+				trace(container.getElementIndex(a));
+				trace(container.getElementIndex(b));
+				trace(container.getElementIndex(c));
+				trace(container.getElementIndex(d));
+			}
+
+			private function sortOnDigit(obj1:int, obj2:int):int {
+				return obj1 - obj2;
 			}
 		]]>
 	</fx:Script>
-	<s:List
-		width="100%"
-		useVirtualLayout="false"
-		itemRenderer="components.itemRenderer.SimpleRenderer"
-		dataProvider="{generateData()}"
-		>
-		<s:layout>
-			<layout:PostcardLayout paddingLeft="5" paddingRight="5" paddingTop="20" paddingBottom="20"/>
-		</s:layout>
-	</s:List>
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="center" paddingTop="100"/>
+	</s:layout>
+	<s:VGroup id="container">
+	</s:VGroup>
 </s:Application>

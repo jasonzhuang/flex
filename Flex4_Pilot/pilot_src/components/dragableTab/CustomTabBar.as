@@ -30,6 +30,7 @@ package components.dragableTab {
 		[SkinPart(required="false", type="flash.display.DisplayObject")]
 		public var dropIndicator:IFactory;
 		
+		//set in item_mouseDownHandler
 		private var mouseDownPoint:Point;
 		public var mouseDownIndex:int = -1;
 		
@@ -109,6 +110,7 @@ package components.dragableTab {
 			}
 			
 			//NOTE: Right now I am not supporting dragging tabs to other tabBars, so we don't need to do anything here yet.
+			//refer List dragCompleteHandler() source code
 		}
 		
 		override protected function dataGroup_rendererAddHandler(event:RendererExistenceEvent):void {
@@ -328,21 +330,27 @@ package components.dragableTab {
 			DragManager.showFeedback(event.ctrlKey ? DragManager.COPY : DragManager.MOVE);
 			
 			var dragSource:DragSource = event.dragSource;
+			//get dragged item
 			var item:Object = dragSource.dataForFormat("draggedTabItem") as Object;
 			
 			//remove the item from the dataProvider
 			if (mouseDownIndex < dropIndex) {
 				dropIndex--;
 			}
+			
 			if(mouseDownIndex != dropIndex) {
 				var e:CustomTabBarReorderEvent = new CustomTabBarReorderEvent(CustomTabBarReorderEvent.TAB_REORDERED,true,true);
 				e.oldIndex = mouseDownIndex;
 				e.newIndex = dropIndex;
 				
 				if(dispatchEvent(e)) {//make sure it was not prevented by some outside class
+					//===========Note: for drag animation=========
+					CustomTabBarHorizontalLayout(layout).doAnimationInLayout();
+
 					dataProvider.removeItemAt(mouseDownIndex);
 					dataProvider.addItemAt(item, dropIndex);
 					selectedIndex = dropIndex;
+					
 				}
 				else {
 					//the reorder event was canceled/prevented by some outside class

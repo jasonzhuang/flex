@@ -3,6 +3,7 @@
 	xmlns:fx="http://ns.adobe.com/mxml/2009" 
 	xmlns:s="library://ns.adobe.com/flex/spark" 
 	xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:components="components.*" xmlns:layout="components.layout.*"
+	initialize="init()"
 	>
 	<fx:Script>
 		<![CDATA[
@@ -10,12 +11,19 @@
 			import mx.events.DragEvent;
 			import mx.managers.DragManager;
 			
+			private function init():void {
+			}
+			
 			private function generateList():ArrayCollection {
 				var items:Array = [];
 				for (var i:int = 0; i<15; i++) {
 					items.push(i);
 				}
 				return new ArrayCollection(items);
+			}
+			
+			private function dragCompleteHandler(event:Event):void {
+				trace("aaaa");
 			}
 		]]>
 	</fx:Script>
@@ -29,6 +37,7 @@
 			dragEnabled="true"
 			dragMoveEnabled="true"
 			dropEnabled="true"
+			dragComplete="dragCompleteHandler(event)"
 			>
 		<components:layout>
 			<layout:AnimationTileLayout/>

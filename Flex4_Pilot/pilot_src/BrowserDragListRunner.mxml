@@ -32,7 +32,7 @@
 			dragMoveEnabled="true"
 			>
 		<comp:layout>
-			<layout:HorizontalMultilineLayout/>
+			<layout:HorizontalMultilAdvanceLayout/>
 		</comp:layout>
 	</comp:BrowserDragList>
 </s:Application>

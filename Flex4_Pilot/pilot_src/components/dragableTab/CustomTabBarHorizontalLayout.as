@@ -15,6 +15,9 @@ package components.dragableTab {
 			super();
 		}
 		
+		public function doAnimationInLayout():void {
+			
+		}
 		
 		override protected function calculateDropIndex(x:Number, y:Number):int {
 			// Iterate over the visible elements

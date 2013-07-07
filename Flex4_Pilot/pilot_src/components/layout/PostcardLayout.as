@@ -6,8 +6,9 @@ package components.layout {
 	
 	/**
 	 *	PostcardLayout
-	 * try to set container width with different width, and change 
-	 * measure width, layoutTarget.setContentSize()
+	 * DO: set container width for diffrent size, and change 
+	 * measuredWidth, layoutTarget.setContentSize(), see
+	 * what happen
 	 */
 	public class PostcardLayout extends LayoutBase {
 		private var _paddingLeft:Number = 0;
@@ -141,8 +142,8 @@ package components.layout {
 				return;
 			}
 			
-			var maxWidth:Number;
-			var maxHeight:Number;
+			var maxWidth:Number = 0;
+			var maxHeight:Number = 0;
 			var element:ILayoutElement;
 			var x:int = paddingLeft;
 			var y:int = paddingTop;
@@ -166,7 +167,7 @@ package components.layout {
 			}
 			
 			//scrolling support
-			layoutTarget.setContentSize(layoutTarget.measuredWidth, layoutTarget.measuredHeight);
+			layoutTarget.setContentSize(maxWidth, maxHeight);
 		}
 	}
 }

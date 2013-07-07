@@ -5,6 +5,8 @@ package {
 	import flash.geom.Matrix;
 	import flash.geom.Point;
 	
+	import views.Ball;
+	
 	/**
 	 * it is a good idea to draw at the origin (coordinate 0,0) and apply transformations—scale, translate, rotate, and so forth
      * The reason is that transforms such as scale and rotate operate from the origin upper-left hand corner(0,0)
@@ -14,8 +16,9 @@ package {
 		{
 			//rotationCenter();
 			//mouseLocation();
-			pointTransform();
+			//pointTransform();
 			//translateObj();
+			coordinateRotate();
 		}
 		
 		/**
@@ -123,6 +126,26 @@ package {
 			matrix.translate(rect.x + 50, rect.y + 50);
 			rect.transform.matrix = matrix;
 			trace(rect.getBounds(this));
+		}
+		
+		private function coordinateRotate():void {
+			var ball:Ball = new Ball(30);
+			var x:Number = 30;
+			var y:Number = 200;
+			ball.x = x;
+			ball.y = y;
+			var angle:Number = 30;
+			var cos:Number = Math.cos(angle*Math.PI/180);
+			var sin:Number = Math.sin(angle*Math.PI/180);
+			
+			var x1:Number = cos*x - sin*y;
+			var y1:Number = cos*y + sin*x;
+			trace("x1: ", x1, ", y1: ", y1);
+			
+			var matrix:Matrix = new Matrix();
+			matrix.rotate(angle);
+			var p1:Point = matrix.transformPoint(new Point(x, y));
+			trace("p1: ", p1);
 		}
 	}
 }

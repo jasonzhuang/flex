@@ -21,16 +21,11 @@ package components.layout {
 		
 		private var moveIndies:Vector.<int>;
 		
-		/**
-		 * TODO:
-		 */
 		public function updateLayout(selectedIndies:Vector.<int>, dropIndex:int):void {
 			//NOTE: Prevent updateDisplayList() from being executed while we are animating items
 			target.autoLayout = false;
 			moveIndies = selectedIndies;
 			var startIndex:int = selectedIndies[0];
-			
-			trace("startIndex: ", startIndex, " dropIndex: ", dropIndex);
 			
 			var prevItem:ILayoutElement;
 			var movingItem:ILayoutElement;
@@ -39,7 +34,14 @@ package components.layout {
 			var move:Move;
 			var step:int = startIndex < dropIndex ? 1 : -1;
 			
-			moveEffects = new Parallel();
+			//TODO:check item
+			prevItem = target.getElementAt(dropIndex -1)
+			movingItem = target.getElementAt(dropIndex);
+			move = new Move(movingItem);
+			move.xTo = prevItem.getLayoutBoundsX();
+			move.yTo = prevItem.getLayoutBoundsY();
+			move.play();
+			/*moveEffects = new Parallel();
 			
 			for (var index:int = startIndex; index != dropIndex; index= index + step) {
 				prevItem = target.getElementAt(index);
@@ -50,7 +52,7 @@ package components.layout {
 				moveEffects.addChild(move);
 			}
 			
-			moveItems();
+			moveItems();*/
 		}
 		
 		private function moveItems():void {
