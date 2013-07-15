@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	creationComplete="init()">
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.collections.ISort;
+			import mx.collections.Sort;
+			import mx.core.UIComponent;
+			
+			[Bindable]
+			private var digitalData:ArrayCollection;
+			
+			private function init():void {
+				digitalData = new ArrayCollection();
+				digitalData.addItem(1);
+				digitalData.addItem(2);
+				var sort:ISort = new Sort();
+				sort.compareFunction = sortIt;
+				digitalData.sort = sort;
+				digitalData.refresh(); 
+			}
+			
+			private function sortIt(item0:Object, item1:Object, fields:Array = null):int {
+				trace("trigger sort");
+				//NOTE: not do it like this
+				//return int(item0) - int(item1)
+				return item0 > item1 ? 1: item0 < item1 ? -1 :0;
+			}
+			
+			private function addOne():void {
+				var item:int = Math.floor(Math.random() * 100);
+				trace("add item" , item);
+				digitalData.addItem(item);
+			}
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="center" paddingTop="100"/>
+	</s:layout>
+	<s:HGroup id="container">
+		<s:List dataProvider="{digitalData}"/>
+		<s:Button label="Add One" click="addOne()"/>
+	</s:HGroup>
+</s:Application>

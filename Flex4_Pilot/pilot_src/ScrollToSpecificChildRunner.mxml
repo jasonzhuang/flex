@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	creationComplete="init()"
+	>
+	<fx:Script>
+		<![CDATA[
+			import components.MockUI;
+			
+			import mx.collections.ArrayList;
+			
+			import spark.core.NavigationUnit;
+			
+			private function init():void {
+				createElements();
+			}
+			
+			private function createElements():void {
+				for (var i:int = 0; i<6; i++) {
+					var ui:MockUI = new MockUI();
+					ui.text = "I'm  " + i + " !";
+					ui.width = 300;
+					ui.height = 200;
+					viewport.addElement(ui);
+				}
+			}
+			
+			/**
+			 *  ###########
+			 *  #                  #
+			 *  #  (hp,vp)      #
+			 *  #   ++++++    #
+			 *  #   ++++++ h #
+			 *  #   ++++++    #
+			 *  #   ++++++    #
+			 *  #       w         #
+			 *  ###########
+			 * 
+			 */
+			
+			//scroll to diffrent child, take attetion to the scrollRect
+			private function scrollToChild(index:int):void {
+				var delta:Number = returnSumHeight(index);
+				viewport.verticalScrollPosition = delta;
+				var scrollRect:Rectangle = viewport.scrollRect;
+				trace("viewport contentHeight: ", viewport.contentHeight);
+				trace("vp: ", viewport.verticalScrollPosition);
+				trace("scrollRect: ", scrollRect);
+			}
+			
+			private function handleScroll(unit:uint):void {
+				trace("unit: ", unit);
+				var delta:Number = viewport.getVerticalScrollPositionDelta(unit);
+				trace("delta:", delta);
+			}
+			
+			private function minus():void {
+				viewport.verticalScrollPosition -= 10;
+				trace("vp: ", viewport.verticalScrollPosition);
+			}
+			
+			//return the sum height of children before index item
+			private function returnSumHeight(index:int):Number {
+				var sumHeight:Number = 0;
+				for(var i:int=0; i<index; i++) {
+					sumHeight += viewport.getElementAt(i).height;
+				}
+				return sumHeight;
+			}
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="center" paddingTop="100"/>
+	</s:layout>
+	<s:HGroup>
+		<s:Label text="Select Child: "/>
+		<s:ComboBox id="comboBox"
+					dataProvider="{new ArrayList([0,1,2,3,4,5])}"
+					selectedIndex="0"
+					change="scrollToChild(comboBox.selectedIndex)"/>
+	</s:HGroup>
+	<s:Scroller>
+		<s:VGroup id="viewport" width="350" height="300" gap="0">
+		</s:VGroup>
+	</s:Scroller>
+	<s:Button label="MINUS" click="minus()"/>
+	<s:Button label="UP" click="handleScroll(NavigationUnit.UP)"/>
+	<s:Button label="DOWN" click="handleScroll(NavigationUnit.DOWN)"/>
+	<s:Button label="HOME" click="handleScroll(NavigationUnit.HOME)"/>
+	<s:Button label="END" click="handleScroll(NavigationUnit.END)"/>
+</s:Application>
