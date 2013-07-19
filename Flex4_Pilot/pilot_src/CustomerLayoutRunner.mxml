@@ -33,9 +33,9 @@
 				 itemRenderer="components.itemRenderer.SimpleRenderer"
 				 >
 		<s:layout>
-			<!--<layout:HorizontalMultilineLayout/>-->
+			<layout:HorizontalMultilineLayout/>
 			<!--<layout:WheelLayout/>-->
-			<layout:FlowLayout4/>
+			<!--<layout:FlowLayout4/>-->
 		</s:layout>
 	</s:List>
 </s:Application>

@@ -21,24 +21,28 @@
 				if (data == null){
 					return;
 				}
-				color.color = Number(data) % 2 == 0 ? 0x000066 : 0x000033;
 				txt.text = String(data);
+			}
+			
+			override protected function getCurrentRendererState():String {
+				currentState = super.getCurrentRendererState();
+				trace(currentState);
+				return super.getCurrentRendererState();
 			}
 			
 		]]>
 	</fx:Script>
-	<s:Rect left="0" right="0" top="0" bottom="0">
+	<!--selected: red, selectedAndShowsCaret: blue, hovered: yellow-->
+	<s:Rect width="100%" height="100%" includeIn="selected, selectedAndShowsCaret">
 		<s:fill>
-			<s:SolidColor id="color"/>
+			<s:SolidColor color.selected="#ff0000" color.selectedAndShowsCaret="#00ffff"/>
 		</s:fill>
-		<s:stroke>
-			<s:SolidColorStroke color.normal="black"
-								color.hovered="blue"
-								color.selected="red"
-								color.normalAndShowsCaret="black"
-								color.hoveredAndShowsCaret="blue"
-								color.selectedAndShowsCaret="red" weight="2"/>
-		</s:stroke>
+	</s:Rect>
+	
+	<s:Rect width="100%" height="100%" includeIn="hovered">
+		<s:fill>
+			<s:SolidColor color="#ffff00"/>
+		</s:fill>
 	</s:Rect>
 	<s:Label color="#000000" id="txt" horizontalCenter="0" verticalCenter="0" visible.dragging="false"/>
 </s:ItemRenderer>

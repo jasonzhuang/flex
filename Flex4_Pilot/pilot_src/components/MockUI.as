@@ -8,7 +8,7 @@ package components {
 	public class MockUI extends UIComponent {
 		private var label:Label;
 
-		private var _text:String;
+		private var _text:String = "mock";
 		private var textChanged:Boolean = false;
 		
 		public function set text(value:String):void {
@@ -32,8 +32,16 @@ package components {
 			addChild(label);
 		}
 
+		override protected function measure():void {
+			super.measure();
+			trace("trigger measure");
+			this.measuredMinHeight = this.measuredHeight = 200;
+			this.measuredMinWidth = this.measuredWidth = 200;
+		}
+		
 		override protected function commitProperties():void {
 			super.commitProperties();
+			trace("triggger commitProperties")
 			
 			if(textChanged) {
 				textChanged = false;
@@ -45,16 +53,16 @@ package components {
 		* 0.the position(x,y) proportion is scale as well, for instance, the first
 		*  slot picture position is (121,128), when set the scale to 1.3, the position
 		*  will be (158,166)
-        * 1.when not set width value, unscaledWidth = width = measuredWidth
-        * 2.when width or height is explictly assigned, unscaledWidth = width, measuredWidth value is calculated.
-        * 3.when width is set by percent, if the result is smaller than measuredWidth, unscaledWidth = width = measuredWidth
-        *    otherwise, unscaledWidth = width = parent width * percent, measuredWidth value is calculated.
-        * 4.explicitWidth has value only when width is setted, if width is set by percent or no width is set, the explicitWidth is NaN
-		* 5.change size will trigger updateDisplayList(), change scale will NOT trigger it.
-		 */
+		*1..unscaledWidth and unscaledHeight: They come from an explicit height/width  OR  the values determined in the measure method 
+		*  OR they’re determined through measuring done by the component's parent.
+        *
+		* 2.Basic sizing property rules: http://livedocs.adobe.com/flex/3/html/help.html?content=size_position_3.html
+		* 3. only set width, then the explicitWidth will be the same value
+		*/
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
 			super.updateDisplayList(unscaledWidth, unscaledHeight);
 			
+			trace("trigger updateDisplayList");
 			label.width = unscaledWidth/2.0;
 			label.height = unscaledHeight/2.0;
 			label.x = unscaledWidth/2.0;

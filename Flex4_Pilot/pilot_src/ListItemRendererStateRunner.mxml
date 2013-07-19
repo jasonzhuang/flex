@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:components="components.*"
+	creationComplete="init()"
+	>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			
+			[Bindable]
+			private var _dataProvider:ArrayCollection;
+			
+			private function init():void {
+				generateList();
+			}
+			
+			private function generateList():void {
+				var items:Array = [];
+				for (var i:int = 0; i<3; i++) {
+					items.push(i);
+				}
+				_dataProvider = new ArrayCollection(items);
+			}
+			
+			private function selectAllChange():void {
+				var selected:Boolean = selectAll.selected;
+				var result:Vector.<int> = new Vector.<int>();
+				var count:int = _dataProvider.length;
+				for (var i:int = 0; i< count; i++) {
+					result[i] = i;
+				}
+				selected ? list.selectedIndices = result : list.selectedIndices = new Vector.<int>();
+				//NOTE: when all the items is selected, the selectedItems is still empty
+				trace(list.selectedItems.length);
+			}
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="center"/>
+	</s:layout>
+	<s:CheckBox id="selectAll" label="Select All" change="selectAllChange()"/>
+	<components:CustomerList
+		id="list"
+		borderColor="#000000"
+		contentBackgroundColor="#cccccc"
+		requireSelection="false"
+		dataProvider="{_dataProvider}"
+		allowMultipleSelection="true"
+		itemRenderer="components.itemRenderer.DemoItemRenderer"
+		>
+		<components:layout>
+			<s:VerticalLayout paddingLeft="10" paddingRight="10"/>
+		</components:layout>
+	</components:CustomerList>
+</s:Application>
