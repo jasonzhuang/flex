@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:local="components.treeList.*"
+    >
+
+	<fx:Script>
+		<![CDATA[
+            [Bindable]
+            private var menuData:XML = <menuData>
+                <menu label="File">
+                    <menu label="New">
+                        <menu label="Package" />
+                        <menu label="Folder" />
+                        <menu label="File" />
+                        <menu label="Other..." />
+                    </menu>
+                    <menu label="Open File..." />
+                    <menu separator="true" />
+                    <menu label="Import" >
+                        <menu label="Flex Theme..." />
+                        <menu label="MX Skin Artwork..." />
+                    </menu>
+                    <menu label="Export" >
+                        <menu label="Flash Builder Project..." />
+                        <menu label="Release Build..." />
+                    </menu>
+                    <menu separator="true" />
+                    <menu label="Exit" />
+                </menu>
+                <menu label="Edit">
+                    <menu label="Undo" />
+                    <menu label="Redo" />
+                    <menu separator="true" />
+                    <menu label="Cut" />
+                    <menu label="Copy" />
+                    <menu label="Paste" />
+                </menu>
+                <menu label="Run">
+                    <menu label="Resume" />
+                    <menu label="Suspend" />
+                    <menu separator="true" />
+                    <menu label="External Tools" >
+                        <menu label="Run as" >
+                            <menu label="None Configured" />
+                        </menu>
+                    </menu>
+                </menu>
+            </menuData>
+                
+			
+		]]>
+	</fx:Script>
+    <fx:Declarations>
+        <mx:XMLListCollection id="menuDP" source="{menuData.menu}" />
+    </fx:Declarations>
+    <local:SparkMenuBar id="menuBar" change="choice.text = SparkMenuEvent(event).item.@label.toString()" 
+            itemRenderer="components.treeList.SparkMenuBarItemRenderer" labelField="@label" dataProvider="{menuDP}" >
+        <local:layout>
+            <s:HorizontalLayout />
+        </local:layout>
+    </local:SparkMenuBar>
+    
+    <s:Label y="100" id="choice" />
+</s:Application>

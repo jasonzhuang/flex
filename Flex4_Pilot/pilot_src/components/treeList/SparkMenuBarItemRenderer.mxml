@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:local="components.treeList.*"
+    >
+
+    <s:states>
+        <s:State name="normal" />
+        <s:State name="hovered" />
+        <s:State name="selected" />
+    </s:states>
+	<fx:Script>
+		<![CDATA[            
+            /**
+             *  @private
+             *  Mouse rollOut event handler.
+             */
+           /*  override protected function itemRenderer_rollOutHandler(event:MouseEvent):void
+            {
+                // the only ways to dismiss a submenu is:
+                // -clicking in it (change Event will close all menus
+                // -mouseDown outside the menu
+                // rolling onto a sibling
+                if (event.relatedObject == null || owner.contains(event.relatedObject))
+                    hovered = false;
+            } */
+            
+            protected function submenu_rollOutHandler(event:MouseEvent):void
+            {
+                if (event.relatedObject == null || owner.contains(event.relatedObject))
+                    hovered = false;
+            }
+
+            protected function dismissMenus(event:Event):void
+            {
+                SparkMenuBar(owner).selectedIndex = -1;
+                hovered = false;
+                owner.dispatchEvent(event);
+            }
+            
+            protected function menuItemSelected(event:Event):void
+            {
+                SparkMenuBar(owner).selectedIndex = -1;
+                hovered = false;
+                owner.dispatchEvent(event);
+            }
+
+            override protected function set hovered(value:Boolean):void
+            {
+                if (value)
+                {
+                    var smb:SparkMenuBar = SparkMenuBar(owner);
+                    if (smb.selectedIndex != -1)
+                    {
+                        // if something has been selected, we now force
+                        // selection on hover
+                        smb.selectedIndex = smb.dataProvider.getItemIndex(data);
+                    }
+                }
+                super.hovered = value;
+            }
+
+            override public function set selected(value:Boolean):void
+            {
+                super.selected = value;
+                // get focus back from popup
+                callLater(setFocus);
+                owner.addEventListener(KeyboardEvent.KEY_DOWN, owner_keyDownHandler, false, 0, true);
+            }
+            
+            protected function owner_keyDownHandler(event:KeyboardEvent):void
+            {
+                if (event.keyCode == Keyboard.DOWN)
+                {
+                    if (selected)
+                    {
+                        menu.setFocus();
+                        menu.selectedIndex = 0;
+                    }
+                }
+            }
+            
+            protected function checkKeys(event:KeyboardEvent):void
+            {
+                if (event.keyCode == Keyboard.LEFT) 
+                {
+                    hovered = false;
+                    var smb:SparkMenuBar = SparkMenuBar(owner);
+                    smb.setFocus();
+                    if (smb.selectedIndex > 0)
+                        smb.selectedIndex--;
+                    else
+                        smb.selectedIndex = smb.dataProvider.length - 1;
+                }
+            }
+            
+            protected function menuRightHandler(event:Event):void
+            {
+                hovered = false;
+                var smb:SparkMenuBar = SparkMenuBar(owner);
+                smb.setFocus();
+                if (smb.selectedIndex < smb.dataProvider.length - 1)
+                    smb.selectedIndex++;
+                else
+                    smb.selectedIndex = 0;                
+            }
+            
+        ]]>
+	</fx:Script>
+    <fx:Declarations>
+        <mx:XMLListCollection id="dataProvider" source="{XML(data).children()}" />
+    </fx:Declarations>
+    <s:Label id="labelDisplay" />
+    <s:PopUpAnchor id="popUp"
+                   includeIn="selected"
+                   displayPopUp.selected="{dataProvider.length > 0}" 
+                   left="0" right="0" top="0" bottom="0" itemDestructionPolicy="auto"
+                   popUpPosition="below" popUpWidthMatchesAnchorWidth="false">
+        <local:SparkMenu id="menu" dataProvider="{dataProvider}"
+                         skinClass="components.treeList.SparkMenuSkin" labelField="@label"
+                         mouseDownOutside="dismissMenus(event)"
+                         change="menuItemSelected(event)"
+                         keyDown="checkKeys(event)"
+                         menuRight="menuRightHandler(event)"
+                         rollOut="submenu_rollOutHandler(event)" />
+    </s:PopUpAnchor>
+</s:ItemRenderer>
