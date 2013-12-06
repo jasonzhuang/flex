@@ -1,0 +1,26 @@
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:local="*">
+<mx:Script>
+<![CDATA[
+
+public var dp:Array = [
+	{ label: "Category 1" },
+	{ label: " Alpha" },
+	{ label: " Beta" },
+	{ label: "Category 2" },
+	{ label: " Delta" },
+	{ label: " Gamma" },
+	{ label: " Epsilon" }
+	];
+
+private function noCategories(data:Object):Boolean
+{
+	if (data.label.indexOf("Category") != -1)
+		return true;
+	return false;
+}
+
+]]>
+</mx:Script>
+<local:DisabledItemsList id="list" initialize="list.dataProvider=dp" disabledFunction="noCategories" />
+</mx:Application>
+
