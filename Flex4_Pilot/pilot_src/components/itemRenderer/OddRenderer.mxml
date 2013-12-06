@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 width="100%" height="100%"
+		 implements="components.itemRenderer.IRenderer">
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="selected"/>
+		<s:State name="hovered"/>
+	</s:states>
+	<fx:Script>
+		<![CDATA[
+			private var _data:Object
+			
+			[Bindable]
+			public function set data(value:Object):void {
+				_data = value;
+			}
+			
+			public function get data():Object {
+				return _data;
+			}
+		]]>
+	</fx:Script>
+	<s:Rect top="0" left="0" right="0" bottom="0">
+		<s:fill>
+			<s:SolidColor id="backgroundColor" color="0xFFFFFF" color.selected="0xe3e3e3" />
+		</s:fill>
+	</s:Rect>
+	
+	<s:Label text="{data.text}" top="5" left="10" right="10" bottom="5" />
+</s:Group>

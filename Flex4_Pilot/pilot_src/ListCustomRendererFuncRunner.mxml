@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayList;
+			import mx.collections.IList;
+			
+			private function createItems():IList {
+				var ret:Array = [];
+				var numItems:int = 20;
+				for (var i:int=0; i < numItems; i++){
+					ret[i] = {item: "item " + i, text: i};
+				}
+				
+				return new ArrayList(ret);
+			}
+		]]>
+	</fx:Script>
+	<s:List
+		dataProvider="{createItems()}"
+		itemRenderer="components.itemRenderer.DymanicRenderer">
+		<s:layout>
+			<s:VerticalLayout requestedRowCount="5" paddingLeft="20" paddingRight="20"/>
+		</s:layout>
+	</s:List>
+</s:Application>

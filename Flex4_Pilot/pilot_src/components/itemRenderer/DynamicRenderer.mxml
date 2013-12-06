@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="false"
+				width="60" height="60">
+	<fx:Script>
+		<![CDATA[
+			import mx.core.UIComponent;
+			private var _item:Object;
+			
+			private var child:UIComponent;
+			
+			override public function set data(value:Object):void {
+				super.data = value;
+				
+				if(!value) {
+					return;
+				}
+				
+				_item = value;
+			}
+			
+			override protected function createChildren():void {
+				super.createChildren();
+				
+				if(this.data == null) {
+					return;
+				}
+				
+				if(_item.text %2 == 0) {
+					child = new EvenRenderer();
+				}else {
+					child = new OddRenderer();
+				}
+				
+				this.addElement(child);
+			}
+			
+			override protected function commitProperties():void {
+				super.commitProperties();
+				if(data == null) {
+					return;
+				}
+				initChild();
+			}
+			
+			private function initChild():void {
+				if(child == null) {
+					return;
+				}
+				IRenderer(child).data = _item;
+			}
+		]]>
+	</fx:Script>
+</s:ItemRenderer>
